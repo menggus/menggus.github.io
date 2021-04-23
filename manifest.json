@@ -1,6 +1,6 @@
 {
-  "name": "Kit's Hugo Site",
-  "short_name": "Kit's Hugo Site",
+  "name": "Kit's Site",
+  "short_name": "Kit's Site",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
