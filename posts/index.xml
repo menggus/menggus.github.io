@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Kit&#39;s Hugo Site</title>
+    <link>http://menggus.github.io/posts/</link>
+    <description>Recent content in Blog on Kit&#39;s Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://menggus.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux定时任务</title>
+      <link>http://menggus.github.io/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/</guid>
+      <description>定时脚本来去更新博客#每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
+先来介绍下cron#ubuntu下的定时任务，能定期执行命令
+开始使用#查看cron是否运行#ps -ef|grep cron
+ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -fubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron# 如果没有运行可以运行# sudo service cron start编写脚本命令#vim pull.sh
+#!/bin/bashcd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库git pullchmod +x ./pull.sh 添加执行权限
+编写定时任务#sudo crontab -e</description>
+    </item>
+    
+  </channel>
+</rss>

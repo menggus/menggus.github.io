@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Go 中的错误处理策略#一、传递错误#传递错误就是向函数的调用者传递错误。
+当函数返回错误时，调用者应该负责检查错误并采取合适的方式进行处理。
+ 1.直接返回错误，不做任何的修改与包装
+return nil, err   2.对错误进行包装再返回
+if err != nil { return nil, fmt.Errorf(&#34;parsing %s as HTML: %V&#34;, url, err) }  包装error宗旨：错误信息能够提供一个从最根本问题到总体问题故障的清晰因果链
+1.包含充足的相关信息，并保持一致性
+2.传递过程中不断补充在处理错误可能需要的信息
+二、多次重试后，再传递错误#对于不固定和不可预测的错误，在短暂的间隔后再进行重试，超出重试次数和限定时间后再报错退出。
+gop1.io/ch5/wait
+// WaitForServer 尝试连接URL对应的服务器 // 在一分钟内使用指数退避策略进行重试 // 所有尝试失败后退出 func WaitForServer(url string) error { const timeout = 1 * time.Minute deadline := time.Now().Add(timeout) for tries := 0; time.Now().Before(deadline); tries &#43;&#43; { _, err := http.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="错误处理策略" />
+<meta property="og:description" content="Go 中的错误处理策略#一、传递错误#传递错误就是向函数的调用者传递错误。
+当函数返回错误时，调用者应该负责检查错误并采取合适的方式进行处理。
+ 1.直接返回错误，不做任何的修改与包装
+return nil, err   2.对错误进行包装再返回
+if err != nil { return nil, fmt.Errorf(&#34;parsing %s as HTML: %V&#34;, url, err) }  包装error宗旨：错误信息能够提供一个从最根本问题到总体问题故障的清晰因果链
+1.包含充足的相关信息，并保持一致性
+2.传递过程中不断补充在处理错误可能需要的信息
+二、多次重试后，再传递错误#对于不固定和不可预测的错误，在短暂的间隔后再进行重试，超出重试次数和限定时间后再报错退出。
+gop1.io/ch5/wait
+// WaitForServer 尝试连接URL对应的服务器 // 在一分钟内使用指数退避策略进行重试 // 所有尝试失败后退出 func WaitForServer(url string) error { const timeout = 1 * time.Minute deadline := time.Now().Add(timeout) for tries := 0; time.Now().Before(deadline); tries &#43;&#43; { _, err := http." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" /><meta property="article:section" content="docs" />
+
+
+
+<title>错误处理策略 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle" checked />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class=" active">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>错误处理策略</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#一传递错误">一、传递错误</a></li>
+    <li><a href="#二多次重试后再传递错误">二、多次重试后，再传递错误</a></li>
+    <li><a href="#三输出错误并优雅的停止程序">三、输出错误，并优雅的停止程序</a></li>
+    <li><a href="#四只记录错误程序继续运行">四、只记录错误，程序继续运行</a></li>
+    <li><a href="#五少数情况下直接忽略日志">五、少数情况下，直接忽略日志</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="go-中的错误处理策略">
+  Go 中的错误处理策略
+  <a class="anchor" href="#go-%e4%b8%ad%e7%9a%84%e9%94%99%e8%af%af%e5%a4%84%e7%90%86%e7%ad%96%e7%95%a5">#</a>
+</h1>
+<h2 id="一传递错误">
+  一、传递错误
+  <a class="anchor" href="#%e4%b8%80%e4%bc%a0%e9%80%92%e9%94%99%e8%af%af">#</a>
+</h2>
+<p>传递错误就是向函数的调用者传递错误。</p>
+<p>当函数返回错误时，调用者应该负责检查错误并采取合适的方式进行处理。</p>
+<blockquote>
+<p>1.直接返回错误，不做任何的修改与包装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</code></pre></div></blockquote>
+<blockquote>
+<p>2.对错误进行包装再返回</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;parsing %s as HTML: %V&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">err</span>) 
+}
+</code></pre></div></blockquote>
+<p><strong>包装error宗旨</strong>：错误信息能够提供一个从最根本问题到总体问题故障的清晰因果链</p>
+<p>1.包含充足的相关信息，并保持一致性</p>
+<p>2.传递过程中不断补充在处理错误可能需要的信息</p>
+<h2 id="二多次重试后再传递错误">
+  二、多次重试后，再传递错误
+  <a class="anchor" href="#%e4%ba%8c%e5%a4%9a%e6%ac%a1%e9%87%8d%e8%af%95%e5%90%8e%e5%86%8d%e4%bc%a0%e9%80%92%e9%94%99%e8%af%af">#</a>
+</h2>
+<p>对于不固定和不可预测的错误，在短暂的间隔后再进行重试，超出重试次数和限定时间后再报错退出。</p>
+<p>gop1.io/ch5/wait</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// WaitForServer 尝试连接URL对应的服务器
+</span><span style="color:#75715e">// 在一分钟内使用指数退避策略进行重试
+</span><span style="color:#75715e">// 所有尝试失败后退出
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WaitForServer</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeout</span> = <span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>
+    <span style="color:#a6e22e">deadline</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">timeout</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">tries</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Before</span>(<span style="color:#a6e22e">deadline</span>); <span style="color:#a6e22e">tries</span> <span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Head</span>(<span style="color:#a6e22e">url</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span> <span style="color:#75715e">// 成功
+</span><span style="color:#75715e"></span>        }
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;server not responding (%s); retrying...&#34;</span>, <span style="color:#a6e22e">err</span>)
+        <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#a6e22e">unit</span>(<span style="color:#a6e22e">tries</span>)) <span style="color:#75715e">// 指数退避策略 休眠2的n次方时间
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;server %s failed to respond after %s&#34;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">timeout</span>)
+}
+</code></pre></div><h2 id="三输出错误并优雅的停止程序">
+  三、输出错误，并优雅的停止程序
+  <a class="anchor" href="#%e4%b8%89%e8%be%93%e5%87%ba%e9%94%99%e8%af%af%e5%b9%b6%e4%bc%98%e9%9b%85%e7%9a%84%e5%81%9c%e6%ad%a2%e7%a8%8b%e5%ba%8f">#</a>
+</h2>
+<p>如果对于多次重试后，仍然不能顺利进行下去，调用者能够输出错误然后优雅的停止程序。</p>
+<blockquote>
+<p>这里的停止程序，应该要留给主程序部分来停止</p>
+</blockquote>
+<p>举例：</p>
+<p>通常库函数应当传递错误给调用者，除非这个错误表示一个内部一致性的错误</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">WaitForServer</span>(<span style="color:#a6e22e">url</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">FPrintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;Site is down: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+}
+
+<span style="color:#75715e">// 上述打印输出以及退出程序可以有代替方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">WaitForServer</span>(<span style="color:#a6e22e">url</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Site is down: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)  <span style="color:#75715e">// 直接输出并退出，输出有时间等信息，并可定制输出格式
+</span><span style="color:#75715e"></span>}
+
+</code></pre></div><h2 id="四只记录错误程序继续运行">
+  四、只记录错误，程序继续运行
+  <a class="anchor" href="#%e5%9b%9b%e5%8f%aa%e8%ae%b0%e5%bd%95%e9%94%99%e8%af%af%e7%a8%8b%e5%ba%8f%e7%bb%a7%e7%bb%ad%e8%bf%90%e8%a1%8c">#</a>
+</h2>
+<p>使用log包来输出日志，可定制</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Ping</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ping failed %v; networking disabled&#34;</span>, <span style="color:#a6e22e">err</span>)  <span style="color:#75715e">// log包的相关函数会自动添加换行
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h2 id="五少数情况下直接忽略日志">
+  五、少数情况下，直接忽略日志
+  <a class="anchor" href="#%e4%ba%94%e5%b0%91%e6%95%b0%e6%83%85%e5%86%b5%e4%b8%8b%e7%9b%b4%e6%8e%a5%e5%bf%bd%e7%95%a5%e6%97%a5%e5%bf%97">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">RemoveAll</span>(<span style="color:#a6e22e">dir</span>)  <span style="color:#75715e">// 忽略错误，但是需要注释 忽略的意图
+</span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#一传递错误">一、传递错误</a></li>
+    <li><a href="#二多次重试后再传递错误">二、多次重试后，再传递错误</a></li>
+    <li><a href="#三输出错误并优雅的停止程序">三、输出错误，并优雅的停止程序</a></li>
+    <li><a href="#四只记录错误程序继续运行">四、只记录错误，程序继续运行</a></li>
+    <li><a href="#五少数情况下直接忽略日志">五、少数情况下，直接忽略日志</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

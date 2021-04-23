@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="分页查询优化#这边先看几个简单例子：
+-- 查询优化 select * from t_test limit 100,100; -- 85ms select * from t_test limit 1000,100; -- 279ms select * from t_test limit 10000,100;	-- 2s31ms select * from t_test limit 100000,100; -- 19s497ms 怎么去优化呢？
+我们可以通过 explain 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数
+mysql&gt; explain select * from t_test limit 1000,100; &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t_test | NULL | ALL | NULL | NULL | NULL | NULL | 4585371 | 100.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="集群优化相关" />
+<meta property="og:description" content="分页查询优化#这边先看几个简单例子：
+-- 查询优化 select * from t_test limit 100,100; -- 85ms select * from t_test limit 1000,100; -- 279ms select * from t_test limit 10000,100;	-- 2s31ms select * from t_test limit 100000,100; -- 19s497ms 怎么去优化呢？
+我们可以通过 explain 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数
+mysql&gt; explain select * from t_test limit 1000,100; &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t_test | NULL | ALL | NULL | NULL | NULL | NULL | 4585371 | 100." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" /><meta property="article:section" content="docs" />
+
+
+
+<title>集群优化相关 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle" checked />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class=" active">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>集群优化相关</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#分页查询优化">分页查询优化</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="分页查询优化">
+  分页查询优化
+  <a class="anchor" href="#%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2%e4%bc%98%e5%8c%96">#</a>
+</h2>
+<p>这边先看几个简单例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 查询优化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">100</span>;  	<span style="color:#75715e">-- 85ms
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">100</span>; 	<span style="color:#75715e">-- 279ms
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10000</span>,<span style="color:#ae81ff">100</span>;	<span style="color:#75715e">-- 2s31ms
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100000</span>,<span style="color:#ae81ff">100</span>;  <span style="color:#75715e">-- 19s497ms 
+</span></code></pre></div><p><strong>怎么去优化呢？</strong></p>
+<p>我们可以通过 <code>explain</code> 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysql&gt; explain <span style="color:#66d9ef">select</span> * from t_test limit 1000,100;
++----+-------------+--------+------------+------+---------------+------+---------+------+---------+----------+-------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows    | filtered | Extra |
++----+-------------+--------+------------+------+---------------+------+---------+------+---------+----------+-------+
+|  <span style="color:#ae81ff">1</span> | SIMPLE      | t_test | NULL       | ALL  | NULL          | NULL | NULL    | NULL | <span style="color:#ae81ff">4585371</span> |   100.00 | NULL  |
++----+-------------+--------+------------+------+---------------+------+---------+------+---------+----------+-------+
+<span style="color:#ae81ff">1</span> row in set, <span style="color:#ae81ff">1</span> warning <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+
+</code></pre></div><p>如果使用条件where， type 为range 变成范围查询，并且使用主键，扫描的row数变少很多；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">where</span> id<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1000</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+---------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id <span style="color:#f92672">|</span> select_type <span style="color:#f92672">|</span> <span style="color:#66d9ef">table</span>  <span style="color:#f92672">|</span> partitions <span style="color:#f92672">|</span> <span style="color:#66d9ef">type</span>  <span style="color:#f92672">|</span> possible_keys <span style="color:#f92672">|</span> <span style="color:#66d9ef">key</span>     <span style="color:#f92672">|</span> key_len <span style="color:#f92672">|</span> <span style="color:#66d9ef">ref</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">rows</span>    <span style="color:#f92672">|</span> filtered <span style="color:#f92672">|</span> Extra       <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+---------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SIMPLE</span>      <span style="color:#f92672">|</span> t_test <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>       <span style="color:#f92672">|</span> range <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">4</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">2292685</span> <span style="color:#f92672">|</span>   <span style="color:#ae81ff">100</span>.<span style="color:#ae81ff">00</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Using</span> <span style="color:#66d9ef">where</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+---------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span>, <span style="color:#ae81ff">1</span> warning (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
+
+</code></pre></div><p>直接使用where 条件过滤出数据，扫描行数才仅仅50</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">where</span> id<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1000</span> <span style="color:#66d9ef">and</span> id<span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1100</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id <span style="color:#f92672">|</span> select_type <span style="color:#f92672">|</span> <span style="color:#66d9ef">table</span>  <span style="color:#f92672">|</span> partitions <span style="color:#f92672">|</span> <span style="color:#66d9ef">type</span>  <span style="color:#f92672">|</span> possible_keys <span style="color:#f92672">|</span> <span style="color:#66d9ef">key</span>     <span style="color:#f92672">|</span> key_len <span style="color:#f92672">|</span> <span style="color:#66d9ef">ref</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">rows</span> <span style="color:#f92672">|</span> filtered <span style="color:#f92672">|</span> Extra       <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SIMPLE</span>      <span style="color:#f92672">|</span> t_test <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>       <span style="color:#f92672">|</span> range <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">4</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span>   <span style="color:#ae81ff">50</span> <span style="color:#f92672">|</span>   <span style="color:#ae81ff">100</span>.<span style="color:#ae81ff">00</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Using</span> <span style="color:#66d9ef">where</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+--------+------------+-------+---------------+---------+---------+------+------+----------+-------------+
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span>, <span style="color:#ae81ff">1</span> warning (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+
+</code></pre></div><p>可知第三种方式应该是最优情况；</p>
+<p>但是第三种方式是否存在问题呢？如果说主键不连续的情况下，过滤的数据是否一定是刚好100条呢？</p>
+<p>答案是否定的，如果主键不连续，那就是少于100条数据。</p>
+<p><strong>解决办法：采用逻辑删除</strong></p>
+<p>如果物理删除时，这里也有一个折中办法。利用主键来加速。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> t_test t <span style="color:#66d9ef">join</span> (<span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> t_test <span style="color:#66d9ef">where</span> id<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">100000</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>) t1 <span style="color:#66d9ef">on</span> t.id<span style="color:#f92672">=</span>t1.id;
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#分页查询优化">分页查询优化</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

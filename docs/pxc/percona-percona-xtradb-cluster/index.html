@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Percona 集群相关#Percona 数据库#准备工作#jemalloc-3.6.0-1. centos7 el7.x86_64.rpm
+Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar
+安装#解压.tar## 拷贝至目录 scp jemalloc-3.6.0-1. centos7 el7.x86_64.rpm Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar centos7.tar root@192.168.31.129:/home cd /home tar -xf Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar yum localinstall *.rpm 启动#systemctl start mysqld
+防火墙开放 3306#firewall-cmd --zone=public --add-port=3306/tcp --permanent 开放3306
+&ndash;permanent： 永久生效，重启系统后依然生效
+firewall-cmd --reload 重新导入配置
+修改数据库配置文件#vi /etc/my.cnf character_set_server = utf8 bind-address = 0.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Percona 集群相关" />
+<meta property="og:description" content="Percona 集群相关#Percona 数据库#准备工作#jemalloc-3.6.0-1. centos7 el7.x86_64.rpm
+Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar
+安装#解压.tar## 拷贝至目录 scp jemalloc-3.6.0-1. centos7 el7.x86_64.rpm Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar centos7.tar root@192.168.31.129:/home cd /home tar -xf Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar yum localinstall *.rpm 启动#systemctl start mysqld
+防火墙开放 3306#firewall-cmd --zone=public --add-port=3306/tcp --permanent 开放3306
+&ndash;permanent： 永久生效，重启系统后依然生效
+firewall-cmd --reload 重新导入配置
+修改数据库配置文件#vi /etc/my.cnf character_set_server = utf8 bind-address = 0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Percona 集群相关 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle" checked />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class=" active">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Percona 集群相关</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#percona-数据库">Percona 数据库</a>
+      <ul>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#安装">安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#percona-xtradb-cluster-集群">Percona XtraDB Cluster 集群</a>
+      <ul>
+        <li><a href="#准备工作-1">准备工作</a></li>
+        <li><a href="#安装-1">安装</a></li>
+        <li><a href="#初始化工作">初始化工作</a></li>
+        <li><a href="#集群初次启动">集群初次启动</a></li>
+        <li><a href="#集群状态参数">集群状态参数</a></li>
+        <li><a href="#集群的关闭与启动">集群的关闭与启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql集群中间件">MySQL集群中间件</a>
+      <ul>
+        <li><a href="#为什么还需要集群中间件">为什么还需要集群中间件？</a></li>
+        <li><a href="#中间件对比">中间件对比</a></li>
+        <li><a href="#mycat">MyCat</a></li>
+        <li><a href="#mycat集群">MyCat集群</a></li>
+        <li><a href="#部署haproxy">部署Haproxy</a></li>
+        <li><a href="#部署keepalived">部署keepalived</a></li>
+      </ul>
+    </li>
+    <li><a href="#sysbench-基准测试">Sysbench 基准测试</a>
+      <ul>
+        <li><a href="#安装-3">安装</a></li>
+        <li><a href="#sysbench-命令">sysbench 命令</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#tpcc-mysql压力测试">TPCC-MYSQL压力测试</a>
+      <ul>
+        <li><a href="#测试方案">测试方案</a></li>
+        <li><a href="#安装tpcc-mysql">安装tpcc-mysql</a></li>
+      </ul>
+    </li>
+    <li><a href="#pxc-原理">PXC 原理</a>
+      <ul>
+        <li><a href="#了解binlog-日志">了解binlog 日志</a></li>
+        <li><a href="#binlog-日志文件种类">binlog 日志文件种类</a></li>
+        <li><a href="#binlog-日志格式">binlog 日志格式</a></li>
+        <li><a href="#pxc-同步原理">PXC 同步原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql-5种架构设计">MySQL 5种架构设计</a>
+      <ul>
+        <li><a href="#mysql--分布式proxy扩展">MySQL + 分布式Proxy扩展</a></li>
+        <li><a href="#数据归档冷热数据分离">数据归档，冷热数据分离</a></li>
+        <li><a href="#mysql--缓存redis高并发架构">MySQL + 缓存（redis）高并发架构</a></li>
+        <li><a href="#mysql--小文件系统">MySQL + 小文件系统</a></li>
+        <li><a href="#mysql--inforbright统计分析架构">MySQL + Inforbright统计分析架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql-的设计原则">MySQL 的设计原则</a></li>
+    <li><a href="#mysql-架构的演化">MySQL 架构的演化</a></li>
+    <li><a href="#pxc-集群的使用">PXC 集群的使用</a>
+      <ul>
+        <li><a href="#导入数据">导入数据</a></li>
+        <li><a href="#准备导入数据">准备导入数据</a></li>
+        <li><a href="#导入大量数据时mysql配置">导入大量数据时MySQL配置</a></li>
+        <li><a href="#开始数据导入">开始数据导入</a></li>
+        <li><a href="#同步其他节点数据">同步其他节点数据</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="percona-集群相关">
+  Percona 集群相关
+  <a class="anchor" href="#percona-%e9%9b%86%e7%be%a4%e7%9b%b8%e5%85%b3">#</a>
+</h1>
+<h2 id="percona-数据库">
+  Percona 数据库
+  <a class="anchor" href="#percona-%e6%95%b0%e6%8d%ae%e5%ba%93">#</a>
+</h2>
+<h3 id="准备工作">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c">#</a>
+</h3>
+<p><a href="https://centos.pkgs.org/7/epel-x86_64/jemalloc-3.6.0-1.el7.x86_64.rpm.html">jemalloc-3.6.0-1. centos7 el7.x86_64.rpm</a></p>
+<p><a href="https://www.percona.com/downloads/Percona-Server-5.7/">Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar</a></p>
+<h3 id="安装">
+  安装
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85">#</a>
+</h3>
+<h4 id="解压tar">
+  解压.tar
+  <a class="anchor" href="#%e8%a7%a3%e5%8e%8btar">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 拷贝至目录</span>
+scp jemalloc-3.6.0-1. centos7 el7.x86_64.rpm Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar centos7.tar root@192.168.31.129:/home
+
+cd /home
+tar -xf Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar
+yum localinstall *.rpm
+</code></pre></div><h4 id="启动">
+  启动
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8">#</a>
+</h4>
+<p><code>systemctl start mysqld</code></p>
+<h4 id="防火墙开放-3306">
+  防火墙开放 3306
+  <a class="anchor" href="#%e9%98%b2%e7%81%ab%e5%a2%99%e5%bc%80%e6%94%be-3306">#</a>
+</h4>
+<p><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent</code>  开放3306</p>
+<p><strong>&ndash;permanent：</strong> 永久生效，重启系统后依然生效</p>
+<p><code>firewall-cmd --reload</code>  重新导入配置</p>
+<h4 id="修改数据库配置文件">
+  修改数据库配置文件
+  <a class="anchor" href="#%e4%bf%ae%e6%94%b9%e6%95%b0%e6%8d%ae%e5%ba%93%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/my.cnf
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">character_set_server <span style="color:#f92672">=</span> utf8
+bind-address <span style="color:#f92672">=</span> 0.0.0.0
+skip-name-resolve  <span style="color:#75715e"># 跳过dns解析，可解决在云上安装后运行慢的情况</span>
+</code></pre></div><p><strong>重启mysql</strong>  <code>systemctl restart mysqld</code></p>
+<h4 id="禁用开机mysql自动启动">
+  禁用开机mysql自动启动
+  <a class="anchor" href="#%e7%a6%81%e7%94%a8%e5%bc%80%e6%9c%bamysql%e8%87%aa%e5%8a%a8%e5%90%af%e5%8a%a8">#</a>
+</h4>
+<p><code>chkconfig mysqld off</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Note: Forwarding request to <span style="color:#e6db74">&#39;systemctl disable mysqld.service&#39;</span>.
+Removed symlink /etc/systemd/system/multi-user.target.wants/mysqld.service.
+Removed symlink /etc/systemd/system/mysql.service.
+</code></pre></div><p><strong>原因：</strong> 当某个节点宕机时间过长时，如果随系统自动启动后，会同步宕机时间内更新的数据，如果时间过长，pxc集群会限制其它的写入操作，直到所有的数据全部同步完成，所以禁用开机自启是必要的。</p>
+<p>**正确做法：**从其它节点拷贝数据文件到当前节点里面，然后再去启动数据库。</p>
+<h4 id="修改数据库root密码">
+  修改数据库root密码
+  <a class="anchor" href="#%e4%bf%ae%e6%94%b9%e6%95%b0%e6%8d%ae%e5%ba%93root%e5%af%86%e7%a0%81">#</a>
+</h4>
+<p><code>cat /var/log/mysqld.log | grep &quot;A temporary password&quot;</code>  查看root默认密码</p>
+<p><code>mysql_secure_installation</code></p>
+<p><strong>password:</strong>  Mysql123456.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@mysql-first ~<span style="color:#f92672">]</span><span style="color:#75715e"># mysql_secure_installation</span>
+
+Securing the MySQL server deployment.
+
+Enter password <span style="color:#66d9ef">for</span> user root:
+
+The existing password <span style="color:#66d9ef">for</span> the user account root has expired. Please set a new password.
+
+New password:
+
+Re-enter new password:
+The <span style="color:#e6db74">&#39;validate_password&#39;</span> plugin is installed on the server.
+The subsequent steps will run with the existing configuration
+of the plugin.
+Using existing password <span style="color:#66d9ef">for</span> root.
+
+Estimated strength of the password: <span style="color:#ae81ff">100</span>
+Change the password <span style="color:#66d9ef">for</span> root ? <span style="color:#f92672">((</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+
+New password:
+
+Re-enter new password:
+Sorry, passwords <span style="color:#66d9ef">do</span> not match.
+
+New password:
+
+Re-enter new password:
+
+Estimated strength of the password: <span style="color:#ae81ff">100</span>
+Do you wish to <span style="color:#66d9ef">continue</span> with the password provided?<span style="color:#f92672">(</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created <span style="color:#66d9ef">for</span> them. This is intended only <span style="color:#66d9ef">for</span>
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+
+Remove anonymous users? <span style="color:#f92672">(</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+Success.
+
+Normally, root should only be allowed to connect from
+<span style="color:#e6db74">&#39;localhost&#39;</span>. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? <span style="color:#f92672">(</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+Success.
+
+By default, MySQL comes with a database named <span style="color:#e6db74">&#39;test&#39;</span> that
+anyone can access. This is also intended only <span style="color:#66d9ef">for</span> testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? <span style="color:#f92672">(</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? <span style="color:#f92672">(</span>Press y|Y <span style="color:#66d9ef">for</span> Yes, any other key <span style="color:#66d9ef">for</span> No<span style="color:#f92672">)</span> : y
+Success.
+
+All <span style="color:#66d9ef">done</span>!
+</code></pre></div><h4 id="创建远程连接账户">
+  创建远程连接账户
+  <a class="anchor" href="#%e5%88%9b%e5%bb%ba%e8%bf%9c%e7%a8%8b%e8%bf%9e%e6%8e%a5%e8%b4%a6%e6%88%b7">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysql -uroot -pMysql123456.
+
+mysql&gt; create user <span style="color:#e6db74">&#39;admin&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span> identified by <span style="color:#e6db74">&#39;Mysql123456.&#39;</span>;
+Query OK, <span style="color:#ae81ff">0</span> rows affected <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+
+mysql&gt; grant all privileges on *.* to <span style="color:#e6db74">&#39;admin&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span>;
+Query OK, <span style="color:#ae81ff">0</span> rows affected <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+
+mysql&gt; flush privileges;
+Query OK, <span style="color:#ae81ff">0</span> rows affected <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</code></pre></div><h4 id="忘记root密码">
+  忘记root密码
+  <a class="anchor" href="#%e5%bf%98%e8%ae%b0root%e5%af%86%e7%a0%81">#</a>
+</h4>
+<ol>
+<li>编辑数据库配置文件</li>
+</ol>
+<p><code>vi /etc/my.cnf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 添加一行</span>
+skip-grant-tables
+</code></pre></div><ol start="2">
+<li>重启数据库</li>
+</ol>
+<p><code>systemctl restart mysqld</code></p>
+<ol start="3">
+<li>mysql命令直接进入数据库，并修改root密码为：Mysql12345.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysql
+
+mysql&gt; use mysql;
+Reading table information <span style="color:#66d9ef">for</span> completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql&gt; UPDATE user SET authentication_string <span style="color:#f92672">=</span> password<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Mysql12345.&#39;</span><span style="color:#f92672">)</span> where User<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>;
+Query OK, <span style="color:#ae81ff">1</span> row affected, <span style="color:#ae81ff">1</span> warning <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+Rows matched: <span style="color:#ae81ff">1</span>  Changed: <span style="color:#ae81ff">1</span>  Warnings: <span style="color:#ae81ff">1</span>
+
+mysql&gt; flush privileges;
+Query OK, <span style="color:#ae81ff">0</span> rows affected <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</code></pre></div><h2 id="percona-xtradb-cluster-集群">
+  Percona XtraDB Cluster 集群
+  <a class="anchor" href="#percona-xtradb-cluster-%e9%9b%86%e7%be%a4">#</a>
+</h2>
+<h3 id="准备工作-1">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c-1">#</a>
+</h3>
+<h4 id="删除-mariadb-libs">
+  删除 mariadb-libs
+  <a class="anchor" href="#%e5%88%a0%e9%99%a4-mariadb-libs">#</a>
+</h4>
+<p><code>yum -y remove mari*</code>  卸载 mari 开头的全部程序包，避免影响PXC集群的安装</p>
+<h4 id="开放pxc-依赖的端口">
+  开放PXC 依赖的端口
+  <a class="anchor" href="#%e5%bc%80%e6%94%bepxc-%e4%be%9d%e8%b5%96%e7%9a%84%e7%ab%af%e5%8f%a3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3306</td>
+<td>MySQL服务端口</td>
+</tr>
+<tr>
+<td>4444</td>
+<td>请求全量同步（SST）端口，<strong>会引发集群限速，尽量避免</strong></td>
+</tr>
+<tr>
+<td>4567</td>
+<td>数据库节点之间通信端口</td>
+</tr>
+<tr>
+<td>4568</td>
+<td>请求增量同步（IST）端口，<strong>平时节点同步采用方式</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --zone<span style="color:#f92672">=</span>public --add-port<span style="color:#f92672">=</span>3306/tcp --add-port<span style="color:#f92672">=</span>4444/tcp --add-port<span style="color:#f92672">=</span>4567/tcp --add-port<span style="color:#f92672">=</span>4568/tcp --permanent
+firewall-cmd --reload
+</code></pre></div><h4 id="关闭selinux">
+  关闭SELINUX
+  <a class="anchor" href="#%e5%85%b3%e9%97%adselinux">#</a>
+</h4>
+<p>Linux安全程序会影响PXC的运行，配置  SELINUX=disabled</p>
+<p><code>vi /etc/selinux/config</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<span style="color:#75715e"># This file controls the state of SELinux on the system.</span>
+<span style="color:#75715e"># SELINUX= can take one of these three values:</span>
+<span style="color:#75715e">#     enforcing - SELinux security policy is enforced.</span>
+<span style="color:#75715e">#     permissive - SELinux prints warnings instead of enforcing.</span>
+<span style="color:#75715e">#     disabled - No SELinux policy is loaded.</span>
+<span style="color:#75715e"># SELINUX=enforcing  </span>
+SELINUX <span style="color:#f92672">=</span> disabled  <span style="color:#75715e"># 更改行</span>
+<span style="color:#75715e"># SELINUXTYPE= can take one of three values:</span>
+<span style="color:#75715e">#     targeted - Targeted processes are protected,</span>
+<span style="color:#75715e">#     minimum - Modification of targeted policy. Only selected processes are protected.</span>
+<span style="color:#75715e">#     mls - Multi Level Security protection.</span>
+SELINUXTYPE<span style="color:#f92672">=</span>targeted
+
+</code></pre></div><p><code>reboot</code>  重启生效</p>
+<h4 id="pkg包">
+  pkg包
+  <a class="anchor" href="#pkg%e5%8c%85">#</a>
+</h4>
+<p><a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-57/">Percona-XtraDB-Cluster-5.7.31-31.45-r10-el7-x86_64-bundle.tar</a>  包含了percona数据库</p>
+<p><a href="https://centos.pkgs.org/7/percona-x86_64/qpress-11-1.el7.x86_64.rpm.html">qpress-11-1.el7.x86_64.rpm</a></p>
+<p><a href="https://downloads.percona.com/downloads/Percona-XtraBackup-2.4/Percona-XtraBackup-2.4.21/binary/redhat/7/x86_64/Percona-XtraBackup-2.4.21-r5988af5-el7-x86_64-bundle.tar">Percona-XtraBackup-2.4.21-r5988af5-el7-x86_64-bundle.tar</a></p>
+<h3 id="安装-1">
+  安装
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85-1">#</a>
+</h3>
+<h4 id="拷贝至-home-目录">
+  拷贝至 /home 目录
+  <a class="anchor" href="#%e6%8b%b7%e8%b4%9d%e8%87%b3-home-%e7%9b%ae%e5%bd%95">#</a>
+</h4>
+<p><code>scp qpress-11-1.el7.x86_64.rpm Percona-XtraDB-Cluster-5.7.31-31.45-r10-el7-x86_64-bundle.tar centos7.tar Percona-XtraBackup-2.4.21-r5988af5-el7-x86_64-bundle.tar root@192.168.31.129:/home</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd /home
+<span style="color:#f92672">[</span>root@localhost home<span style="color:#f92672">]</span><span style="color:#75715e"># tar -xf Percona-XtraBackup-2.4.21-r5988af5-el7-x86_64-bundle.tar</span>
+<span style="color:#f92672">[</span>root@localhost home<span style="color:#f92672">]</span><span style="color:#75715e"># tar -xf Percona-XtraDB-Cluster-5.7.31-31.45-r10-el7-x86_64-bundle.tar</span>
+yum localinstall *.rpm
+</code></pre></div><h3 id="初始化工作">
+  初始化工作
+  <a class="anchor" href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e5%b7%a5%e4%bd%9c">#</a>
+</h3>
+<h4 id="修改etcmycnf">
+  修改/etc/my.cnf
+  <a class="anchor" href="#%e4%bf%ae%e6%94%b9etcmycnf">#</a>
+</h4>
+<p><code>vi /etc/my.cnf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#</span>
+<span style="color:#75715e"># The Percona XtraDB Cluster 5.7 configuration file.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># * IMPORTANT: Additional settings that can override those from this file!</span>
+<span style="color:#75715e">#   The files must end with &#39;.cnf&#39;, otherwise they&#39;ll be ignored.</span>
+<span style="color:#75715e">#   Please make any edits and changes to the appropriate sectional files</span>
+<span style="color:#75715e">#   included below.</span>
+<span style="color:#75715e">#</span>
+!includedir /etc/my.cnf.d/
+!includedir /etc/percona-xtradb-cluster.conf.d/  <span style="color:#75715e"># 去目录下查看 </span>
+</code></pre></div><p><code>cd /etc/percona-xtradb-cluster.conf.d/</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">-rw-r--r--. <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">381</span> Oct <span style="color:#ae81ff">20</span> 15:57 mysqld.cnf  <span style="color:#75715e"># mysql配置文件</span>
+-rw-r--r--. <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">440</span> Oct <span style="color:#ae81ff">20</span> 15:57 mysqld_safe.cnf
+-rw-r--r--. <span style="color:#ae81ff">1</span> root root 1.1K Oct <span style="color:#ae81ff">20</span> 15:57 wsrep.cnf   <span style="color:#75715e"># 集群配置文件</span>
+</code></pre></div><p>把该目录下的mysql配置文件更新到 /etc/my.cnf</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Template my.cnf for PXC</span>
+<span style="color:#75715e"># Edit to your requirements.</span>
+<span style="color:#f92672">[</span>client<span style="color:#f92672">]</span>
+socket<span style="color:#f92672">=</span>/var/lib/mysql/mysql.sock
+
+<span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
+server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+datadir<span style="color:#f92672">=</span>/var/lib/mysql
+socket<span style="color:#f92672">=</span>/var/lib/mysql/mysql.sock
+log-error<span style="color:#f92672">=</span>/var/log/mysqld.log
+pid-file<span style="color:#f92672">=</span>/var/run/mysqld/mysqld.pid
+log-bin
+log_slave_updates
+expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>
+
+<span style="color:#75715e"># Disabling symbolic-links is recommended to prevent assorted security risks</span>
+symbolic-links<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</code></pre></div><h4 id="修改root用户密码">
+  修改root用户密码
+  <a class="anchor" href="#%e4%bf%ae%e6%94%b9root%e7%94%a8%e6%88%b7%e5%af%86%e7%a0%81">#</a>
+</h4>
+<p>参考Percona数据库安装中方式</p>
+<h4 id="创建远程连接账户-1">
+  创建远程连接账户
+  <a class="anchor" href="#%e5%88%9b%e5%bb%ba%e8%bf%9c%e7%a8%8b%e8%bf%9e%e6%8e%a5%e8%b4%a6%e6%88%b7-1">#</a>
+</h4>
+<p>参考Percona数据库安装中方式</p>
+<h4 id="禁用开机自启动">
+  禁用开机自启动
+  <a class="anchor" href="#%e7%a6%81%e7%94%a8%e5%bc%80%e6%9c%ba%e8%87%aa%e5%90%af%e5%8a%a8">#</a>
+</h4>
+<p>参考Percona数据库安装中方式</p>
+<h4 id="配置集群相关配置">
+  配置集群相关配置
+  <a class="anchor" href="#%e9%85%8d%e7%bd%ae%e9%9b%86%e7%be%a4%e7%9b%b8%e5%85%b3%e9%85%8d%e7%bd%ae">#</a>
+</h4>
+<p>pcx01 节点配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>                                         <span style="color:#75715e">#PXC集群中MySQL实例的唯一ID，不能重复，必须是数字</span>
+wsrep_provider<span style="color:#f92672">=</span>/usr/lib64/galera3/libgalera_smm.so
+wsrep_cluster_name<span style="color:#f92672">=</span>pxc-cluster                      <span style="color:#75715e">#PXC集群的名称 PXC集群节点的IP</span>
+wsrep_cluster_address<span style="color:#f92672">=</span>gcomm://192.168.145.131,192.168.145.132,192.168.145.133   <span style="color:#75715e"># pxc集群节点ip</span>
+wsrep_node_name<span style="color:#f92672">=</span>pxc01                                <span style="color:#75715e">#当前节点的名称</span>
+wsrep_node_address<span style="color:#f92672">=</span>192.168.145.131                   <span style="color:#75715e">#当前节点的IP</span>
+wsrep_sst_method<span style="color:#f92672">=</span>xtrabackup-v2                      <span style="color:#75715e">#同步方法(mysqldump、rsync、xtrabackup)</span>
+wsrep_sst_auth<span style="color:#f92672">=</span> admin:Mysql123456.                  <span style="color:#75715e">#同步使用的帐户</span>
+pxc_strict_mode<span style="color:#f92672">=</span>ENFORCING                           <span style="color:#75715e">#同步严厉模式</span>
+binlog_format<span style="color:#f92672">=</span>ROW                                   <span style="color:#75715e">#基于ROW复制(安全可靠)</span>
+default_storage_engine<span style="color:#f92672">=</span>InnoDB                       <span style="color:#75715e">#默认引擎</span>
+innodb_autoinc_lock_mode<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>                          <span style="color:#75715e">#主键自增长不锁表</span>
+</code></pre></div><p>pcx02 节点配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>                                         <span style="color:#75715e">#PXC集群中MySQL实例的唯一ID，不能重复，必须是数字</span>
+wsrep_provider<span style="color:#f92672">=</span>/usr/lib64/galera3/libgalera_smm.so
+wsrep_cluster_name<span style="color:#f92672">=</span>pxc-cluster                      <span style="color:#75715e">#PXC集群的名称 PXC集群节点的IP</span>
+wsrep_cluster_address<span style="color:#f92672">=</span>gcomm://192.168.145.131,192.168.145.132,192.168.145.133   <span style="color:#75715e"># pxc集群节点ip</span>
+wsrep_node_name<span style="color:#f92672">=</span>pxc02                               <span style="color:#75715e">#当前节点的名称</span>
+wsrep_node_address<span style="color:#f92672">=</span>192.168.145.132                  <span style="color:#75715e">#当前节点的IP</span>
+wsrep_sst_method<span style="color:#f92672">=</span>xtrabackup-v2                      <span style="color:#75715e">#同步方法(mysqldump、rsync、xtrabackup)</span>
+wsrep_sst_auth<span style="color:#f92672">=</span> admin:Mysql123456.                  <span style="color:#75715e">#同步使用的帐户</span>
+pxc_strict_mode<span style="color:#f92672">=</span>ENFORCING                           <span style="color:#75715e">#同步严厉模式</span>
+binlog_format<span style="color:#f92672">=</span>ROW                                   <span style="color:#75715e">#基于ROW复制(安全可靠)</span>
+default_storage_engine<span style="color:#f92672">=</span>InnoDB                       <span style="color:#75715e">#默认引擎</span>
+innodb_autoinc_lock_mode<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>                          <span style="color:#75715e">#主键自增长不锁表</span>
+</code></pre></div><p>pcx03 节点配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>                                         <span style="color:#75715e">#PXC集群中MySQL实例的唯一ID，不能重复，必须是数字</span>
+wsrep_provider<span style="color:#f92672">=</span>/usr/lib64/galera3/libgalera_smm.so
+wsrep_cluster_name<span style="color:#f92672">=</span>pxc-cluster                      <span style="color:#75715e">#PXC集群的名称 PXC集群节点的IP</span>
+wsrep_cluster_address<span style="color:#f92672">=</span>gcomm://192.168.145.131,192.168.145.132,192.168.145.133   <span style="color:#75715e"># pxc集群节点ip</span>
+wsrep_node_name<span style="color:#f92672">=</span>pxc03                               <span style="color:#75715e">#当前节点的名称</span>
+wsrep_node_address<span style="color:#f92672">=</span>192.168.145.133                  <span style="color:#75715e">#当前节点的IP</span>
+wsrep_sst_method<span style="color:#f92672">=</span>xtrabackup-v2                      <span style="color:#75715e">#同步方法(mysqldump、rsync、xtrabackup)</span>
+wsrep_sst_auth<span style="color:#f92672">=</span> admin:Mysql123456.                  <span style="color:#75715e">#同步使用的帐户</span>
+pxc_strict_mode<span style="color:#f92672">=</span>ENFORCING                           <span style="color:#75715e">#同步严厉模式</span>
+binlog_format<span style="color:#f92672">=</span>ROW                                   <span style="color:#75715e">#基于ROW复制(安全可靠)</span>
+default_storage_engine<span style="color:#f92672">=</span>InnoDB                       <span style="color:#75715e">#默认引擎, 只支持InnoDB</span>
+innodb_autoinc_lock_mode<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>                          <span style="color:#75715e">#主键自增长不锁表</span>
+</code></pre></div><p><strong>分别在各个节点上，向/etc/my.cnf 中添加如上配置</strong></p>
+<p>pxc01</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>client<span style="color:#f92672">]</span>
+socket<span style="color:#f92672">=</span>/var/lib/mysql/mysql.sock
+
+<span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
+
+character_set_server <span style="color:#f92672">=</span> utf8
+bind-address <span style="color:#f92672">=</span> 0.0.0.0
+skip-name-resolve  <span style="color:#75715e"># 跳过dns解析，可解决在云上安装后运行慢的情况</span>
+
+server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+datadir<span style="color:#f92672">=</span>/var/lib/mysql
+socket<span style="color:#f92672">=</span>/var/lib/mysql/mysql.sock
+log-error<span style="color:#f92672">=</span>/var/log/mysqld.log
+pid-file<span style="color:#f92672">=</span>/var/run/mysqld/mysqld.pid
+log-bin
+log_slave_updates
+expire_logs_days<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>
+
+<span style="color:#75715e"># Disabling symbolic-links is recommended to prevent assorted security risks</span>
+symbolic-links<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+
+wsrep_provider<span style="color:#f92672">=</span>/usr/lib64/galera3/libgalera_smm.so
+wsrep_cluster_name<span style="color:#f92672">=</span>pxc-cluster                      <span style="color:#75715e">#PXC集群的名称 PXC集群节点的IP</span>
+wsrep_cluster_address<span style="color:#f92672">=</span>gcomm://192.168.145.131,192.168.145.132,192.168.145.133   <span style="color:#75715e"># pxc集群节点ip</span>
+wsrep_node_name<span style="color:#f92672">=</span>pxc01                               <span style="color:#75715e">#当前节点的名称</span>
+wsrep_node_address<span style="color:#f92672">=</span>192.168.145.131                  <span style="color:#75715e">#当前节点的IP</span>
+wsrep_sst_method<span style="color:#f92672">=</span>xtrabackup-v2                      <span style="color:#75715e">#同步方法(mysqldump、rsync、xtrabackup)</span>
+wsrep_sst_auth<span style="color:#f92672">=</span> admin:Abc_123456                    <span style="color:#75715e">#同步使用的帐户</span>
+pxc_strict_mode<span style="color:#f92672">=</span>ENFORCING                           <span style="color:#75715e">#同步严厉模式</span>
+binlog_format<span style="color:#f92672">=</span>ROW                                   <span style="color:#75715e">#基于ROW复制(安全可靠)</span>
+default_storage_engine<span style="color:#f92672">=</span>InnoDB                       <span style="color:#75715e">#默认引擎</span>
+innodb_autoinc_lock_mode<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>                          <span style="color:#75715e">#主键自增长不锁表</span>
+</code></pre></div><p>pxc02  pxc03 类似。</p>
+<h3 id="集群初次启动">
+  集群初次启动
+  <a class="anchor" href="#%e9%9b%86%e7%be%a4%e5%88%9d%e6%ac%a1%e5%90%af%e5%8a%a8">#</a>
+</h3>
+<h4 id="关闭各节点的msyql服务">
+  关闭各节点的msyql服务
+  <a class="anchor" href="#%e5%85%b3%e9%97%ad%e5%90%84%e8%8a%82%e7%82%b9%e7%9a%84msyql%e6%9c%8d%e5%8a%a1">#</a>
+</h4>
+<p><code>systemctl stop mysql</code></p>
+<h4 id="构建集群">
+  构建集群
+  <a class="anchor" href="#%e6%9e%84%e5%bb%ba%e9%9b%86%e7%be%a4">#</a>
+</h4>
+<p>从所有节点中选择一个节点，这里选择pxc01(192.168.145.131)</p>
+<p><code>systemctl start mysql@bootstrap.service</code></p>
+<h4 id="启动其他节点">
+  启动其他节点
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8%e5%85%b6%e4%bb%96%e8%8a%82%e7%82%b9">#</a>
+</h4>
+<p><code>service mysql start</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@pxc02 home<span style="color:#f92672">]</span><span style="color:#75715e"># systemctl status mysql.service</span>
+● mysql.service - Percona XtraDB Cluster
+   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/mysql.service; disabled; vendor preset: disabled<span style="color:#f92672">)</span>
+   Active: failed <span style="color:#f92672">(</span>Result: exit-code<span style="color:#f92672">)</span> since Thu 2020-11-26 16:18:08 CST; 3min 12s ago
+  Process: <span style="color:#ae81ff">7624</span> ExecStopPost<span style="color:#f92672">=</span>/usr/bin/mysql-systemd stop-post <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>0/SUCCESS<span style="color:#f92672">)</span>
+  Process: <span style="color:#ae81ff">7595</span> ExecStop<span style="color:#f92672">=</span>/usr/bin/mysql-systemd stop <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>2<span style="color:#f92672">)</span>
+  Process: <span style="color:#ae81ff">6608</span> ExecStartPost<span style="color:#f92672">=</span>/usr/bin/mysql-systemd start-post $MAINPID <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>1/FAILURE<span style="color:#f92672">)</span>
+  Process: <span style="color:#ae81ff">6607</span> ExecStart<span style="color:#f92672">=</span>/usr/bin/mysqld_safe --basedir<span style="color:#f92672">=</span>/usr <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>1/FAILURE<span style="color:#f92672">)</span>
+  Process: <span style="color:#ae81ff">6538</span> ExecStartPre<span style="color:#f92672">=</span>/usr/bin/mysql-systemd start-pre <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>0/SUCCESS<span style="color:#f92672">)</span>
+ Main PID: <span style="color:#ae81ff">6607</span> <span style="color:#f92672">(</span>code<span style="color:#f92672">=</span>exited, status<span style="color:#f92672">=</span>1/FAILURE<span style="color:#f92672">)</span>
+
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 mysql-systemd<span style="color:#f92672">[</span>6608<span style="color:#f92672">]</span>: ERROR! mysqld_safe with PID <span style="color:#ae81ff">6607</span> has already exited: FAILURE
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: mysql.service: control process exited, code<span style="color:#f92672">=</span>exited status<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 mysql-systemd<span style="color:#f92672">[</span>7595<span style="color:#f92672">]</span>: WARNING: mysql pid file /var/run/mysqld/mysqld.pid empty or not readable
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 mysql-systemd<span style="color:#f92672">[</span>7595<span style="color:#f92672">]</span>: ERROR! mysql already dead
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: mysql.service: control process exited, code<span style="color:#f92672">=</span>exited status<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 mysql-systemd<span style="color:#f92672">[</span>7624<span style="color:#f92672">]</span>: WARNING: mysql pid file /var/run/mysqld/mysqld.pid empty or not readable
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 mysql-systemd<span style="color:#f92672">[</span>7624<span style="color:#f92672">]</span>: WARNING: mysql may be already dead
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Failed to start Percona XtraDB Cluster.
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Unit mysql.service entered failed state.
+Nov <span style="color:#ae81ff">26</span> 16:18:08 pxc02 systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: mysql.service failed.
+</code></pre></div><p>启动失败；经查找原因是 构建节点的配置文件中</p>
+<p><code>wsrep_sst_auth= admin:Mysql123456. </code>   是密码配置不对</p>
+<h4 id="测试集群是否搭建成功">
+  测试集群是否搭建成功
+  <a class="anchor" href="#%e6%b5%8b%e8%af%95%e9%9b%86%e7%be%a4%e6%98%af%e5%90%a6%e6%90%ad%e5%bb%ba%e6%88%90%e5%8a%9f">#</a>
+</h4>
+<p>连接任意集群节点，执行下面SQL</p>
+<p><code>show status like 'wsrep_cluster%'</code></p>
+<p>输出如下：</p>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_cluster_weight</td>
+<td>3</td>
+<td>节点权重</td>
+</tr>
+<tr>
+<td>wsrep_cluster_conf_id</td>
+<td>3</td>
+<td>集群成员更改总数</td>
+</tr>
+<tr>
+<td>wsrep_cluster_size</td>
+<td>3</td>
+<td>集群大小</td>
+</tr>
+<tr>
+<td>wsrep_cluster_state_uuid</td>
+<td>85ab08a0-2fbc-11eb-b645-67acc08322c2</td>
+<td></td>
+</tr>
+<tr>
+<td>wsrep_cluster_status</td>
+<td>Primary</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="集群状态参数">
+  集群状态参数
+  <a class="anchor" href="#%e9%9b%86%e7%be%a4%e7%8a%b6%e6%80%81%e5%8f%82%e6%95%b0">#</a>
+</h3>
+<h4 id="节点同步相关">
+  节点同步相关
+  <a class="anchor" href="#%e8%8a%82%e7%82%b9%e5%90%8c%e6%ad%a5%e7%9b%b8%e5%85%b3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_last_applied</td>
+<td>最后一次应用的事务的序列号</td>
+</tr>
+<tr>
+<td>wsrep_last_committed</td>
+<td>最后提交的事务的序列号</td>
+</tr>
+<tr>
+<td>wsrep_replicated</td>
+<td>复制的写集总数（发送到其他节点）</td>
+</tr>
+<tr>
+<td>wsrep_replicated_bytes</td>
+<td>复制的写集的总大小</td>
+</tr>
+<tr>
+<td>wsrep_received</td>
+<td>从其他节点接收的写集总数（当前节点接收的同步次数）</td>
+</tr>
+<tr>
+<td>wsrep_received_bytes</td>
+<td>从其他节点收到的写集的总大小（以字节为单位）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="队列相关">
+  队列相关
+  <a class="anchor" href="#%e9%98%9f%e5%88%97%e7%9b%b8%e5%85%b3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_local_send_queue</td>
+<td>发送队列的当前长度（即，等待发送的写集的数量）</td>
+</tr>
+<tr>
+<td>wsrep_local_send_queue_avg</td>
+<td>自上次状态查询以来发送队列的平均长度。当群集遇到网络吞吐量问题或复制限制时，该值将大大大于<code>0</code>。</td>
+</tr>
+<tr>
+<td>wsrep_local_send_queue_max</td>
+<td>发送队列的最大长度</td>
+</tr>
+<tr>
+<td>wsrep_local_send_queue_min</td>
+<td>发送队列的最小长度</td>
+</tr>
+<tr>
+<td>wsrep_local_recv_queue</td>
+<td>接收队列的当前长度（即，等待应用的写集的数量）</td>
+</tr>
+<tr>
+<td>wsrep_local_recv_queue_avg</td>
+<td>自上次状态查询以来接收队列的平均长度，当大于0表示队列过载，会造成复制限制</td>
+</tr>
+<tr>
+<td>wsrep_local_recv_queue_max</td>
+<td>接收队列的最大长度</td>
+</tr>
+<tr>
+<td>wsrep_local_recv_queue_min,0</td>
+<td>接收队列的最小长度</td>
+</tr>
+</tbody>
+</table>
+<h4 id="流量控制相关">
+  流量控制相关
+  <a class="anchor" href="#%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6%e7%9b%b8%e5%85%b3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_flow_control_paused_ns</td>
+<td>在暂停状态下花费的总时间（以纳秒为单位），流控时间</td>
+</tr>
+<tr>
+<td>wsrep_flow_control_paused</td>
+<td>自上次状态查询以来，由于流控制而暂停的时间。（占比0-1），流控的时间占比</td>
+</tr>
+<tr>
+<td>wsrep_flow_control_sent</td>
+<td>发送的流控暂停的事件数量，指节点发出流控命令</td>
+</tr>
+<tr>
+<td>wsrep_flow_control_recv</td>
+<td>收到的流控暂停的事件数量，指节点收到流控命令</td>
+</tr>
+<tr>
+<td>wsrep_flow_control_interval</td>
+<td>此变量显示Galera流量控制的下限和上限。上限是队列中允许的最大请求数。如果队列达到上限则拒绝新请求引发流控。随着现有请求的处理队列减少，并且一旦达到下限，将再次允许新请求</td>
+</tr>
+<tr>
+<td>wsrep_flow_control_status</td>
+<td>流量控制状态（off 表示流控关闭，on表示流控开启）</td>
+</tr>
+</tbody>
+</table>
+<p>怎样避免流量控制：</p>
+<p>1.改善网速，提高带宽；升级网卡带宽</p>
+<p>2.增加线程数，提高同步效率</p>
+<p>​	在配置文件中增加，线程数一般是CPU线程数的1-1.5倍；</p>
+<p>​     <code>wsrep_slave_threads=16</code></p>
+<p>3.升级计算机性能，如CPU 内存 硬盘</p>
+<h4 id="节点与集群的相关">
+  节点与集群的相关
+  <a class="anchor" href="#%e8%8a%82%e7%82%b9%e4%b8%8e%e9%9b%86%e7%be%a4%e7%9a%84%e7%9b%b8%e5%85%b3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_local_state_comment</td>
+<td>节点状态</td>
+</tr>
+<tr>
+<td>wsrep_cluster_status</td>
+<td>集群状态</td>
+</tr>
+<tr>
+<td>wsrep_connected</td>
+<td>节点与集群连接状态</td>
+</tr>
+<tr>
+<td>wsrep_ready</td>
+<td>此变量显示节点是否准备好接受查询</td>
+</tr>
+<tr>
+<td>wsrep_cluster_size</td>
+<td>节点数量</td>
+</tr>
+<tr>
+<td>wsrep_desync_count</td>
+<td>延时节点数量</td>
+</tr>
+<tr>
+<td>wsrep_incoming_addresses</td>
+<td>集群节点的ip</td>
+</tr>
+</tbody>
+</table>
+<h4 id="事物相关">
+  事物相关
+  <a class="anchor" href="#%e4%ba%8b%e7%89%a9%e7%9b%b8%e5%85%b3">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_cert_deps_distance</td>
+<td>最高和最低序号之间的平均距离，可以并行应用。事物执行并发数</td>
+</tr>
+<tr>
+<td>wsrep_apply_oooe</td>
+<td>此变量显示并行化效率，无序应用写入集的频率；接收队列中事物的占比</td>
+</tr>
+<tr>
+<td>wsrep_apply_oool</td>
+<td>变量显示具有较高序列号的写集在具有较低序列号的写集之前应用的频率。接收队列中事物乱序执行的频率</td>
+</tr>
+<tr>
+<td>wsrep_apply_window</td>
+<td>最高和最低同时应用序列号之间的平均距离；接收队列中事物的平均数量</td>
+</tr>
+<tr>
+<td>wsrep_commit_oooe</td>
+<td>此变量显示事务无序提交的频率。发送队列中事物的占比</td>
+</tr>
+<tr>
+<td>wsrep_commit_oool</td>
+<td>当前无意义</td>
+</tr>
+<tr>
+<td>wsrep_commit_window</td>
+<td>最高和最低同时提交序列号之间的平均距离。发送队列中事物的平均数量</td>
+</tr>
+</tbody>
+</table>
+<h4 id="具体示例">
+  具体示例
+  <a class="anchor" href="#%e5%85%b7%e4%bd%93%e7%a4%ba%e4%be%8b">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wsrep_apply_oooe,0.000000
+wsrep_apply_oool,0.000000
+wsrep_apply_window,1.000000
+wsrep_causal_reads,0
+wsrep_cert_bucket_count,22
+wsrep_cert_deps_distance,1.000000
+wsrep_cert_index_size,3
+wsrep_cert_interval,0.000000
+wsrep_cluster_conf_id,9
+wsrep_cluster_size,3
+wsrep_cluster_state_uuid,85ab08a0-2fbc-11eb-b645-67acc08322c2
+wsrep_cluster_status,Primary
+wsrep_cluster_weight,3
+wsrep_commit_oooe,0.000000
+wsrep_commit_oool,0.000000
+wsrep_commit_window,1.000000
+wsrep_connected,ON
+wsrep_desync_count,0
+wsrep_evs_delayed,<span style="color:#e6db74">&#34;&#34;</span>
+wsrep_evs_evict_list,<span style="color:#e6db74">&#34;&#34;</span>
+wsrep_evs_repl_latency,0/0/0/0/0
+wsrep_evs_state,OPERATIONAL
+wsrep_flow_control_interval,<span style="color:#e6db74">&#34;[ 173, 173 ]&#34;</span>
+wsrep_flow_control_interval_high,173
+wsrep_flow_control_interval_low,173
+wsrep_flow_control_paused,0.000000
+wsrep_flow_control_paused_ns,0
+wsrep_flow_control_recv,0
+wsrep_flow_control_sent,0
+wsrep_flow_control_status,OFF
+wsrep_gcache_pool_size,3704
+wsrep_gcomm_uuid,118e17ce-2fc1-11eb-9f3f-cfb115f418ee
+wsrep_incoming_addresses,<span style="color:#e6db74">&#34;192.168.145.131:3306,192.168.145.132:3306,192.168.145.133:3306&#34;</span>
+wsrep_ist_receive_seqno_current,0
+wsrep_ist_receive_seqno_end,0
+wsrep_ist_receive_seqno_start,0
+wsrep_ist_receive_status,<span style="color:#e6db74">&#34;&#34;</span>
+wsrep_last_applied,6
+wsrep_last_committed,6
+wsrep_local_bf_aborts,0
+wsrep_local_cached_downto,1
+wsrep_local_cert_failures,0
+wsrep_local_commits,0
+wsrep_local_index,0
+wsrep_local_recv_queue,0
+wsrep_local_recv_queue_avg,0.176471
+wsrep_local_recv_queue_max,2
+wsrep_local_recv_queue_min,0
+wsrep_local_replays,0
+wsrep_local_send_queue,0
+wsrep_local_send_queue_avg,0.000000
+wsrep_local_send_queue_max,1
+wsrep_local_send_queue_min,0
+wsrep_local_state,4
+wsrep_local_state_comment,Synced
+wsrep_local_state_uuid,85ab08a0-2fbc-11eb-b645-67acc08322c2
+wsrep_open_connections,0
+wsrep_open_transactions,0
+wsrep_protocol_version,9
+wsrep_provider_name,Galera
+wsrep_provider_vendor,Codership Oy &lt;info@codership.com&gt;
+wsrep_provider_version,3.45<span style="color:#f92672">(</span>ra60e019<span style="color:#f92672">)</span>
+wsrep_ready,ON
+wsrep_received,34
+wsrep_received_bytes,5976
+wsrep_repl_data_bytes,0
+wsrep_repl_keys,0
+wsrep_repl_keys_bytes,0
+wsrep_repl_other_bytes,0
+wsrep_replicated,0
+wsrep_replicated_bytes,0
+</code></pre></div><h3 id="集群的关闭与启动">
+  集群的关闭与启动
+  <a class="anchor" href="#%e9%9b%86%e7%be%a4%e7%9a%84%e5%85%b3%e9%97%ad%e4%b8%8e%e5%90%af%e5%8a%a8">#</a>
+</h3>
+<h4 id="安全关闭">
+  安全关闭
+  <a class="anchor" href="#%e5%ae%89%e5%85%a8%e5%85%b3%e9%97%ad">#</a>
+</h4>
+<h5 id="启动-1">
+  启动
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8-1">#</a>
+</h5>
+<p>集群构建节点：<code>systemctl start mysql@bootstrap.service</code></p>
+<p>普通节点启动：<code>service mysql start </code>    or    <code>systemctl start mysql</code></p>
+<h5 id="关闭">
+  关闭
+  <a class="anchor" href="#%e5%85%b3%e9%97%ad">#</a>
+</h5>
+<p>节点怎么启动，就使用对应命令关闭</p>
+<p>集群构建节点的关闭：<code>systemctl stop mysql@bootstrap.service</code></p>
+<p>普通节点的关闭：<code>service mysql stop</code></p>
+<h4 id="启动与关闭相关参数">
+  启动与关闭相关参数
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8%e4%b8%8e%e5%85%b3%e9%97%ad%e7%9b%b8%e5%85%b3%e5%8f%82%e6%95%b0">#</a>
+</h4>
+<p><code>/var/lib/mysql/grastate.dat</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># GALERA saved state</span>
+version: 2.1
+uuid:    85ab08a0-2fbc-11eb-b645-67acc08322c2
+seqno:   -1
+safe_to_bootstrap: <span style="color:#ae81ff">0</span>   <span style="color:#75715e"># 如果为 1 当前节点需要作为集群构建节点启动</span>
+</code></pre></div><p>启动顺序：</p>
+<ol>
+<li>当集群中所有节点均正常关闭时，集群会把最后正常关闭的节点的参数进行设置 <code>safe_to_boostrap:1</code>，因为该节点的数据是最新的，再次启动集群时，需要通过集群的构建节点方式优先启动该节点。</li>
+<li>当整个集群均同时非正常关闭，造成集群不能设置某个节点作为集群构建节点启动时，需要手动设置某个节点的参数<code>safe_to_boostrap:1</code>，然后通 过构建节点启动方式启动。其他节点按普通方式启动加入集群。举个例子：当通过vmware同时进行关机时，虚拟机构建的节点会同时关闭，没有足够的时间进行<code>safe_to_boostrap:1</code> 设置。</li>
+</ol>
+<h4 id="节点关闭对集群的影响">
+  节点关闭对集群的影响
+  <a class="anchor" href="#%e8%8a%82%e7%82%b9%e5%85%b3%e9%97%ad%e5%af%b9%e9%9b%86%e7%be%a4%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+</h4>
+<ol>
+<li>当集群中超过半数的节点非正常关闭时，会造成集群所有的节点都停止服务；如果是属于正常关闭，则不会。</li>
+<li>非正常关闭节点时，集群参数 <code>wsrep_cluster_size</code> 不会随节点的减少而改变</li>
+</ol>
+<h2 id="mysql集群中间件">
+  MySQL集群中间件
+  <a class="anchor" href="#mysql%e9%9b%86%e7%be%a4%e4%b8%ad%e9%97%b4%e4%bb%b6">#</a>
+</h2>
+<h3 id="为什么还需要集群中间件">
+  为什么还需要集群中间件？
+  <a class="anchor" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%98%e9%9c%80%e8%a6%81%e9%9b%86%e7%be%a4%e4%b8%ad%e9%97%b4%e4%bb%b6">#</a>
+</h3>
+<p>中间件的作用主要是用于负载均衡，读写分离，数据切分(mysql数据库单表超2000万记录，读写性能会变差)等。</p>
+<p>负载均衡：Haproxy，MySQL-Proxy</p>
+<p>数据切分：MyCat ，Atlas，OneProxy，ProxySQL</p>
+<h3 id="中间件对比">
+  中间件对比
+  <a class="anchor" href="#%e4%b8%ad%e9%97%b4%e4%bb%b6%e5%af%b9%e6%af%94">#</a>
+</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MyCat</th>
+<th>Atlas</th>
+<th>One_Proxy</th>
+<th>Proxy SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否开源</td>
+<td>开源（基于阿里巴巴的Corba中间件）部署在3000台服务器上，每天执行50亿次请求</td>
+<td>基于My&rsquo;SQL  Proxy，主要用于360产品，每天承载几十亿次请求</td>
+<td></td>
+<td>开源免费</td>
+</tr>
+<tr>
+<td>基于环境</td>
+<td>JAVA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>功能</td>
+<td>分片算法丰富，读写分离，全局主键，分布式事务</td>
+<td>读写分析，少量的数据切分算法，不支持全局主键，分布式事务</td>
+<td></td>
+<td>性能出众，Perconna推荐，支持读写分离和数据切分，功能较基础</td>
+</tr>
+<tr>
+<td>社区</td>
+<td>活跃</td>
+<td>无社区，无出版物，资料少</td>
+<td></td>
+<td>资料较多</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mycat">
+  MyCat
+  <a class="anchor" href="#mycat">#</a>
+</h3>
+<h4 id="准备工作-2">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c-2">#</a>
+</h4>
+<p>JDK：<code>java-1.8.0-openjdk-devel.x86_64 </code> (MyCat基于java开发)</p>
+<p>MyCat: <code>Mycat-server-1.6.5-release-20180122220033-linux.tar.gz</code></p>
+<p>开放端口：8066（mycat数据服务） 和 9066（mycat管理端口）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --zone<span style="color:#f92672">=</span>public --add-port<span style="color:#f92672">=</span>8066/tcp --add-port<span style="color:#f92672">=</span>9066/tcp --permanent
+firewall-cmd --reload
+</code></pre></div><p>关闭SELINUX：关闭SELINUX请参考其他安装</p>
+<h5 id="安装jdk">
+  安装jdk
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85jdk">#</a>
+</h5>
+<p><code>yum install java-1.8.0-openjdk-devel.x86_64 </code></p>
+<p>环境配置</p>
+<p>path环境自动配置完成；</p>
+<p>JAVA_HOME配置：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ls -lrt /etc/alternatives/java
+··· 输出
+lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">73</span> Nov <span style="color:#ae81ff">30</span> 15:28 /etc/alternatives/java -&gt; /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/bin/java
+···
+vi /etc/profile	 
+···  添加如下内容
+export JAVA_HOME<span style="color:#f92672">=</span>/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/
+···
+source /etc/profile
+</code></pre></div><h5 id="安装mycat">
+  安装mycat
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85mycat">#</a>
+</h5>
+<p><code>tar -xf Mycat-server-1.6.5-release-20180122220033-linux.tar.gz</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">drwxr-xr-x. <span style="color:#ae81ff">2</span> root root  <span style="color:#ae81ff">190</span> Dec  <span style="color:#ae81ff">1</span> 11:30 bin
+drwxrwxrwx. <span style="color:#ae81ff">2</span> root root    <span style="color:#ae81ff">6</span> Mar  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2016</span> catlet
+drwxrwxrwx. <span style="color:#ae81ff">4</span> root root <span style="color:#ae81ff">4096</span> Dec  <span style="color:#ae81ff">1</span> 11:47 conf
+drwxr-xr-x. <span style="color:#ae81ff">2</span> root root <span style="color:#ae81ff">4096</span> Dec  <span style="color:#ae81ff">1</span> 11:30 lib
+drwxrwxrwx. <span style="color:#ae81ff">2</span> root root    <span style="color:#ae81ff">6</span> Jan <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2018</span> logs
+-rwxrwxrwx. <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">219</span> Jan <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2018</span> version.txt
+</code></pre></div><h4 id="mycat配置文件">
+  MyCat配置文件
+  <a class="anchor" href="#mycat%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">#</a>
+</h4>
+<p><strong>server.xml</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!-- - - Licensed under the Apache License, Version 2.0 (the &#34;License&#34;); 
+</span><span style="color:#75715e">	- you may not use this file except in compliance with the License. - You 
+</span><span style="color:#75715e">	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+</span><span style="color:#75715e">	- - Unless required by applicable law or agreed to in writing, software - 
+</span><span style="color:#75715e">	distributed under the License is distributed on an &#34;AS IS&#34; BASIS, - WITHOUT 
+</span><span style="color:#75715e">	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+</span><span style="color:#75715e">	License for the specific language governing permissions and - limitations 
+</span><span style="color:#75715e">	under the License. --&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE mycat:server SYSTEM &#34;server.dtd&#34;&gt;</span>
+<span style="color:#f92672">&lt;mycat:server</span> <span style="color:#a6e22e">xmlns:mycat=</span><span style="color:#e6db74">&#34;http://io.mycat/&#34;</span><span style="color:#f92672">&gt;</span>
+	<span style="color:#f92672">&lt;system&gt;</span>
+	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;nonePasswordLogin&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span> <span style="color:#75715e">&lt;!-- 0为需要密码登陆、1为不需要密码登陆 ,默认为0，设置为1则需要指定默认账户--&gt;</span>
+	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useHandshakeV10&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useSqlStat&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span>  <span style="color:#75715e">&lt;!-- 1为开启实时统计、0为关闭 --&gt;</span>
+	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useGlobleTableCheck&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span>  <span style="color:#75715e">&lt;!-- 1为开启全加班一致性检测、0为关闭 --&gt;</span>
+
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sequnceHandlerType&#34;</span><span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;subqueryRelationshipCheck&#34;</span><span style="color:#f92672">&gt;</span>false<span style="color:#f92672">&lt;/property&gt;</span> <span style="color:#75715e">&lt;!-- 子查询中存在关联查询的情况下,检查关联字段中是否有分片字段 .默认 false --&gt;</span>
+      <span style="color:#75715e">&lt;!--  &lt;property name=&#34;useCompression&#34;&gt;1&lt;/property&gt;--&gt;</span> <span style="color:#75715e">&lt;!--1为开启mysql压缩协议--&gt;</span>
+        <span style="color:#75715e">&lt;!--  &lt;property name=&#34;fakeMySQLVersion&#34;&gt;5.6.20&lt;/property&gt;--&gt;</span> <span style="color:#75715e">&lt;!--设置模拟的MySQL版本号--&gt;</span>
+	<span style="color:#75715e">&lt;!-- &lt;property name=&#34;processorBufferChunk&#34;&gt;40960&lt;/property&gt; --&gt;</span>
+	<span style="color:#75715e">&lt;!-- 
+</span><span style="color:#75715e">	&lt;property name=&#34;processors&#34;&gt;1&lt;/property&gt; 
+</span><span style="color:#75715e">	&lt;property name=&#34;processorExecutor&#34;&gt;32&lt;/property&gt; 
+</span><span style="color:#75715e">	 --&gt;</span>
+        <span style="color:#75715e">&lt;!--默认为type 0: DirectByteBufferPool | type 1 ByteBufferArena | type 2 NettyBufferPool --&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;processorBufferPoolType&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span>
+		<span style="color:#75715e">&lt;!--默认是65535 64K 用于sql解析时最大文本长度 --&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;maxStringLiteralLength&#34;&gt;65535&lt;/property&gt;--&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;sequnceHandlerType&#34;&gt;0&lt;/property&gt;--&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;backSocketNoDelay&#34;&gt;1&lt;/property&gt;--&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;frontSocketNoDelay&#34;&gt;1&lt;/property&gt;--&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;processorExecutor&#34;&gt;16&lt;/property&gt;--&gt;</span>
+		<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">			&lt;property name=&#34;serverPort&#34;&gt;8066&lt;/property&gt; &lt;property name=&#34;managerPort&#34;&gt;9066&lt;/property&gt; 
+</span><span style="color:#75715e">			&lt;property name=&#34;idleTimeout&#34;&gt;300000&lt;/property&gt; &lt;property name=&#34;bindIp&#34;&gt;0.0.0.0&lt;/property&gt; 
+</span><span style="color:#75715e">			&lt;property name=&#34;frontWriteQueueSize&#34;&gt;4096&lt;/property&gt; &lt;property name=&#34;processors&#34;&gt;32&lt;/property&gt; --&gt;</span>
+		<span style="color:#75715e">&lt;!--分布式事务开关，0为不过滤分布式事务，1为过滤分布式事务（如果分布式事务内只涉及全局表，则不过滤），2为不过滤分布式事务,但是记录分布式事务日志--&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;handleDistributedTransactions&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span>
+		
+			<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">			off heap for merge/order/group/limit      1开启   0关闭
+</span><span style="color:#75715e">		--&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useOffHeapForMerge&#34;</span><span style="color:#f92672">&gt;</span>1<span style="color:#f92672">&lt;/property&gt;</span>
+
+		<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">			单位为m
+</span><span style="color:#75715e">		--&gt;</span>
+        <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;memoryPageSize&#34;</span><span style="color:#f92672">&gt;</span>64k<span style="color:#f92672">&lt;/property&gt;</span>
+
+		<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">			单位为k
+</span><span style="color:#75715e">		--&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;spillsFileBufferSize&#34;</span><span style="color:#f92672">&gt;</span>1k<span style="color:#f92672">&lt;/property&gt;</span>
+
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useStreamOutput&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span>
+
+		<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">			单位为m
+</span><span style="color:#75715e">		--&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;systemReserveMemorySize&#34;</span><span style="color:#f92672">&gt;</span>384m<span style="color:#f92672">&lt;/property&gt;</span>
+
+
+		<span style="color:#75715e">&lt;!--是否采用zookeeper协调切换  --&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;useZKSwitch&#34;</span><span style="color:#f92672">&gt;</span>false<span style="color:#f92672">&lt;/property&gt;</span>
+
+		<span style="color:#75715e">&lt;!-- XA Recovery Log日志路径 --&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;XARecoveryLogBaseDir&#34;&gt;./&lt;/property&gt;--&gt;</span>
+
+		<span style="color:#75715e">&lt;!-- XA Recovery Log日志名称 --&gt;</span>
+		<span style="color:#75715e">&lt;!--&lt;property name=&#34;XARecoveryLogBaseName&#34;&gt;tmlog&lt;/property&gt;--&gt;</span>
+
+	<span style="color:#f92672">&lt;/system&gt;</span>
+	
+	<span style="color:#75715e">&lt;!-- 全局SQL防火墙设置 --&gt;</span>
+	<span style="color:#75715e">&lt;!--白名单可以使用通配符%或着*--&gt;</span>
+	<span style="color:#75715e">&lt;!--例如&lt;host host=&#34;127.0.0.*&#34; user=&#34;root&#34;/&gt;--&gt;</span>
+	<span style="color:#75715e">&lt;!--例如&lt;host host=&#34;127.0.*&#34; user=&#34;root&#34;/&gt;--&gt;</span>
+	<span style="color:#75715e">&lt;!--例如&lt;host host=&#34;127.*&#34; user=&#34;root&#34;/&gt;--&gt;</span>
+	<span style="color:#75715e">&lt;!--例如&lt;host host=&#34;1*7.*&#34; user=&#34;root&#34;/&gt;--&gt;</span>
+	<span style="color:#75715e">&lt;!--这些配置情况下对于127.0.0.1都能以root账户登录--&gt;</span>
+	<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">	&lt;firewall&gt;
+</span><span style="color:#75715e">	   &lt;whitehost&gt;
+</span><span style="color:#75715e">	      &lt;host host=&#34;1*7.0.0.*&#34; user=&#34;root&#34;/&gt;
+</span><span style="color:#75715e">	   &lt;/whitehost&gt;
+</span><span style="color:#75715e">       &lt;blacklist check=&#34;false&#34;&gt;
+</span><span style="color:#75715e">       &lt;/blacklist&gt;
+</span><span style="color:#75715e">	&lt;/firewall&gt;
+</span><span style="color:#75715e">	--&gt;</span>
+	
+    <span style="color:#75715e">&lt;!-- mysql 账户配置  --&gt;</span> 
+	<span style="color:#f92672">&lt;user</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">defaultAccount=</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">&gt;</span>Mysql123456.<span style="color:#f92672">&lt;/property&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;schemas&#34;</span><span style="color:#f92672">&gt;</span>test<span style="color:#f92672">&lt;/property&gt;</span>
+		
+		<span style="color:#75715e">&lt;!-- 表级 DML 权限设置 --&gt;</span>
+		<span style="color:#75715e">&lt;!-- 		
+</span><span style="color:#75715e">		&lt;privileges check=&#34;false&#34;&gt;
+</span><span style="color:#75715e">			&lt;schema name=&#34;TESTDB&#34; dml=&#34;0110&#34; &gt;
+</span><span style="color:#75715e">				&lt;table name=&#34;tb01&#34; dml=&#34;0000&#34;&gt;&lt;/table&gt;
+</span><span style="color:#75715e">				&lt;table name=&#34;tb02&#34; dml=&#34;1111&#34;&gt;&lt;/table&gt;
+</span><span style="color:#75715e">			&lt;/schema&gt;
+</span><span style="color:#75715e">		&lt;/privileges&gt;		
+</span><span style="color:#75715e">		 --&gt;</span>
+	<span style="color:#f92672">&lt;/user&gt;</span>
+    <span style="color:#75715e">&lt;!-- 
+</span><span style="color:#75715e">	&lt;user name=&#34;user&#34;&gt;
+</span><span style="color:#75715e">		&lt;property name=&#34;password&#34;&gt;user&lt;/property&gt;
+</span><span style="color:#75715e">		&lt;property name=&#34;schemas&#34;&gt;TESTDB&lt;/property&gt;
+</span><span style="color:#75715e">		&lt;property name=&#34;readOnly&#34;&gt;true&lt;/property&gt;
+</span><span style="color:#75715e">	&lt;/user&gt;
+</span><span style="color:#75715e">    --&gt;</span>
+
+<span style="color:#f92672">&lt;/mycat:server&gt;</span>
+
+</code></pre></div><p><strong>schema.xml</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE mycat:schema SYSTEM &#34;schema.dtd&#34;&gt;</span>
+<span style="color:#f92672">&lt;mycat:schema</span> <span style="color:#a6e22e">xmlns:mycat=</span><span style="color:#e6db74">&#34;http://io.mycat/&#34;</span><span style="color:#f92672">&gt;</span>
+	<span style="color:#75715e">&lt;!-- 虚拟逻辑库和表 --&gt;</span>
+	<span style="color:#f92672">&lt;schema</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#a6e22e">checkSQLschema=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">sqlMaxLimit=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#75715e">&lt;!-- auto sharding by id (long)   切分算法 mod-long --&gt;</span>
+		<span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;t_user&#34;</span> <span style="color:#a6e22e">dataNode=</span><span style="color:#e6db74">&#34;dn1,dn2&#34;</span> <span style="color:#a6e22e">rule=</span><span style="color:#e6db74">&#34;mod-long&#34;</span> <span style="color:#f92672">/&gt;</span>
+	<span style="color:#f92672">&lt;/schema&gt;</span>
+		
+	<span style="color:#75715e">&lt;!-- 分片关系配置 --&gt;</span>
+	<span style="color:#f92672">&lt;dataNode</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dn1&#34;</span> <span style="color:#a6e22e">dataHost=</span><span style="color:#e6db74">&#34;cluster1&#34;</span> <span style="color:#a6e22e">database=</span><span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">/&gt;</span>
+	<span style="color:#f92672">&lt;dataNode</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dn2&#34;</span> <span style="color:#a6e22e">dataHost=</span><span style="color:#e6db74">&#34;cluster2&#34;</span> <span style="color:#a6e22e">database=</span><span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">/&gt;</span>
+	
+	<span style="color:#75715e">&lt;!-- 连接信息配置 1--&gt;</span>
+    <span style="color:#75715e">&lt;!-- 
+</span><span style="color:#75715e">  	balance: 代表负载均衡类型；
+</span><span style="color:#75715e">			0 表示不开启读写分离；
+</span><span style="color:#75715e">			1 表示保留一个写节点负责写入，其他节点处理读请求；
+</span><span style="color:#75715e">			2 表示所有写节点都要额外承担读请求；
+</span><span style="color:#75715e">  			3 表示读节点只处理读请求，写节点只处理写请求；
+</span><span style="color:#75715e">	writeType: 分发请求到写节点的模式
+</span><span style="color:#75715e">			0 表示分发所有的请求到第一个写节点，只有第一个写节点宕机才会启用第二个写节点；
+</span><span style="color:#75715e">			1 表示分发所有的请求到所有写节点一起处理；
+</span><span style="color:#75715e">	switchType: 依据什么来判断切换节点；
+</span><span style="color:#75715e"> 			1 依据mycat自己的心跳检测来识别是否切换；
+</span><span style="color:#75715e">			2 依据数据库集群的信息来判断节点是否切换；
+</span><span style="color:#75715e">	--&gt;</span>
+	<span style="color:#f92672">&lt;dataHost</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;cluster1&#34;</span> <span style="color:#a6e22e">maxCon=</span><span style="color:#e6db74">&#34;1000&#34;</span> <span style="color:#a6e22e">minCon=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">balance=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">writeType=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">dbType=</span><span style="color:#e6db74">&#34;mysql&#34;</span> <span style="color:#a6e22e">dbDriver=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#a6e22e">switchType=</span><span style="color:#e6db74">&#34;1&#34;</span>  <span style="color:#a6e22e">slaveThreshold=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;heartbeat&gt;</span>select user()<span style="color:#f92672">&lt;/heartbeat&gt;</span>
+		<span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.131:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span><span style="color:#f92672">&gt;</span>
+			<span style="color:#75715e">&lt;!-- can have multi read hosts --&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1R1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.132:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1R2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.133:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+		<span style="color:#f92672">&lt;/writeHost&gt;</span>
+        
+		<span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.132:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span><span style="color:#f92672">&gt;</span>
+			<span style="color:#75715e">&lt;!-- can have multi read hosts --&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2R1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.131:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2R2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.133:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+		<span style="color:#f92672">&lt;/writeHost&gt;</span>
+	<span style="color:#f92672">&lt;/dataHost&gt;</span>	
+	<span style="color:#75715e">&lt;!-- 连接信息配置 2 --&gt;</span>
+	<span style="color:#f92672">&lt;dataHost</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;cluster2&#34;</span> <span style="color:#a6e22e">maxCon=</span><span style="color:#e6db74">&#34;1000&#34;</span> <span style="color:#a6e22e">minCon=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">balance=</span><span style="color:#e6db74">&#34;2&#34;</span>
+			  <span style="color:#a6e22e">writeType=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">dbType=</span><span style="color:#e6db74">&#34;mysql&#34;</span> <span style="color:#a6e22e">dbDriver=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#a6e22e">switchType=</span><span style="color:#e6db74">&#34;1&#34;</span>  <span style="color:#a6e22e">slaveThreshold=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;heartbeat&gt;</span>select user()<span style="color:#f92672">&lt;/heartbeat&gt;</span>
+		<span style="color:#75715e">&lt;!-- can have multi write hosts --&gt;</span>
+		<span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.135:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span><span style="color:#f92672">&gt;</span>
+			<span style="color:#75715e">&lt;!-- can have multi read hosts --&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1R1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.136:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1R2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.137:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+		<span style="color:#f92672">&lt;/writeHost&gt;</span>
+		<span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.136:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">&gt;</span>
+			<span style="color:#75715e">&lt;!-- can have multi read hosts --&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2R1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.135:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+			<span style="color:#f92672">&lt;readHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W2R2&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.137:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span> <span style="color:#f92672">/&gt;</span>
+		<span style="color:#f92672">&lt;/writeHost&gt;</span>
+	<span style="color:#f92672">&lt;/dataHost&gt;</span>
+
+<span style="color:#f92672">&lt;/mycat:schema&gt;</span>
+
+</code></pre></div><p><strong>rule.xml</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span style="color:#75715e">&lt;!-- - - Licensed under the Apache License, Version 2.0 (the &#34;License&#34;); 
+</span><span style="color:#75715e">	- you may not use this file except in compliance with the License. - You 
+</span><span style="color:#75715e">	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+</span><span style="color:#75715e">	- - Unless required by applicable law or agreed to in writing, software - 
+</span><span style="color:#75715e">	distributed under the License is distributed on an &#34;AS IS&#34; BASIS, - WITHOUT 
+</span><span style="color:#75715e">	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+</span><span style="color:#75715e">	License for the specific language governing permissions and - limitations 
+</span><span style="color:#75715e">	under the License. --&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE mycat:rule SYSTEM &#34;rule.dtd&#34;&gt;</span>
+<span style="color:#f92672">&lt;mycat:rule</span> <span style="color:#a6e22e">xmlns:mycat=</span><span style="color:#e6db74">&#34;http://io.mycat/&#34;</span><span style="color:#f92672">&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rule1&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>func1<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rule2&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>user_id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>func1<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sharding-by-intfile&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>sharding_id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>hash-int<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;auto-sharding-long&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>rang-long<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mod-long&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>mod-long<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sharding-by-murmur&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>murmur<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;crc32slot&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>crc32slot<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sharding-by-month&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>create_time<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>partbymonth<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;latest-month-calldate&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>calldate<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>latestMonth<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;auto-sharding-rang-mod&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>rang-mod<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+	
+	<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;jch&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;rule&gt;</span>
+			<span style="color:#f92672">&lt;columns&gt;</span>id<span style="color:#f92672">&lt;/columns&gt;</span>
+			<span style="color:#f92672">&lt;algorithm&gt;</span>jump-consistent-hash<span style="color:#f92672">&lt;/algorithm&gt;</span>
+		<span style="color:#f92672">&lt;/rule&gt;</span>
+	<span style="color:#f92672">&lt;/tableRule&gt;</span>
+
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;murmur&#34;</span>
+		<span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByMurmurHash&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;seed&#34;</span><span style="color:#f92672">&gt;</span>0<span style="color:#f92672">&lt;/property&gt;</span><span style="color:#75715e">&lt;!-- 默认是0 --&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;count&#34;</span><span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&lt;/property&gt;</span><span style="color:#75715e">&lt;!-- 要分片的数据库节点数量，必须指定，否则没法分片 --&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;virtualBucketTimes&#34;</span><span style="color:#f92672">&gt;</span>160<span style="color:#f92672">&lt;/property&gt;</span><span style="color:#75715e">&lt;!-- 一个实际的数据库节点被映射为这么多虚拟节点，默认是160倍，也就是虚拟节点数是物理节点数的160倍 --&gt;</span>
+		<span style="color:#75715e">&lt;!-- &lt;property name=&#34;weightMapFile&#34;&gt;weightMapFile&lt;/property&gt; 节点的权重，没有指定权重的节点默认是1。以properties文件的格式填写，以从0开始到count-1的整数值也就是节点索引为key，以节点权重值为值。所有权重值必须是正整数，否则以1代替 --&gt;</span>
+		<span style="color:#75715e">&lt;!-- &lt;property name=&#34;bucketMapPath&#34;&gt;/etc/mycat/bucketMapPath&lt;/property&gt; 
+</span><span style="color:#75715e">			用于测试时观察各物理节点与虚拟节点的分布情况，如果指定了这个属性，会把虚拟节点的murmur hash值与物理节点的映射按行输出到这个文件，没有默认值，如果不指定，就不会输出任何东西 --&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;crc32slot&#34;</span>
+			  <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByCRC32PreSlot&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;count&#34;</span><span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&lt;/property&gt;</span><span style="color:#75715e">&lt;!-- 要分片的数据库节点数量，必须指定，否则没法分片 --&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;hash-int&#34;</span>
+		<span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByFileMap&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mapFile&#34;</span><span style="color:#f92672">&gt;</span>partition-hash-int.txt<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rang-long&#34;</span>
+		<span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.AutoPartitionByLong&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mapFile&#34;</span><span style="color:#f92672">&gt;</span>autopartition-long.txt<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mod-long&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByMod&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#75715e">&lt;!-- how many data nodes --&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;count&#34;</span><span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;func1&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByLong&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;partitionCount&#34;</span><span style="color:#f92672">&gt;</span>8<span style="color:#f92672">&lt;/property&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;partitionLength&#34;</span><span style="color:#f92672">&gt;</span>128<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;latestMonth&#34;</span>
+		<span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.LatestMonthPartion&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;splitOneDay&#34;</span><span style="color:#f92672">&gt;</span>24<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;partbymonth&#34;</span>
+		<span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByMonth&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dateFormat&#34;</span><span style="color:#f92672">&gt;</span>yyyy-MM-dd<span style="color:#f92672">&lt;/property&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sBeginDate&#34;</span><span style="color:#f92672">&gt;</span>2015-01-01<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;rang-mod&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByRangeMod&#34;</span><span style="color:#f92672">&gt;</span>
+        	<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mapFile&#34;</span><span style="color:#f92672">&gt;</span>partition-range-mod.txt<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+	
+	<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;jump-consistent-hash&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByJumpConsistentHash&#34;</span><span style="color:#f92672">&gt;</span>
+		<span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;totalBuckets&#34;</span><span style="color:#f92672">&gt;</span>3<span style="color:#f92672">&lt;/property&gt;</span>
+	<span style="color:#f92672">&lt;/function&gt;</span>
+<span style="color:#f92672">&lt;/mycat:rule&gt;</span>
+
+</code></pre></div><h4 id="启动与关闭">
+  启动与关闭
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8%e4%b8%8e%e5%85%b3%e9%97%ad">#</a>
+</h4>
+<h5 id="分配启动权限">
+  分配启动权限
+  <a class="anchor" href="#%e5%88%86%e9%85%8d%e5%90%af%e5%8a%a8%e6%9d%83%e9%99%90">#</a>
+</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd mycat/bin
+chmod -R <span style="color:#ae81ff">777</span> *.sh  <span style="color:#75715e"># 添加权限</span>
+</code></pre></div><h5 id="启动-2">
+  启动
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8-2">#</a>
+</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./startup_nowrap.sh  <span style="color:#75715e"># 启动mycat</span>
+./mycat start <span style="color:#75715e"># 启动mycat</span>
+</code></pre></div><h5 id="关闭-1">
+  关闭
+  <a class="anchor" href="#%e5%85%b3%e9%97%ad-1">#</a>
+</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -aux | grep mycat
+kill -9 pid
+</code></pre></div><h5 id="测试">
+  测试
+  <a class="anchor" href="#%e6%b5%8b%e8%af%95">#</a>
+</h5>
+<p>这里测试需要安装 mysql-client客户端（初学时，发现没有mysql客户端，没有mysql的命令）；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>uadmin <span style="color:#f92672">-</span>pMysql123456. <span style="color:#f92672">-</span>P <span style="color:#ae81ff">8066</span> <span style="color:#f92672">-</span>h <span style="color:#ae81ff">127</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>  <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">注意这里</span><span style="color:#66d9ef">host</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#ae81ff">127</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>
+</code></pre></div><h4 id="mycat-切分">
+  MyCat 切分
+  <a class="anchor" href="#mycat-%e5%88%87%e5%88%86">#</a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>七分算法</th>
+<th>适合场合</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主键求模切分</td>
+<td>数据增长速度慢，难于增加分片</td>
+<td>有明确主键值</td>
+</tr>
+<tr>
+<td>枚举值切分</td>
+<td>归类存储数据，适合大多数业务</td>
+<td></td>
+</tr>
+<tr>
+<td>主键范围切分</td>
+<td>数据快速增长，容易增加分片，不利于归档，腾出空间不会再次使用</td>
+<td>有明确主键值</td>
+</tr>
+<tr>
+<td>日期切分</td>
+<td>数据快速增长，容易增加分片，不利于归档，腾出空间不会再次使用</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="主键求模切分">
+  主键求模切分
+  <a class="anchor" href="#%e4%b8%bb%e9%94%ae%e6%b1%82%e6%a8%a1%e5%88%87%e5%88%86">#</a>
+</h4>
+<p>对主键求模来切分，一般选择对分片数求模</p>
+<ol>
+<li>
+<p>适合初始数据量很大，但是数据增长不快的场景</p>
+<p><strong>地图产品</strong>      <strong>行政数据</strong>      <strong>企业数据</strong></p>
+<p>怎么去理解增速很快？</p>
+<p>因为如果数据库增速很快，导致集群需要增加分片，由于求模算法，回导致数据的迁移，占用很大的IO资源；</p>
+</li>
+<li>
+<p>求模切分的弊端在于扩展新分片难度大，迁移的数据太多；</p>
+<p>举个例子：由原来的2分片，扩展到4分片，迁移前2分片的数据到新增的2分片中，数据迁移困难；</p>
+</li>
+<li>
+<p>如果非增加分片不可的情况，建议成倍增加为原有分片的2n倍，这样可以预测数据迁移规则；</p>
+<p>举个例子：原始分片2个，扩展到4个；</p>
+<p>原始分片中求模余0或1还再原来的分片，余2的则迁移至第3个分片，余3则迁移至第4个分片；</p>
+</li>
+<li>
+<p>什么时候该添加分片？</p>
+<p>现有分片不足以保存热数据才添加分片；</p>
+</li>
+</ol>
+<h4 id="枚举值切分">
+  枚举值切分
+  <a class="anchor" href="#%e6%9e%9a%e4%b8%be%e5%80%bc%e5%88%87%e5%88%86">#</a>
+</h4>
+<p>按照某个sh字段的值（数字）来切分</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sharding-by-intfile&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;rule&gt;</span>
+        <span style="color:#f92672">&lt;columns&gt;</span>sharding_id<span style="color:#f92672">&lt;/columns&gt;</span>   <span style="color:#75715e">&lt;!-- sharding_id: 数据库中字段名 --&gt;</span>
+        <span style="color:#f92672">&lt;algorithm&gt;</span>hash-int<span style="color:#f92672">&lt;/algorithm&gt;</span>  <span style="color:#75715e">&lt;!-- 算法名，这是使用java实现的类 --&gt;</span>
+    <span style="color:#f92672">&lt;/rule&gt;</span>
+<span style="color:#f92672">&lt;/tableRule&gt;</span>
+...
+<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;hash-int&#34;</span> <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByFileMap&#34;</span><span style="color:#f92672">&gt;</span>   <span style="color:#75715e">&lt;!-- 切分算法使用java实现 --&gt;</span>
+    <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mapFile&#34;</span><span style="color:#f92672">&gt;</span>partition-hash-int.txt<span style="color:#f92672">&lt;/property&gt;</span>  
+    <span style="color:#75715e">&lt;!-- partition-hash-int.txt：配置枚举规则：如 001 是分片1， 201 是分片2 --&gt;</span>
+    <span style="color:#75715e">&lt;!--  
+</span><span style="color:#75715e">	010=0
+</span><span style="color:#75715e">	024=0
+</span><span style="color:#75715e">	0411=1
+</span><span style="color:#75715e">	--&gt;</span>
+<span style="color:#f92672">&lt;/function&gt;</span>
+</code></pre></div><p>例子：</p>
+<p>customer-hash-int.txt</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">101=0
+102=0
+103=0
+104=1
+105=1
+106=1
+</code></pre></div><p>rule.xml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- 定义切分规则，指定数据列，及其切分算法 --&gt;</span>
+<span style="color:#f92672">&lt;tableRule</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;sharding-customer&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;rule&gt;</span>
+        <span style="color:#f92672">&lt;columns&gt;</span>sharding_id<span style="color:#f92672">&lt;/columns&gt;</span>
+        <span style="color:#f92672">&lt;algorithm&gt;</span>customer-int<span style="color:#f92672">&lt;/algorithm&gt;</span>
+    <span style="color:#f92672">&lt;/rule&gt;</span>
+<span style="color:#f92672">&lt;/tableRule&gt;</span>
+...
+<span style="color:#75715e">&lt;!-- 配置切分算法实现类和切分枚举规则 --&gt;</span>
+<span style="color:#f92672">&lt;function</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;customer-hash-int&#34;</span>
+          <span style="color:#a6e22e">class=</span><span style="color:#e6db74">&#34;io.mycat.route.function.PartitionByFileMap&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;mapFile&#34;</span><span style="color:#f92672">&gt;</span>customer-hash-int.txt<span style="color:#f92672">&lt;/property&gt;</span>
+<span style="color:#f92672">&lt;/function&gt;</span>
+</code></pre></div><p>schema.xml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- 虚拟逻辑库和表 --&gt;</span>
+<span style="color:#f92672">&lt;schema</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#a6e22e">checkSQLschema=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#a6e22e">sqlMaxLimit=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+    ...
+    <span style="color:#75715e">&lt;!-- 添加枚举切分t_customer --&gt;</span>
+    <span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;t_customer&#34;</span> <span style="color:#a6e22e">dataNode=</span><span style="color:#e6db74">&#34;dn1,dn2&#34;</span> <span style="color:#a6e22e">rule=</span><span style="color:#e6db74">&#34;sharding-customer&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/schema&gt;</span>
+</code></pre></div><p>热重载mycat配置文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@mycat conf<span style="color:#f92672">]</span><span style="color:#75715e"># mysql -uadmin -pMysql123456. -P 9066 -h 127.0.0.1</span>
+mysql: <span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
+Your MySQL connection id is <span style="color:#ae81ff">23</span>
+Server version: 5.6.29-mycat-1.6.7.6-release-20201126013625 MyCat Server <span style="color:#f92672">(</span>monitor<span style="color:#f92672">)</span>
+
+Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+
+mysql&gt; reload @@config_all;
+Query OK, <span style="color:#ae81ff">1</span> row affected <span style="color:#f92672">(</span>0.53 sec<span style="color:#f92672">)</span>
+Reload config success
+</code></pre></div><p>创建t_customer 表进行测试切分</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- DataGrip 通过mycat 来创建表，会出现创建的表名和字段名都为大写
+</span><span style="color:#75715e">-- 可以再分片中分别创建即可
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> t_customer (
+	id INT <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+    username VARCHAR(<span style="color:#ae81ff">200</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    sharding_id INT <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+);
+
+<span style="color:#75715e">-- 插入数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> t_customer (id, username, sharding_id) <span style="color:#66d9ef">values</span> (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;xiaoming&#34;</span>, <span style="color:#ae81ff">101</span>);
+</code></pre></div><p><strong>应用场景</strong></p>
+<ol>
+<li>淘宝网：数据分片按商品分类来枚举值切分，当某个商品类的数据库出现故障，并不会影响其他商品类别的正常工作；</li>
+<li>美团或饿了么：按地区类别来进行数据切分，这样某个地区数据分片宕机并不会影响其他地区的业务进行；</li>
+</ol>
+<h4 id="mycat-父子表">
+  MyCat 父子表
+  <a class="anchor" href="#mycat-%e7%88%b6%e5%ad%90%e8%a1%a8">#</a>
+</h4>
+<h4 id="父子表要解决的问题是">
+  父子表要解决的问题是？
+  <a class="anchor" href="#%e7%88%b6%e5%ad%90%e8%a1%a8%e8%a6%81%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98%e6%98%af">#</a>
+</h4>
+<p>MyCat不支持跨分片连接查询；</p>
+<p><img src="/docs/pxc/image-20201203144531559.png" alt="image-20201203144531559" /></p>
+<p>现有2分片，分片1记录了A用户的信息，但是A用户的购物记录被切分到了分片2，这样的话在做连接查询时就会遇到问题，而父子表就是为了解决这种问题而出现的，使得分片记录如下，A用户的信息和A用户购物记录均会保存到统一分片，这样就可以随意做连接查询了。</p>
+<p><img src="/docs/pxc/image-20201203144336031.png" alt="image-20201203144336031" /></p>
+<h4 id="配置父子表">
+  配置父子表
+  <a class="anchor" href="#%e9%85%8d%e7%bd%ae%e7%88%b6%e5%ad%90%e8%a1%a8">#</a>
+</h4>
+<p>schema.xml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- 添加枚举切分t_customer --&gt;</span>
+<span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;t_customer&#34;</span> <span style="color:#a6e22e">dataNode=</span><span style="color:#e6db74">&#34;dn1,dn2&#34;</span> <span style="color:#a6e22e">rule=</span><span style="color:#e6db74">&#34;sharding-customer&#34;</span> <span style="color:#f92672">&gt;</span> 
+	<span style="color:#f92672">&lt;childTable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;t_orders&#34;</span> <span style="color:#a6e22e">primaryKey=</span><span style="color:#e6db74">&#34;ID&#34;</span> <span style="color:#a6e22e">joinKey=</span><span style="color:#e6db74">&#34;customer_id&#34;</span> <span style="color:#a6e22e">parentKey=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/table&gt;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- mycat 热重载所有配置文件
+</span><span style="color:#75715e"></span>mysql<span style="color:#f92672">&gt;</span> reload <span style="color:#f92672">@@</span>config_all;
+Query OK, <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">52</span> sec)
+Reload config success
+</code></pre></div><h3 id="mycat集群">
+  MyCat集群
+  <a class="anchor" href="#mycat%e9%9b%86%e7%be%a4">#</a>
+</h3>
+<h4 id="方案">
+  方案
+  <a class="anchor" href="#%e6%96%b9%e6%a1%88">#</a>
+</h4>
+<p><img src="/docs/pxc/image-20201203152616042.png" alt="image-20201203152616042" /></p>
+<p>图中Haproxy两个节点实现了高可用，当一个Haproxy节点宕机， 另外一个节点通过争抢ip来进行服务</p>
+<h4 id="只有一个haproxy节点-能应对高一个负载吗">
+  只有一个Haproxy节点 能应对高一个负载吗？
+  <a class="anchor" href="#%e5%8f%aa%e6%9c%89%e4%b8%80%e4%b8%aahaproxy%e8%8a%82%e7%82%b9-%e8%83%bd%e5%ba%94%e5%af%b9%e9%ab%98%e4%b8%80%e4%b8%aa%e8%b4%9f%e8%bd%bd%e5%90%97">#</a>
+</h4>
+<p>能应对；一个Haproxy节点能应对 80000 次/s 请求。</p>
+<p>一个日访问量5000000，平均每秒请求  5000000 / 24 / 3600  = 58 次；</p>
+<p>MySQL 要大量集群， MyCat 要少量集群，Haproxy 不需要集群。</p>
+<h4 id="增加mycat节点">
+  增加Mycat节点
+  <a class="anchor" href="#%e5%a2%9e%e5%8a%a0mycat%e8%8a%82%e7%82%b9">#</a>
+</h4>
+<p>请参考之前方式，或者直接vmware克隆</p>
+<h3 id="部署haproxy">
+  部署Haproxy
+  <a class="anchor" href="#%e9%83%a8%e7%bd%b2haproxy">#</a>
+</h3>
+<h4 id="准备工作-3">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c-3">#</a>
+</h4>
+<p>开放端口：3306  TCP/IP转发端口；4001 监控界面端口；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --zone<span style="color:#f92672">=</span>public --add-port<span style="color:#f92672">=</span>3306/tcp --add-port<span style="color:#f92672">=</span>4001/tcp --permanent
+firewall-cmd --reload
+</code></pre></div><p>关闭SELINUX</p>
+<p><code>vi /etc/selinux/config</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">SELINUX<span style="color:#f92672">=</span>disabled
+</code></pre></div><p><code>reboot</code> 生效</p>
+<h4 id="安装haproxy">
+  安装haproxy
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85haproxy">#</a>
+</h4>
+<p><code>yum -y install haproxy</code></p>
+<p>启动与停止与重启：</p>
+<p><code>service haproxy start</code></p>
+<p><code>service haproxy stop</code></p>
+<p><code>service haproxy restart</code></p>
+<h4 id="配置文件">
+  配置文件
+  <a class="anchor" href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">#</a>
+</h4>
+<p><code>vi /etc/haproxy/haproxy.cfg</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     <span style="color:#ae81ff">4000</span>
+    user        haproxy
+    group       haproxy
+    daemon
+    <span style="color:#75715e"># turn on stats unix socket</span>
+    stats socket /var/lib/haproxy/stats
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 <span style="color:#ae81ff">3</span>
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 <span style="color:#ae81ff">3000</span>
+<span style="color:#75715e"># 后台监控的配置</span>
+listen admin_stats    <span style="color:#75715e"># 名称</span>
+bind 0.0.0.0:4001     <span style="color:#75715e"># 监控界面的访问的ip和端口</span>
+mode http             <span style="color:#75715e"># 访问协议</span>
+stats uri /dbs        <span style="color:#75715e"># URI相对地址</span>
+stats realm Global<span style="color:#ae81ff">\ </span>statistics  <span style="color:#75715e"># 统计报告格式</span>
+stats auth admin:admin          <span style="color:#75715e"># 登录密码</span>
+
+<span style="color:#75715e"># 负载均衡的配置</span>
+listen proxy-mysql    <span style="color:#75715e"># 名称</span>
+bind 0.0.0.0:3306
+mode tcp
+balance roundrobin    <span style="color:#75715e"># 请求转发算法，这里时轮询</span>
+option tcplog         <span style="color:#75715e"># 日志格式</span>
+server mycat01 192.168.145.134:8066 check port <span style="color:#ae81ff">8066</span> weight <span style="color:#ae81ff">1</span> maxconn <span style="color:#ae81ff">2000</span>  <span style="color:#75715e"># 负载均衡 </span>
+server mycat02 192.168.145.138:8066 check port <span style="color:#ae81ff">8066</span> weight <span style="color:#ae81ff">1</span> maxconn <span style="color:#ae81ff">2000</span>  <span style="color:#75715e"># 负载均衡</span>
+<span style="color:#75715e"># 由于上面再用的转发算法为 “轮询”，这里的weight无效；</span>
+<span style="color:#75715e"># 当balance 采用权重算法来转发时，weight才会起到作用；那么什么情况下会使用权重算法转发呢？</span>
+<span style="color:#75715e"># 在需要负载均衡的多个节点存在差异化时，如ab两节点，a主机性能更好，处理效率更高，那么会给他更多权重，处理更多的请求。</span>
+option tcpka   <span style="color:#75715e"># 使用keeplive 检测死链</span>
+</code></pre></div><h4 id="启动错误无提示">
+  启动错误，无提示
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8%e9%94%99%e8%af%af%e6%97%a0%e6%8f%90%e7%a4%ba">#</a>
+</h4>
+<p><code>systemctl status haproxy </code>  查看状态发现配置文件错误；</p>
+<h3 id="部署keepalived">
+  部署keepalived
+  <a class="anchor" href="#%e9%83%a8%e7%bd%b2keepalived">#</a>
+</h3>
+<h4 id="准备工作-4">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c-4">#</a>
+</h4>
+<p>开启防火墙的VRRP协议</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT <span style="color:#ae81ff">0</span> --protocol vrrp -j ACCEPT
+firewall-cmd --reload
+</code></pre></div><h4 id="安装-2">
+  安装
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85-2">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum -y install keepalived
+</code></pre></div><h4 id="配置文件-1">
+  配置文件
+  <a class="anchor" href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6-1">#</a>
+</h4>
+<p><code>vi /etc/keepalived/keepalived.conf</code></p>
+<pre><code class="language-conf" data-lang="conf">vrrp_instance VI_1 {
+	state MASTER  ! 如果2个节点都设置为MASTER，则当节点启动时会争抢虚拟IP，未抢到的接待你会编程SLAVE
+	interface ens33  ! 网卡名称
+	virtual_router_id 51  ! 虚拟路由标识，代表 节点ID  &lt;255
+	priority 100   ! 定义优先级
+	advert_int 1   ! 秒
+	! 认证，只有通过认证的才会心跳检测
+	authentication {  
+		auth_type PASS
+		auth_pass 123456
+	}
+	virtual_ipaddress {  
+		192.168.145.139    ! 虚拟IP地址
+	}
+}
+</code></pre><h4 id="启动与关闭-1">
+  启动与关闭
+  <a class="anchor" href="#%e5%90%af%e5%8a%a8%e4%b8%8e%e5%85%b3%e9%97%ad-1">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl start keepalived
+systemctl stop keepalived
+</code></pre></div><h4 id="测试-1">
+  测试
+  <a class="anchor" href="#%e6%b5%8b%e8%af%95-1">#</a>
+</h4>
+<p>使用DataGrip 通过keepalived的虚拟IP来连接mycat</p>
+<p>或者可以通过虚拟IP登录到linux来测试</p>
+<h2 id="sysbench-基准测试">
+  Sysbench 基准测试
+  <a class="anchor" href="#sysbench-%e5%9f%ba%e5%87%86%e6%b5%8b%e8%af%95">#</a>
+</h2>
+<h3 id="安装-3">
+  安装
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85-3">#</a>
+</h3>
+<h4 id="在线安装">
+  在线安装
+  <a class="anchor" href="#%e5%9c%a8%e7%ba%bf%e5%ae%89%e8%a3%85">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.rpm.sh | sudo bash
+yum -y install sysbench
+</code></pre></div><p>本地安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><h3 id="sysbench-命令">
+  sysbench 命令
+  <a class="anchor" href="#sysbench-%e5%91%bd%e4%bb%a4">#</a>
+</h3>
+<p>语法：sysbench script  [option]  [command]</p>
+<h4 id="option">
+  OPTION
+  <a class="anchor" href="#option">#</a>
+</h4>
+<p>连接参数</p>
+<p><code>--mysql-host</code>: 数据库IP地址</p>
+<p><code>--mysql-port</code>: 端口号</p>
+<p><code>–-mysql-user</code>: 用户名</p>
+<p><code>--mysql-password</code>: 密码</p>
+<p>数据库测试</p>
+<p><code>--oltp-test-mode</code>: 执行模式（simple只测试查询不测试写入 、nontrx测试无事务的增删改查、complex 带事务的增删改查）</p>
+<p><code>--oltp-tables-count</code>: 测试表数量</p>
+<p><code>--oltp-table-size</code>: 测试表的记录数</p>
+<p><code>--threads</code>: 并发连接数</p>
+<p><code>--time</code>: 测试执行时间（秒）</p>
+<p><code>--report-interval</code>: 生成报告单的间隔时间（秒）</p>
+<h4 id="command">
+  command
+  <a class="anchor" href="#command">#</a>
+</h4>
+<p><code>prepare</code>: 准备测试数据</p>
+<p><code>run</code> : 执行测试</p>
+<p><code>cleanup</code>: 清楚测试数据</p>
+<h4 id="测试示例">
+  测试示例
+  <a class="anchor" href="#%e6%b5%8b%e8%af%95%e7%a4%ba%e4%be%8b">#</a>
+</h4>
+<p>通过prepare命令生成测试数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 注意这里的script脚本的路径，下面为在线安装的脚本路径，编译安装版本需要注意放置位置</span>
+sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--mysql-host<span style="color:#f92672">=</span>192.168.145.138 <span style="color:#ae81ff">\ </span>
+--mysql-port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span> <span style="color:#ae81ff">\ </span> 
+--mysql-user<span style="color:#f92672">=</span>admin <span style="color:#ae81ff">\ </span> 
+--mysql-password<span style="color:#f92672">=</span>Mysql123456. <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--oltp-tables-count<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--oltp-table-size<span style="color:#f92672">=</span><span style="color:#ae81ff">100000</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>prepare
+</code></pre></div><p>配置Haproxy(192.168.145.138) 负载均衡拥有3个节点的分片</p>
+<p><code>/etc/haproxy/haproxy.cfg</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#75715e"># 这三个为同一个分片</span>
+<span style="color:#a6e22e">server mysql01 192.168.145.131:3306 check port 3306 weight 1 maxconn 2000</span>
+<span style="color:#a6e22e">server mysql02 192.168.145.132:3306 check port 3306 weight 1 maxconn 2000</span>
+<span style="color:#a6e22e">server mysql03 192.168.145.133:3306 check port 3306 weight 1 maxconn 2000</span>
+</code></pre></div><p>生成测试数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sysbench /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua --mysql-host<span style="color:#f92672">=</span>192.168.145.138 --mysql-port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span> --mysql-user<span style="color:#f92672">=</span>admin --mysql-password<span style="color:#f92672">=</span>Mysql123456. --oltp-test-mode<span style="color:#f92672">=</span>complex --threads<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> --time<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span> --report-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> run &gt;&gt; /home/mysql_sysbench.log
+</code></pre></div><p>查看测试结果：</p>
+<h3 id="小结">
+  小结
+  <a class="anchor" href="#%e5%b0%8f%e7%bb%93">#</a>
+</h3>
+<p>数据表建议不低于10个，单表数据量不低于500万行。</p>
+<p>如果配备了SSD或者PCIE SSD，则建议单表数据量最少不低于1亿行。</p>
+<p>真实物理主机上的基准测试，建议24小时以上。</p>
+<h2 id="tpcc-mysql压力测试">
+  TPCC-MYSQL压力测试
+  <a class="anchor" href="#tpcc-mysql%e5%8e%8b%e5%8a%9b%e6%b5%8b%e8%af%95">#</a>
+</h2>
+<h3 id="测试方案">
+  测试方案
+  <a class="anchor" href="#%e6%b5%8b%e8%af%95%e6%96%b9%e6%a1%88">#</a>
+</h3>
+<p><img src="/docs/pxc/image-20201204083119434.png" alt="image-20201204083119434" /></p>
+<h3 id="安装tpcc-mysql">
+  安装tpcc-mysql
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85tpcc-mysql">#</a>
+</h3>
+<h4 id="准备工作-5">
+  准备工作
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c-5">#</a>
+</h4>
+<p><code>vi /etc/my.cnf</code>  编辑pxc集群配置文件</p>
+<pre><code class="language-cnf" data-lang="cnf">pxc_strict_mode=ENFORCING  # 这个是默认，不允许不规范的操作
+
+# 修改为下面配置
+pxc_strict_mode=DISABLED   # 这个是为了能运行tpcc测试模型（模型种存在无主键的数据 表）
+</code></pre><p>使用haproxy做负载均衡</p>
+<pre><code class="language-cnfg" data-lang="cnfg"># 负载均衡
+server mysql01 192.168.145.131:3306 check port 3306 weight 1 maxconn 2000
+server mysql02 192.168.145.132:3306 check port 3306 weight 1 maxconn 2000
+server mysql03 192.168.145.133:3306 check port 3306 weight 1 maxconn 2000
+</code></pre><p>tpcc 只有源代码，所以只能通过源代码编译执行</p>
+<p>安装编译所需的包</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum -y install gcc
+yum install -y mysql-devel
+</code></pre></div><p>下载tpcc-mysql源代码</p>
+<p><a href="https://codeload.github.com/Percona-Lab/tpcc-mysql/zip/master">tpcc-mysql</a></p>
+<p>解压编译安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">unzip tpcc-mysql-master.zip
+cd tpcc-mysql-master/src
+make
+</code></pre></div><p>连接mysql 集群，创建tpcc测试的逻辑库</p>
+<p><code>tpcc</code></p>
+<p>导入tpcc 测试数据</p>
+<p><code>/tpcc_mysql_master/</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /home/tpcc_msyql_master
+ls *.sql
+add_fkey_idx.sql  count.sql  create_table.sql  drop_cons.sql
+<span style="color:#75715e"># create_table.sql: 创建数据表   add_fkey_idx.sql: 增加外键约束和索引</span>
+<span style="color:#75715e"># 上面两个需要导入</span>
+mysql -uadmin -pMysql123456. -h 192.168.145.138 -P3306
+use tpcc
+source create_table.sql
+source add_fkey_idx.sql
+</code></pre></div><p>生成测试数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /home/tpcc_msyql_master
+./tpcc_load -h 192.168.145.138 -P <span style="color:#ae81ff">3306</span> -d tpcc -uadmin -pMysql123456. -w <span style="color:#ae81ff">1</span>
+<span style="color:#75715e"># w 代表tpcc测试模型种数据库种的仓库数，实际测试建议仓库数弄上千个，但这比较耗时</span>
+<span style="color:#75715e"># vmware 虚拟机，生成w=1的测试数据大概耗时30分钟</span>
+</code></pre></div><p>执行测试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /home/tpcc_msyql_master
+./tpcc_start -h 192.168.145.138 -P <span style="color:#ae81ff">3306</span> -d tpcc -uadmin -pMysql123456. -w <span style="color:#ae81ff">1</span> -c <span style="color:#ae81ff">5</span> -r <span style="color:#ae81ff">300</span> -l <span style="color:#ae81ff">600</span> -&gt; tpcc-output-log
+<span style="color:#75715e"># -c 并发线程数  -r 数据库预热时间，单位秒  -l 测试时间s</span>
+<span style="color:#75715e"># tpcc-output-log 输出到文件</span>
+<span style="color:#75715e"># 真实环境中，-r -l的时间都要长一些；如 -r 3600 -l 3600*24</span>
+</code></pre></div><h2 id="pxc-原理">
+  PXC 原理
+  <a class="anchor" href="#pxc-%e5%8e%9f%e7%90%86">#</a>
+</h2>
+<h3 id="了解binlog-日志">
+  了解binlog 日志
+  <a class="anchor" href="#%e4%ba%86%e8%a7%a3binlog-%e6%97%a5%e5%bf%97">#</a>
+</h3>
+<p><img src="/docs/pxc/image-20201204110659441.png" alt="image-20201204110659441" /></p>
+<h3 id="binlog-日志文件种类">
+  binlog 日志文件种类
+  <a class="anchor" href="#binlog-%e6%97%a5%e5%bf%97%e6%96%87%e4%bb%b6%e7%a7%8d%e7%b1%bb">#</a>
+</h3>
+<p><code>my.ini</code> mysql配置文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">binlog-format</span><span style="color:#f92672">=</span><span style="color:#e6db74">row  # binlog模式</span>
+<span style="color:#a6e22e">log-bin</span><span style="color:#f92672">=</span><span style="color:#e6db74">mysql_bin  # 日志文件名定义</span>
+</code></pre></div><h5 id="日志文件">
+  日志文件
+  <a class="anchor" href="#%e6%97%a5%e5%bf%97%e6%96%87%e4%bb%b6">#</a>
+</h5>
+<p>根据上面my.ini配置输出日志文件名称：</p>
+<p><code>mysql_bin.000001 mysql_bin.000002</code>  这种文件名的文件，二进制方式存储，需要特定程序才能打开；</p>
+<p>打开日志文件方式：</p>
+<p>使用SQL语句</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">--  查看索引文件，显示有多少条binlog日志文件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> master logs;  
+<span style="color:#75715e">-- 查看具体的binlog日志文件 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">show</span> binlogs events <span style="color:#66d9ef">in</span> <span style="color:#e6db74">&#39;localhost:-bin.000009&#39;</span>;  
+</code></pre></div><h5 id="索引文件">
+  索引文件
+  <a class="anchor" href="#%e7%b4%a2%e5%bc%95%e6%96%87%e4%bb%b6">#</a>
+</h5>
+<p><code>mysql_bin.index</code>  以index结尾的文件，文本文件；</p>
+<h3 id="binlog-日志格式">
+  binlog 日志格式
+  <a class="anchor" href="#binlog-%e6%97%a5%e5%bf%97%e6%a0%bc%e5%bc%8f">#</a>
+</h3>
+<h4 id="row">
+  Row
+  <a class="anchor" href="#row">#</a>
+</h4>
+<p>每条记录的变化都会写入日志中，记录的是实实在在的数据变化；</p>
+<p><img src="/docs/pxc/image-20201204112759477.png" alt="image-20201204112759477" /></p>
+<h4 id="statement-模式">
+  STATEMENT 模式
+  <a class="anchor" href="#statement-%e6%a8%a1%e5%bc%8f">#</a>
+</h4>
+<p>每一条会修改数据的sql语句会记录到binlog中</p>
+<p><img src="/docs/pxc/image-20201204113410286.png" alt="image-20201204113410286" /></p>
+<h4 id="mixed">
+  Mixed
+  <a class="anchor" href="#mixed">#</a>
+</h4>
+<p>普通操作使用STATEMENT格式，同步可能出现问题（例如，插入数据sql语句中包含某些函数UUID函数时）的操作选择ROW模式；</p>
+<p>集合了上述两种模式的优点</p>
+<h3 id="pxc-同步原理">
+  PXC 同步原理
+  <a class="anchor" href="#pxc-%e5%90%8c%e6%ad%a5%e5%8e%9f%e7%90%86">#</a>
+</h3>
+<h4 id="gtid-全局事务git-global-transaction-id">
+  GTID (全局事务GIT, Global Transaction ID)
+  <a class="anchor" href="#gtid-%e5%85%a8%e5%b1%80%e4%ba%8b%e5%8a%a1git-global-transaction-id">#</a>
+</h4>
+<p>组成：server uuid + transaction_id</p>
+<h4 id="server-uuid">
+  server uuid
+  <a class="anchor" href="#server-uuid">#</a>
+</h4>
+<p><code>show status like '%uuid%'</code>  查看uuid</p>
+<table>
+<thead>
+<tr>
+<th>Variable_name</th>
+<th>Value</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wsrep_local_state_uuid</td>
+<td>85ab08a0-2fbc-11eb-b645-67acc08322c2</td>
+<td>集群uuid</td>
+</tr>
+<tr>
+<td>wsrep_gcomm_uuid</td>
+<td>533dbf66-35ca-11eb-89ce-02d6a075f25a</td>
+<td>节点uuid</td>
+</tr>
+<tr>
+<td>wsrep_cluster_state_uuid</td>
+<td>85ab08a0-2fbc-11eb-b645-67acc08322c2</td>
+<td>集群uuid</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transaction_id">
+  transaction_id
+  <a class="anchor" href="#transaction_id">#</a>
+</h4>
+<p><code>show binlog event in 'localhost-binlog.000001'</code>  通过查看binlog日志文件，图中红色框内的就是transaction_id, 指的是pxc集群的transaction_id</p>
+<p><img src="/docs/pxc/image-20201204145205710.png" alt="image-20201204145205710" /></p>
+<p>节点的事务id</p>
+<p><code>show status like 'wsrep_last_committed%'</code>   查看节点的transaction_id</p>
+<p><img src="/docs/pxc/image-20201204145508780.png" alt="image-20201204145508780" /></p>
+<p>通过这个ID可以推断节点同步情况；如有一个节点在wsrep_last_committed = 100的时候宕机。当他启动一段时间后，wsrep_last_committed = 150 ，那么100~150 就是该节点上线来同步的事务id</p>
+<h4 id="pxc-同步流程图">
+  pxc 同步流程图
+  <a class="anchor" href="#pxc-%e5%90%8c%e6%ad%a5%e6%b5%81%e7%a8%8b%e5%9b%be">#</a>
+</h4>
+<p><img src="/docs/pxc/image-20201207103336241.png" alt="image-20201207103336241" /></p>
+<p>问题：</p>
+<ol>
+<li>
+<p>当其他节点接收到GTID之后宕机，那么其他节点Galera返回成功的响应，本地节点Galera正常提交，记录日志数据写入成功，而其他节点由于宕机并没真正写入数据，这是不是说“pxc集群并不是强一致性”。</p>
+<p>pxc在这里还是强一致性的，因为宕机的节点已经不在集群中存活了，重启启动之前不会提供服务，所以并没有什么关系；当宕机节点再次启动后，还是会与集群中的节点进行同步，达到数据的一致性；</p>
+</li>
+<li>
+<p>pxc集群由于网络原因会不会出现读写不一致的问题</p>
+<p>不会，pxc集群是同步发送writeSet和GTID的，如果网络故障Master收不到发送成功的响应是不会进行提交的。</p>
+</li>
+</ol>
+<h4 id="pxc-中锁冲突流程图">
+  pxc 中锁冲突流程图
+  <a class="anchor" href="#pxc-%e4%b8%ad%e9%94%81%e5%86%b2%e7%aa%81%e6%b5%81%e7%a8%8b%e5%9b%be">#</a>
+</h4>
+<p><img src="/docs/pxc/image-20201207104756609.png" alt="image-20201207104756609" /></p>
+<p>有AB两个节点，这两个节点同时操作同一数据时可能引发锁冲突。</p>
+<p>举个例子：</p>
+<p>有AB两节点同时向数据库中的同一张表插入数据，且该表的主键是“自增长”的。且这两个节点同时争抢到主键ID为1的，并向对方发送writeSet，当A还没收到锁冲突的验证结果时，而先收到了B发给他的writeSet，A节点发现主键1自己正在使用，所以A节点会发送锁冲突的响应；同理B节点也可能会发送锁冲突的响应，这样对于主键1，AB两节点均收到锁冲突，而放弃使用；</p>
+<p>这样会造成什么影响呢？</p>
+<p>如在自增长主键的表中，可能会出现主键不连续的情况。这是因为在争抢的过程中，出现上述情况，就会重新争抢新的主键，而放弃了存在冲突的主键值。</p>
+<p>怎么避免这种问题呢？</p>
+<ol>
+<li>不使用自增长主键</li>
+<li>采用MyCat的全局主键</li>
+</ol>
+<h4 id="replication集群">
+  Replication集群
+  <a class="anchor" href="#replication%e9%9b%86%e7%be%a4">#</a>
+</h4>
+<p><img src="/docs/pxc/image-20201207112658070.png" alt="image-20201207112658070" /></p>
+<p>同步数据过程图：</p>
+<p>采用的是 异步机制，Master节点只管自身的数据的插入，并不主动发送数据到其他节点。其他slave节点会开启专用的线程来读取Master节点的binlog日志来进行同步；这样的集群适合读多写少的数据库。</p>
+<h2 id="mysql-5种架构设计">
+  MySQL 5种架构设计
+  <a class="anchor" href="#mysql-5%e7%a7%8d%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">#</a>
+</h2>
+<h3 id="mysql--分布式proxy扩展">
+  MySQL + 分布式Proxy扩展
+  <a class="anchor" href="#mysql--%e5%88%86%e5%b8%83%e5%bc%8fproxy%e6%89%a9%e5%b1%95">#</a>
+</h3>
+<p>PXC 集群</p>
+<p>适用于需要强一致性的系统，如与钱相关的。一般是PXC 集群+ MyCat（中间件） + Haproxy（负载均衡） + keepalived（双机热备）</p>
+<p><img src="/docs/pxc/image-20201208102634238.png" alt="image-20201208102634238" /></p>
+<p>Replication集群</p>
+<p><img src="/docs/pxc/image-20201208103800716.png" alt="image-20201208103800716" /></p>
+<p>PXC + Replication 集群</p>
+<p><img src="/docs/pxc/image-20201208104150727.png" alt="image-20201208104150727" /></p>
+<p>集群表连接查询：</p>
+<ol>
+<li>
+<p>采用同步中间件，把pxc集群的数据同步到replication集群种，再做表连接查询</p>
+</li>
+<li>
+<p>使用类似于kettle先分别从PXC集群和Replication集群获取数据，然后通过kettle来进行连接查询</p>
+</li>
+</ol>
+<h3 id="数据归档冷热数据分离">
+  数据归档，冷热数据分离
+  <a class="anchor" href="#%e6%95%b0%e6%8d%ae%e5%bd%92%e6%a1%a3%e5%86%b7%e7%83%ad%e6%95%b0%e6%8d%ae%e5%88%86%e7%a6%bb">#</a>
+</h3>
+<p>MongoDB  和 TokuDB</p>
+<p><img src="/docs/pxc/image-20201208105830803.png" alt="image-20201208105830803" /></p>
+<p>MongoDB：兼顾读写性能，对于归档数据需要进行查询的场景，推荐使用MongoDB。4.0已支持事务</p>
+<p>TokuDB:  MySQL一种存储引擎，性能比MongoDB 快且是带事务的写入</p>
+<h3 id="mysql--缓存redis高并发架构">
+  MySQL + 缓存（redis）高并发架构
+  <a class="anchor" href="#mysql--%e7%bc%93%e5%ad%98redis%e9%ab%98%e5%b9%b6%e5%8f%91%e6%9e%b6%e6%9e%84">#</a>
+</h3>
+<p>redis 或memcached</p>
+<h3 id="mysql--小文件系统">
+  MySQL + 小文件系统
+  <a class="anchor" href="#mysql--%e5%b0%8f%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f">#</a>
+</h3>
+<p>文件体积大： Hadoop 的 HDFS 文件系统</p>
+<p>文件体积小： MongoDB的GridFS(可以存储图片、语音、短视频灯)，如果文件数据较小如 16m以下，可以使用默认的Binary BSON</p>
+<p><img src="/docs/pxc/image-20201208112516697.png" alt="image-20201208112516697" /></p>
+<h3 id="mysql--inforbright统计分析架构">
+  MySQL + Inforbright统计分析架构
+  <a class="anchor" href="#mysql--inforbright%e7%bb%9f%e8%ae%a1%e5%88%86%e6%9e%90%e6%9e%b6%e6%9e%84">#</a>
+</h3>
+<p>对数据有统计分析的需求时采用</p>
+<p><img src="/docs/pxc/image-20201208112722994.png" alt="image-20201208112722994" /></p>
+<h2 id="mysql-的设计原则">
+  MySQL 的设计原则
+  <a class="anchor" href="#mysql-%e7%9a%84%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99">#</a>
+</h2>
+<p><img src="/docs/pxc/image-20201208141949850.png" alt="image-20201208141949850" /></p>
+<h2 id="mysql-架构的演化">
+  MySQL 架构的演化
+  <a class="anchor" href="#mysql-%e6%9e%b6%e6%9e%84%e7%9a%84%e6%bc%94%e5%8c%96">#</a>
+</h2>
+<p>单体单节点阶段</p>
+<h2 id="pxc-集群的使用">
+  PXC 集群的使用
+  <a class="anchor" href="#pxc-%e9%9b%86%e7%be%a4%e7%9a%84%e4%bd%bf%e7%94%a8">#</a>
+</h2>
+<h3 id="导入数据">
+  导入数据
+  <a class="anchor" href="#%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae">#</a>
+</h3>
+<h4 id="sql文件">
+  sql文件
+  <a class="anchor" href="#sql%e6%96%87%e4%bb%b6">#</a>
+</h4>
+<p><code>source</code> 命令： <code>source test.sql</code></p>
+<p>批量导入sql文件：<code>source all.sql</code>  (先把所有的sql文件的路径，写入到all.sql 中，然后再导入)</p>
+<p><img src="/docs/pxc/image-20201208145210183.png" alt="image-20201208145210183" /></p>
+<p>适用数据不多的情况；</p>
+<p>导入慢的原因：由于MySQL导入sql文件时，需要先对sql语句进行词法分析和分析，然后在继续数据的写入。当数据量过大，也就是sql语句过多，自然就会慢起来。</p>
+<h4 id="文本文件">
+  文本文件
+  <a class="anchor" href="#%e6%96%87%e6%9c%ac%e6%96%87%e4%bb%b6">#</a>
+</h4>
+<p><code>LOAD DATA </code>  纯数据导入，速度快</p>
+<p><code>LOAD DATA LOCAL INFILE 'data.txt' INTO TABLE orders FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '&quot;' LINES TERMINATED BY '\n'</code></p>
+<p>解释：从本地文件data.txt 导入表 orders 中，字段按  “,” 分隔；无视双引号，每行以换行符结束（不同操作系统不同“\n”    “\r\n”）。</p>
+<p>LOAD DATA 为单线程，可以先对data.txt来进行切分，然后采用多个线程来导入（30G 文件 6000万多条数据，大概50分钟即可导入完成）；</p>
+<p><strong>注意</strong> ： 在向MyCat 中间件使用上述命令时，需要在表名后面加上对应的字段</p>
+<p><code>LOAD DATA LOCAL INFILE 'data.txt' INTO TABLE orders(字段1，字段2) FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '&quot;' LINES TERMINATED BY '\n'</code></p>
+<h3 id="准备导入数据">
+  准备导入数据
+  <a class="anchor" href="#%e5%87%86%e5%a4%87%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae">#</a>
+</h3>
+<p>使用熟悉的语言生成1000万条数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;bufio&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> = <span style="color:#ae81ff">10000000</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">generate</span>()  {
+	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;./data.txt&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;create file failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+	<span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewWriter</span>(<span style="color:#a6e22e">file</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">num</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d, 测试数据\n&#34;</span>, <span style="color:#a6e22e">i</span>))  <span style="color:#75715e">// id, name
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">//_, err := file.WriteString(fmt.Sprintf(&#34;%d, 测试数据\n&#34;, i))
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;WriteString failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#66d9ef">continue</span>
+		}
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>()  {
+	<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">generate</span>()
+	<span style="color:#a6e22e">time</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">startTime</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">time</span>)  <span style="color:#75715e">// 耗时 2s
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>切分文件为多份</p>
+<p><code>split -l 1000000 -d data.txt</code></p>
+<h3 id="导入大量数据时mysql配置">
+  导入大量数据时MySQL配置
+  <a class="anchor" href="#%e5%af%bc%e5%85%a5%e5%a4%a7%e9%87%8f%e6%95%b0%e6%8d%ae%e6%97%b6mysql%e9%85%8d%e7%bd%ae">#</a>
+</h3>
+<ol>
+<li>当导入大量数据时，以下配置可以提高导入速度</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cfg" data-lang="cfg"><span style="color:#66d9ef">[mysqld]</span>
+<span style="color:#a6e22e">......</span>
+<span style="color:#75715e"># 正常情况下为事务提交后，日志才写入硬盘，当设置为0后，日志每秒都写入磁盘，与事务是否提交没关系，代表数据库在事务# # 提交之前把日志写入磁盘，免去事务提交后才写入磁盘，提高事务效率。</span>
+<span style="color:#a6e22e">innodb_flush_log_at_trx_commit</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">0  # 不等待提交，直接写入磁盘；</span>
+
+<span style="color:#75715e"># 日志数据直接写入磁盘，而不会写到系统缓冲区。跳过缓冲区，减少CPU和内存的占用</span>
+<span style="color:#a6e22e">innodb_flush_method</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">O_DIRECT</span>
+
+<span style="color:#75715e"># 设置引擎缓冲区的大小，减少写入次数，提高io效率</span>
+<span style="color:#a6e22e">innodb_buffer_pool_size</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">200M</span>
+
+<span style="color:#75715e"># 导入安全设置 =null表示禁用， /home表示仅限于该目录， 空为不做限制 </span>
+<span style="color:#a6e22e">secure_file_priv</span> <span style="color:#f92672">=</span>
+</code></pre></div><ol start="2">
+<li>授予账户导入权限</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">grant</span> file <span style="color:#66d9ef">on</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">admin</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>
+</code></pre></div><ol>
+<li><strong>关闭集群分片节点（保留一个节点）</strong></li>
+</ol>
+<p>PXC集群在导入大量数据时，会导致限流，为了快速导入数据，就不能有限流；所以在导入时，一个pxc集群只开启一个节点，其他节点通过拷贝数据库文件来实现同步；</p>
+<p>我这里保留的节点为： 192.168.145.131（分片1） 和 192.168.145.135（分片2）</p>
+<ol start="3">
+<li>在两个节点上分别创建t_test表；</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">   <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> t_test (
+   	id int <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+       name varchar(<span style="color:#ae81ff">200</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>
+   )
+</code></pre></div><ol start="4">
+<li>
+<p>修改MyCat配置文件</p>
+<p>修改之前记得保存之前的schme.xml文件</p>
+<p><code>cp schema.xml schema.xml_pxc</code></p>
+<p>schema.xml   [192.168.145.131（分片1） 和 192.168.145.135（分片2）]</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">...
+<span style="color:#75715e">&lt;!-- 添加需要进行七分的表，按mod-long切分 --&gt;</span>
+	<span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;t_test&#34;</span> <span style="color:#a6e22e">dataNode=</span><span style="color:#e6db74">&#34;dn1,dn2&#34;</span> <span style="color:#a6e22e">primaryKey=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#a6e22e">rule=</span><span style="color:#e6db74">&#34;mod-long&#34;</span> <span style="color:#f92672">/&gt;</span>	
+
+    <span style="color:#75715e">&lt;!-- 连接信息配置 1--&gt;</span>
+    <span style="color:#f92672">&lt;dataHost</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;cluster1&#34;</span> <span style="color:#a6e22e">maxCon=</span><span style="color:#e6db74">&#34;1000&#34;</span> <span style="color:#a6e22e">minCon=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">balance=</span><span style="color:#e6db74">&#34;0&#34;</span>
+    	<span style="color:#a6e22e">writeType=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">dbType=</span><span style="color:#e6db74">&#34;mysql&#34;</span> <span style="color:#a6e22e">dbDriver=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#a6e22e">switchType=</span><span style="color:#e6db74">&#34;1&#34;</span>  <span style="color:#a6e22e">slaveThreshold=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;heartbeat&gt;</span>select user()<span style="color:#f92672">&lt;/heartbeat&gt;</span>
+        <span style="color:#75715e">&lt;!-- can have multi write hosts --&gt;</span>
+        <span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.131:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span><span style="color:#f92672">&gt;&lt;/writeHost&gt;</span>
+    <span style="color:#f92672">&lt;/dataHost&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- 连接信息配置 2 --&gt;</span>
+    <span style="color:#f92672">&lt;dataHost</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;cluster2&#34;</span> <span style="color:#a6e22e">maxCon=</span><span style="color:#e6db74">&#34;1000&#34;</span> <span style="color:#a6e22e">minCon=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">balance=</span><span style="color:#e6db74">&#34;0&#34;</span>
+    	<span style="color:#a6e22e">writeType=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">dbType=</span><span style="color:#e6db74">&#34;mysql&#34;</span> <span style="color:#a6e22e">dbDriver=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#a6e22e">switchType=</span><span style="color:#e6db74">&#34;1&#34;</span>  <span style="color:#a6e22e">slaveThreshold=</span><span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;heartbeat&gt;</span>select user()<span style="color:#f92672">&lt;/heartbeat&gt;</span>
+        <span style="color:#75715e">&lt;!-- can have multi write hosts --&gt;</span>
+        <span style="color:#f92672">&lt;writeHost</span> <span style="color:#a6e22e">host=</span><span style="color:#e6db74">&#34;W1&#34;</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;192.168.145.135:3306&#34;</span> <span style="color:#a6e22e">user=</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;Mysql123456.&#34;</span><span style="color:#f92672">&gt;&lt;/writeHost&gt;</span>
+    <span style="color:#f92672">&lt;/dataHost&gt;</span>
+...
+</code></pre></div><p>重新启动pxc 和 mycat</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl restart mysql@bootstrap.service
+
+cd /mycat/bin/
+./mycat restart
+</code></pre></div><p>查看集群的情况</p>
+<p><img src="/docs/pxc/image-20201208174726000.png" alt="image-20201208174726000" /></p>
+<h3 id="开始数据导入">
+  开始数据导入
+  <a class="anchor" href="#%e5%bc%80%e5%a7%8b%e6%95%b0%e6%8d%ae%e5%af%bc%e5%85%a5">#</a>
+</h3>
+<p>具体导入请查看 <a href="/docs/pxc/load-data-%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae/">数据批量导入</a></p>
+<h3 id="同步其他节点数据">
+  同步其他节点数据
+  <a class="anchor" href="#%e5%90%8c%e6%ad%a5%e5%85%b6%e4%bb%96%e8%8a%82%e7%82%b9%e6%95%b0%e6%8d%ae">#</a>
+</h3>
+<p>对数据文件进行拷贝来同步其他节点的数据，这样会提高同步的效率，但需要使用 percona 专业的数据打包工具来进行，这边之后再进行研究；</p>
+<p>由于当前数据较少，直接采用pxc集群的全量同步进行。即把之前改动的MyCat记忆Mysql配置部分文件进行还原即可。</p>
+<p>PXC节点(<code>/etc/my.cnf</code>)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/my.cnf
+systemctl restart mysql@bootstrap.service
+</code></pre></div><details >
+  <summary>my.cnf</summary>
+  <div class="markdown-inner">
+    <pre><code>下面三项：使用load data命令导入数据时的配置文件；开启集群后需要删除；
+innodb_flush_log_at_trx_commit = 0
+innodb_flush_method = O_DIRECT
+innodb_buffer_pool_size = 200M
+</code></pre>
+
+  </div>
+</details>
+
+<p>MyCat配置文件(<code>/home/mycat/conf/</code>)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mv schema.xml schema.xml_load_data
+mv schema.xml_pxc schema.xml
+vi schema.xml
+../bin/mycat restart
+</code></pre></div><details >
+  <summary>schema.xml</summary>
+  <div class="markdown-inner">
+    <pre><code>&lt;schema name=&quot;test&quot; checkSQLschema=&quot;false&quot; sqlMaxLimit=&quot;100&quot;&gt;
+    &lt;!-- 增加下方t_test的虚拟表及其分片算法 --&gt;
+    &lt;table name=&quot;t_test&quot; dataNode=&quot;dn1,dn2&quot; primaryKey=&quot;id&quot; rule=&quot;mod-long&quot; /&gt;
+    ...
+&lt;/schema&gt;
+</code></pre>
+  </div>
+</details>
+
+<p>集群同步完成。</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#percona-数据库">Percona 数据库</a>
+      <ul>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#安装">安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#percona-xtradb-cluster-集群">Percona XtraDB Cluster 集群</a>
+      <ul>
+        <li><a href="#准备工作-1">准备工作</a></li>
+        <li><a href="#安装-1">安装</a></li>
+        <li><a href="#初始化工作">初始化工作</a></li>
+        <li><a href="#集群初次启动">集群初次启动</a></li>
+        <li><a href="#集群状态参数">集群状态参数</a></li>
+        <li><a href="#集群的关闭与启动">集群的关闭与启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql集群中间件">MySQL集群中间件</a>
+      <ul>
+        <li><a href="#为什么还需要集群中间件">为什么还需要集群中间件？</a></li>
+        <li><a href="#中间件对比">中间件对比</a></li>
+        <li><a href="#mycat">MyCat</a></li>
+        <li><a href="#mycat集群">MyCat集群</a></li>
+        <li><a href="#部署haproxy">部署Haproxy</a></li>
+        <li><a href="#部署keepalived">部署keepalived</a></li>
+      </ul>
+    </li>
+    <li><a href="#sysbench-基准测试">Sysbench 基准测试</a>
+      <ul>
+        <li><a href="#安装-3">安装</a></li>
+        <li><a href="#sysbench-命令">sysbench 命令</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#tpcc-mysql压力测试">TPCC-MYSQL压力测试</a>
+      <ul>
+        <li><a href="#测试方案">测试方案</a></li>
+        <li><a href="#安装tpcc-mysql">安装tpcc-mysql</a></li>
+      </ul>
+    </li>
+    <li><a href="#pxc-原理">PXC 原理</a>
+      <ul>
+        <li><a href="#了解binlog-日志">了解binlog 日志</a></li>
+        <li><a href="#binlog-日志文件种类">binlog 日志文件种类</a></li>
+        <li><a href="#binlog-日志格式">binlog 日志格式</a></li>
+        <li><a href="#pxc-同步原理">PXC 同步原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql-5种架构设计">MySQL 5种架构设计</a>
+      <ul>
+        <li><a href="#mysql--分布式proxy扩展">MySQL + 分布式Proxy扩展</a></li>
+        <li><a href="#数据归档冷热数据分离">数据归档，冷热数据分离</a></li>
+        <li><a href="#mysql--缓存redis高并发架构">MySQL + 缓存（redis）高并发架构</a></li>
+        <li><a href="#mysql--小文件系统">MySQL + 小文件系统</a></li>
+        <li><a href="#mysql--inforbright统计分析架构">MySQL + Inforbright统计分析架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql-的设计原则">MySQL 的设计原则</a></li>
+    <li><a href="#mysql-架构的演化">MySQL 架构的演化</a></li>
+    <li><a href="#pxc-集群的使用">PXC 集群的使用</a>
+      <ul>
+        <li><a href="#导入数据">导入数据</a></li>
+        <li><a href="#准备导入数据">准备导入数据</a></li>
+        <li><a href="#导入大量数据时mysql配置">导入大量数据时MySQL配置</a></li>
+        <li><a href="#开始数据导入">开始数据导入</a></li>
+        <li><a href="#同步其他节点数据">同步其他节点数据</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

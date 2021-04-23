@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="定时脚本来去更新博客#每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
+先来介绍下cron#ubuntu下的定时任务，能定期执行命令
+开始使用#查看cron是否运行#ps -ef|grep cron
+ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -fubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron# 如果没有运行可以运行# sudo service cron start编写脚本命令#vim pull.sh
+#!/bin/bashcd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库git pullchmod &#43;x ./pull.sh 添加执行权限
+编写定时任务#sudo crontab -e">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Linux定时任务" />
+<meta property="og:description" content="定时脚本来去更新博客#每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
+先来介绍下cron#ubuntu下的定时任务，能定期执行命令
+开始使用#查看cron是否运行#ps -ef|grep cron
+ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -fubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron# 如果没有运行可以运行# sudo service cron start编写脚本命令#vim pull.sh
+#!/bin/bashcd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库git pullchmod &#43;x ./pull.sh 添加执行权限
+编写定时任务#sudo crontab -e" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/" /><meta property="article:section" content="posts" />
+
+
+
+<title>Linux定时任务 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Linux定时任务</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/">Linux定时任务</a>
+  </h1>
+  
+
+
+  
+
+  
+
+
+  <p><h4 id="定时脚本来去更新博客">
+  定时脚本来去更新博客
+  <a class="anchor" href="#%e5%ae%9a%e6%97%b6%e8%84%9a%e6%9c%ac%e6%9d%a5%e5%8e%bb%e6%9b%b4%e6%96%b0%e5%8d%9a%e5%ae%a2">#</a>
+</h4>
+<p>每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令</p>
+<h4 id="先来介绍下cron">
+  先来介绍下cron
+  <a class="anchor" href="#%e5%85%88%e6%9d%a5%e4%bb%8b%e7%bb%8d%e4%b8%8bcron">#</a>
+</h4>
+<p>ubuntu下的定时任务，能定期执行命令</p>
+<h4 id="开始使用">
+  开始使用
+  <a class="anchor" href="#%e5%bc%80%e5%a7%8b%e4%bd%bf%e7%94%a8">#</a>
+</h4>
+<h5 id="查看cron是否运行">
+  查看cron是否运行
+  <a class="anchor" href="#%e6%9f%a5%e7%9c%8bcron%e6%98%af%e5%90%a6%e8%bf%90%e8%a1%8c">#</a>
+</h5>
+<p><code>ps -ef|grep cron</code></p>
+<pre><code>ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cron
+root       970     1  0 Feb28 ?        00:00:21 /usr/sbin/cron -f
+ubuntu   23388  8185  0 22:51 pts/0    00:00:00 grep --color=auto cron
+# 如果没有运行可以运行
+# sudo service cron start
+</code></pre><h4 id="编写脚本命令">
+  编写脚本命令
+  <a class="anchor" href="#%e7%bc%96%e5%86%99%e8%84%9a%e6%9c%ac%e5%91%bd%e4%bb%a4">#</a>
+</h4>
+<p><code>vim pull.sh</code></p>
+<pre><code>#!/bin/bash
+cd /home/ubuntu/blogs/root/  # /home/ubuntu/blogs/root/ 本地仓库
+git pull
+</code></pre><p><code>chmod +x ./pull.sh</code>  添加执行权限</p>
+<h4 id="编写定时任务">
+  编写定时任务
+  <a class="anchor" href="#%e7%bc%96%e5%86%99%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1">#</a>
+</h4>
+<p><code>sudo crontab -e</code></p>
+<pre><code># 一般开始会选择编辑器，一般选择vim就好，对应数字编号
+ubuntu@VM-0-10-ubuntu:~$ sudo crontab -e
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        &lt;---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+</code></pre><pre><code>*/1 * * * * /usr/local/qcloud/stargate/admin/start.sh &gt; /dev/null 2&gt;&amp;1 &amp;
+0 0 * * * /usr/local/qcloud/YunJing/YDCrontab.sh &gt; /dev/null 2&gt;&amp;1 &amp;
+# 每一行表示一个任务，语法如下
+</code></pre><p>crontab 编写语法</p>
+<table>
+<thead>
+<tr>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分（0~59）</td>
+<td>时（0~23）</td>
+<td>天（1~31）</td>
+<td>月（1~12）</td>
+<td>周（0~6）</td>
+<td>命令</td>
+</tr>
+</tbody>
+</table>
+<p>符号：</p>
+<ul>
+<li>“*” 表示任意值</li>
+<li>“，”逗号表示可以填写多哥值，如2，4表示2或者4</li>
+<li>“/”斜线一般配置“*”号使用，代表每隔多长时间</li>
+</ul>
+<p>示例：</p>
+<p>（1）30 20 * * * commad    表示每天的20:30执行命令
+（2）5 20 13,14 * * commad	表示每月的13日，14日20:5分执行命令
+（3）0,10 10,12 * * * commad	表示每天10点至12点之间，隔10分钟执行命令
+（4）/5 * * *  commad	表示每5分钟执行命令</p>
+<p>crontab定期的执行上述编辑的任务</p>
+<p>把上述编写的pull.sh加入文件</p>
+<pre><code># 在每天凌晨6：00进行执行任务 pull.sh
+* 6 * * * /home/ubuntu/blogs/pull.sh
+</code></pre><h4 id="生效">
+  生效
+  <a class="anchor" href="#%e7%94%9f%e6%95%88">#</a>
+</h4>
+<p><code>sudo service cron restart</code> 重启</p>
+</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

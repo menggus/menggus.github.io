@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ubuntu 把软件源修改为国内源和更新#  备份原始文件
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup  修改文件并添加国内源
+vi /etc/apt/sources.list	  注释原文件内的源 并添加如下地址 复制代码
+# Ubuntu 官方源deb http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb-src http://archive.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Ubuntu 软件源" />
+<meta property="og:description" content="ubuntu 把软件源修改为国内源和更新#  备份原始文件
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup  修改文件并添加国内源
+vi /etc/apt/sources.list	  注释原文件内的源 并添加如下地址 复制代码
+# Ubuntu 官方源deb http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb-src http://archive." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Ubuntu 软件源 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle" checked />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class=" active">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Ubuntu 软件源</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ubuntu-把软件源修改为国内源和更新">ubuntu 把软件源修改为国内源和更新</a></li>
+    <li><a href="#国内主要软件源">国内主要软件源</a>
+      <ul>
+        <li><a href="#企业站">企业站</a></li>
+        <li><a href="#教育站">教育站</a></li>
+        <li><a href="#其他">其他</a></li>
+      </ul>
+    </li>
+    <li><a href="#软件版">软件版</a>
+      <ul>
+        <li><a href="#操作系统类">操作系统类</a></li>
+        <li><a href="#服务器类">服务器类</a></li>
+      </ul>
+    </li>
+    <li><a href="#开发工具类">开发工具类</a></li>
+    <li><a href="#官方镜像列表状态地址">官方镜像列表状态地址</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="ubuntu-把软件源修改为国内源和更新">
+  ubuntu 把软件源修改为国内源和更新
+  <a class="anchor" href="#ubuntu-%e6%8a%8a%e8%bd%af%e4%bb%b6%e6%ba%90%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%9b%bd%e5%86%85%e6%ba%90%e5%92%8c%e6%9b%b4%e6%96%b0">#</a>
+</h2>
+<ul>
+<li>
+<p>备份原始文件</p>
+<pre><code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+</code></pre></li>
+<li>
+<p>修改文件并添加国内源</p>
+<pre><code>vi /etc/apt/sources.list	
+</code></pre></li>
+<li>
+<p>注释原文件内的源     并添加如下地址     复制代码</p>
+<pre><code># Ubuntu 官方源
+deb http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiverse
+</code></pre><pre><code># 阿里云
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><pre><code># 网易163
+deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><pre><code># 非官方包可能存在不完整情况，可在尾部添加官方源
+deb http://archive.ubuntu.org.cn/ubuntu-cn/ feisty main restricted universe multiverse
+</code></pre></li>
+<li>
+<p>更新源</p>
+<pre><code>sudo apt-get update
+</code></pre></li>
+<li>
+<p>更新软件</p>
+<p>注意：</p>
+<p>由于包与包之间存在各种依赖关系。upgrade只是简单的更新包，不管这些依赖，它不和添加包，或是删除包。而dist-upgrade可以根据依赖关系的变化，添加包，删除包。upgrade:系统将现有的Package升级,如果有相依性的问题,而此相依性需要安装其它新的Package或影响到其它Package的相依性时,此Package就不会被升级,会保留下来. dist-upgrade:可以聪明的解决相依性的问题,如果有相依性问题,需要安装/移除新的Package,就会试着去安装/移除它. (所以通常这个会被认为是有点风险的升级)</p>
+<pre><code># 谨慎操作
+sudo apt-get dist-upgrade  
+sudo apt-get upgrade
+</code></pre></li>
+<li>
+<p>常见的修复安装命令</p>
+<pre><code>sudo apt-get -f install
+</code></pre></li>
+</ul>
+<hr>
+<h2 id="国内主要软件源">
+  国内主要软件源
+  <a class="anchor" href="#%e5%9b%bd%e5%86%85%e4%b8%bb%e8%a6%81%e8%bd%af%e4%bb%b6%e6%ba%90">#</a>
+</h2>
+<h3 id="企业站">
+  企业站
+  <a class="anchor" href="#%e4%bc%81%e4%b8%9a%e7%ab%99">#</a>
+</h3>
+<pre><code>1.搜狐：http://mirrors.sohu.com/
+2.网易：http://mirrors.163.com/
+3.阿里云：http://mirrors.aliyun.com/
+4.腾讯：http://Android-mirror.bugly.qq.com:8080/（仅针对APP开发的软件，限流，不推荐）
+5.淘宝：http://npm.taobao.org/
+</code></pre><h3 id="教育站">
+  教育站
+  <a class="anchor" href="#%e6%95%99%e8%82%b2%e7%ab%99">#</a>
+</h3>
+<pre><code>1.上海交通大学：http://ftp.sjtu.edu.cn/html/resources.xml（部分移动运营商出口状况不佳，无法访问）
+2.华中科技大学：http://mirror.hust.edu.cn/（当前已用容量估计：4.83T）
+3.清华大学：http://mirrors.tuna.tsinghua.edu.cn/（当前已用容量估计：9.8T）
+4.北京理工大学：http://mirror.bit.edu.cn/web/
+5.兰州大学：http://mirror.lzu.edu.cn/
+6.中国科技大学：http://mirrors.ustc.edu.cn/（当前已用容量估计：21.32T）
+7.大连东软信息学院：http://mirrors.neusoft.edu.cn/（当前已用容量估计：2.5T）
+8.东北大学：http://mirror.neu.edu.cn/
+9.大连理工大学：http://mirror.dlut.edu.cn/
+10.哈尔滨工业大学：http://run.hit.edu.cn/html/（部分联通运营商出口状况不佳，无法访问）
+11.北京交通大学：http://mirror.bjtu.edu.cn/cn/
+12.天津大学：http://mirror.tju.edu.cn（无法访问，ping超时）
+13.中国地质大学：http://mirrors.cug.edu.cn/（当前已用容量估计：2.3T）
+14.浙江大学：http://mirrors.zju.edu.cn/
+15.厦门大学：http://mirrors.xmu.edu.cn/
+16.中山大学：http://mirror.sysu.edu.cn/
+17.重庆大学：http://mirrors.cqu.edu.cn/（当前已用容量估计：3.93T）
+18.北京化工大学：http://Ubuntu.buct.edu.cn/（Android SDK镜像仅供校内使用，当前已用容量估计：1.72T）
+19.南阳理工学院：http://mirror.nyist.edu.cn/
+20.中国科学院：http://www.opencas.org/mirrors/
+21.电子科技大学：http://ubuntu.uestc.edu.cn/（无法访问，ping超时）
+22.电子科技大学星辰工作室：http://mirrors.stuhome.net/（当前已用容量估计：1.08T）
+23.西北农林科技大学：http://mirrors.nwsuaf.edu.cn/（只做CentOS镜像，当前已用容量估计：140GB） 
+24.浙江大学：http://mirrors.zju.edu.cn/
+25.台湾淡江大学: http://ftp.tku.edu.tw/Linux/
+</code></pre><h3 id="其他">
+  其他
+  <a class="anchor" href="#%e5%85%b6%e4%bb%96">#</a>
+</h3>
+<pre><code>1.首都在线科技股份有限公司（英文名Capital Online Data Service）：http://mirrors.yun-idc.com/
+2.中国电信天翼云：http://mirrors.ctyun.cn/
+3.noc.im：http://mirrors.noc.im/（当前已用容量估计：3.74T）
+4.常州贝特康姆软件技术有限公司：http://centos.bitcomm.cn/（只做CentOS镜像，当前已用容量估计：140GB）
+5.公云PubYun（母公司为贝特康姆）：http://mirrors.pubyun.com/
+6.Linux运维派：http://mirrors.skyshe.cn/（使用阿里云服务器，界面使用浙江大学的模板，首页维护，内容可访问）
+7.中国互联网络信息中心：http://mirrors.cnnic.cn/（只做Apache镜像，当前已用容量估计：120GB）
+8.Fayea工作室：http://apache.fayea.com/（只做Apache镜像，当前已用容量估计：120GB）
+9.开源中国社区 http://mirrors.oss.org.cn/
+</code></pre><h2 id="软件版">
+  软件版
+  <a class="anchor" href="#%e8%bd%af%e4%bb%b6%e7%89%88">#</a>
+</h2>
+<h3 id="操作系统类">
+  操作系统类
+  <a class="anchor" href="#%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e7%b1%bb">#</a>
+</h3>
+<pre><code># Ubuntu
+阿里云：http://mirrors.aliyun.com/ubuntu-releases/
+网易：http://mirrors.163.com/ubuntu-releases/
+搜狐：http://mirrors.sohu.com/ubuntu-releases/（搜狐在12年之后似乎不同步了）
+首都在线科技股份有限公司：http://mirrors.yun-idc.com/ubuntu-releases/
+</code></pre><pre><code># CentOS
+网易：http://mirrors.163.com/centos/
+搜狐：http://mirrors.sohu.com/centos/
+阿里云：http://mirrors.aliyun.com/centos/
+</code></pre><h3 id="服务器类">
+  服务器类
+  <a class="anchor" href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%b1%bb">#</a>
+</h3>
+<pre><code># Apache
+中国互联网络信息中心：http://mirrors.cnnic.cn/apache/
+华中科技大学：http://mirrors.hust.edu.cn/apache/
+北京理工大学：http://mirror.bit.edu.cn/apache/
+</code></pre><pre><code># MySQL
+北京理工大学：http://mirror.bit.edu.cn/mysql/Downloads/
+中国电信天翼云：http://mirrors.ctyun.cn/Mysql/
+</code></pre><pre><code># PostgreSQL
+浙江大学：http://mirrors.zju.edu.cn/postgresql/
+</code></pre><pre><code># MariaDB
+中国电信天翼云：http://mirrors.ctyun.cn/MariaDB/
+</code></pre><pre><code># VideoLAN
+大连东软信息学院：http://mirrors.neusoft.edu.cn/videolan/
+中国科技大学：http://mirrors.ustc.edu.cn/videolan-ftp/
+</code></pre><h2 id="开发工具类">
+  开发工具类
+  <a class="anchor" href="#%e5%bc%80%e5%8f%91%e5%b7%a5%e5%85%b7%e7%b1%bb">#</a>
+</h2>
+<pre><code># Eclipse
+中国科技大学：http://mirrors.ustc.edu.cn/eclipse/
+中国科学院：http://mirrors.opencas.cn/eclipse/
+东北大学：http://ftp.neu.edu.cn/mirrors/eclipse/，http://mirror.neu.edu.cn/eclipse/
+</code></pre><pre><code># 安卓SDK
+中国科学院：http://mirrors.opencas.ac.cn/android/repository/
+南洋理工学院：http://mirror.nyist.edu.cn/android/repository/
+中国科学院：http://mirrors.opencas.cn/android/repository/
+腾讯：http://android-mirror.bugly.qq.com:8080/android/repository/（限流，不推荐）
+大连东软信息学院：http://mirrors.neusoft.edu.cn/android/repository/（同步效果不如中科院的镜像，不推荐）
+</code></pre><pre><code># Xcode
+腾讯：http://android-mirror.bugly.qq.com:8080/Xcode/（从7.2之后不再更新，建议直接从官网下载）
+</code></pre><h2 id="官方镜像列表状态地址">
+  官方镜像列表状态地址
+  <a class="anchor" href="#%e5%ae%98%e6%96%b9%e9%95%9c%e5%83%8f%e5%88%97%e8%a1%a8%e7%8a%b6%e6%80%81%e5%9c%b0%e5%9d%80">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">CentOS<span style="color:#960050;background-color:#1e0010">：</span>http:<span style="color:#f92672">//</span>mirror<span style="color:#f92672">-</span>status<span style="color:#f92672">.</span>centos<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span><span style="color:#75715e">#cn</span>
+Archlinux<span style="color:#960050;background-color:#1e0010">：</span>https:<span style="color:#f92672">//</span>www<span style="color:#f92672">.</span>archlinux<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>mirrors<span style="color:#f92672">/</span>status<span style="color:#f92672">/</span>
+Ubuntu<span style="color:#960050;background-color:#1e0010">：</span>https:<span style="color:#f92672">//</span>launchpad<span style="color:#f92672">.</span>net<span style="color:#f92672">/</span>ubuntu<span style="color:#f92672">/+</span>cdmirrors
+Debian<span style="color:#960050;background-color:#1e0010">：</span>http:<span style="color:#f92672">//</span>mirror<span style="color:#f92672">.</span>debian<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>status<span style="color:#f92672">.</span>html
+Fedora Linux<span style="color:#f92672">/</span>Fedora EPEL<span style="color:#960050;background-color:#1e0010">：</span>https:<span style="color:#f92672">//</span>admin<span style="color:#f92672">.</span>fedoraproject<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>mirrormanager<span style="color:#f92672">/</span>mirrors
+Apache<span style="color:#960050;background-color:#1e0010">：</span>http:<span style="color:#f92672">//</span>www<span style="color:#f92672">.</span>apache<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>mirrors<span style="color:#f92672">/</span><span style="color:#75715e">#cn</span>
+Cygwin<span style="color:#960050;background-color:#1e0010">：</span>https:<span style="color:#f92672">//</span>www<span style="color:#f92672">.</span>cygwin<span style="color:#f92672">.</span>com<span style="color:#f92672">/</span>mirrors<span style="color:#f92672">.</span>html
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ubuntu-把软件源修改为国内源和更新">ubuntu 把软件源修改为国内源和更新</a></li>
+    <li><a href="#国内主要软件源">国内主要软件源</a>
+      <ul>
+        <li><a href="#企业站">企业站</a></li>
+        <li><a href="#教育站">教育站</a></li>
+        <li><a href="#其他">其他</a></li>
+      </ul>
+    </li>
+    <li><a href="#软件版">软件版</a>
+      <ul>
+        <li><a href="#操作系统类">操作系统类</a></li>
+        <li><a href="#服务器类">服务器类</a></li>
+      </ul>
+    </li>
+    <li><a href="#开发工具类">开发工具类</a></li>
+    <li><a href="#官方镜像列表状态地址">官方镜像列表状态地址</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

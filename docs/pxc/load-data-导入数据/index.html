@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LOAD DATA批量导入数据#导入环境#mycat &#43; pxc
+mycat：数据切分
+pxc：两个分片，每个分片只开启一个节点。（对于其他节点的数据同步，采用直接拷贝方式）
+数据源#采用golang编写，生成1000万行的简单数据，数据采用文本方式存储；
+1,测试数据2,测试数据3,测试数据...10000000,测试数据数据库表
+CREATE TABLE t_test ( id int NOT NULL, name varchar(200) NOT NULL, PRIMARY KEY (&#39;id&#39;) ) code
+/* 生成导入到数据库的数据； 对应数据库表字段 id name */ package main import ( &#34;bufio&#34; &#34;fmt&#34; &#34;os&#34; &#34;time&#34; ) const num = 10000000 func generate() { file, err := os.Create(&#34;./data.txt&#34;) if err != nil { fmt.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Load Data 数据导入" />
+<meta property="og:description" content="LOAD DATA批量导入数据#导入环境#mycat &#43; pxc
+mycat：数据切分
+pxc：两个分片，每个分片只开启一个节点。（对于其他节点的数据同步，采用直接拷贝方式）
+数据源#采用golang编写，生成1000万行的简单数据，数据采用文本方式存储；
+1,测试数据2,测试数据3,测试数据...10000000,测试数据数据库表
+CREATE TABLE t_test ( id int NOT NULL, name varchar(200) NOT NULL, PRIMARY KEY (&#39;id&#39;) ) code
+/* 生成导入到数据库的数据； 对应数据库表字段 id name */ package main import ( &#34;bufio&#34; &#34;fmt&#34; &#34;os&#34; &#34;time&#34; ) const num = 10000000 func generate() { file, err := os.Create(&#34;./data.txt&#34;) if err != nil { fmt." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Load Data 数据导入 | Kit&#39;s Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8bad3b2b741f6187cddddabd99a311bedd73dfc468fb9de3365833b83ca1e101.js" integrity="sha256-i607K3QfYYfN3dq9maMRvt1z38Ro&#43;53jNlgzuDyh4QE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang 基础</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle" checked />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class=" active">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Load Data 数据导入</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#导入环境">导入环境</a></li>
+    <li><a href="#数据源">数据源</a></li>
+    <li><a href="#导入程序">导入程序</a></li>
+    <li><a href="#导入测试">导入测试</a>
+      <ul>
+        <li><a href="#sqldb采用默认设置">sql.DB采用默认设置</a></li>
+        <li><a href="#对sqldb进行配置">对sql.DB进行配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="load-data批量导入数据">
+  LOAD DATA批量导入数据
+  <a class="anchor" href="#load-data%e6%89%b9%e9%87%8f%e5%af%bc%e5%85%a5%e6%95%b0%e6%8d%ae">#</a>
+</h1>
+<h2 id="导入环境">
+  导入环境
+  <a class="anchor" href="#%e5%af%bc%e5%85%a5%e7%8e%af%e5%a2%83">#</a>
+</h2>
+<p>mycat + pxc</p>
+<p>mycat：数据切分</p>
+<p>pxc：两个分片，每个分片只开启一个节点。（对于其他节点的数据同步，采用直接拷贝方式）</p>
+<h2 id="数据源">
+  数据源
+  <a class="anchor" href="#%e6%95%b0%e6%8d%ae%e6%ba%90">#</a>
+</h2>
+<p>采用golang编写，生成1000万行的简单数据，数据采用文本方式存储；</p>
+<pre><code>1,测试数据
+2,测试数据
+3,测试数据
+...
+10000000,测试数据
+</code></pre><p>数据库表</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> t_test (
+	id int <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    name varchar(<span style="color:#ae81ff">200</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#e6db74">&#39;id&#39;</span>)
+)
+</code></pre></div><p>code</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/*
+</span><span style="color:#75715e">	生成导入到数据库的数据；
+</span><span style="color:#75715e">	对应数据库表字段  id  name
+</span><span style="color:#75715e">*/</span>
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;bufio&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">num</span> = <span style="color:#ae81ff">10000000</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">generate</span>()  {
+	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;./data.txt&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;create file failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+	<span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewWriter</span>(<span style="color:#a6e22e">file</span>)  <span style="color:#75715e">// 建立缓冲，减少IO次数，提高效率
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">num</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d,测试数据\n&#34;</span>, <span style="color:#a6e22e">i</span>)) 
+		<span style="color:#75715e">//_, err := file.WriteString(fmt.Sprintf(&#34;%d, 测试数据\n&#34;, i))  // 这种无缓冲方式较慢
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;WriteString failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+	}
+	<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Flush</span>()  <span style="color:#75715e">// 注意，由于文件长度刚好不是默认缓冲的整数倍，所以n次写入后，需要主动写入不足缓冲大小的字节数；
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>()  {
+	<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">generate</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">startTime</span>))  <span style="color:#75715e">// 打印一下耗时，一般大概2s样子
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>切分数据，准备多个数据（批量导入）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">split -l <span style="color:#ae81ff">1000000</span> -d data.txt  
+<span style="color:#75715e"># 1000万数据按每100万来划分</span>
+<span style="color:#75715e"># x00 x01 x02 x03 x04 x05 x06 x07 x08 x09  共10个文件</span>
+</code></pre></div><h2 id="导入程序">
+  导入程序
+  <a class="anchor" href="#%e5%af%bc%e5%85%a5%e7%a8%8b%e5%ba%8f">#</a>
+</h2>
+<p>导入数据使用命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> <span style="color:#66d9ef">LOCAL</span> INFILE <span style="color:#e6db74">&#34;data.txt&#34;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">table_name</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> OPTIONALLY ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span> LINES TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\\n&#39;</span>
+
+<span style="color:#75715e">-- data.txt 数据文件
+</span><span style="color:#75715e">-- table_name  表名
+</span><span style="color:#75715e">-- &#39;,&#39; 分隔符
+</span><span style="color:#75715e">-- &#39;\&#34;&#39; 忽略 双引号
+</span><span style="color:#75715e">-- &#39;\\n&#39; 换行
+</span></code></pre></div><p>采用golang编写导入数据的程序</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">/*
+</span><span style="color:#75715e">	导入数据到 mysql
+</span><span style="color:#75715e">	使用多个goroutine同时导入
+</span><span style="color:#75715e">*/</span>
+<span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;database/sql&#34;</span>
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/go-sql-driver/mysql&#34;</span>
+	<span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;path/filepath&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">dir</span> <span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#75715e">// 通过参数获取文件夹路径
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">dir</span>, <span style="color:#e6db74">&#34;path&#34;</span>, <span style="color:#e6db74">&#34;.\\&#34;</span>, <span style="color:#e6db74">&#34;指定目录路径&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Usage</span> = <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprint</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">`load:
+</span><span style="color:#e6db74">  这是使用多线程通过MySQL的LOAD DATA命令导入数据
+</span><span style="color:#e6db74">  数据源通过指定目录或者把该程序移植到数据源当前目录
+</span><span style="color:#e6db74">Usage:
+</span><span style="color:#e6db74">`</span>)
+		<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">PrintDefaults</span>()
+	}
+}
+
+<span style="color:#75715e">// initDB: 初始化数据连接
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">initDB</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#75715e">// dsn (database source name)  数据源
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//dsn := &#34;admin:Mysql123456.@tcp(192.168.145.134:8066)/test&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dsn</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;admin:Mysql123456.@tcp(192.168.145.139:3306)/test&#34;</span>
+	<span style="color:#75715e">// open 验证参数是否正确，并不会建立实际的连接，db是一个连接对象，存储连接过程需要的相关信息
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;mysql&#34;</span>, <span style="color:#a6e22e">dsn</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#75715e">// 检测连接源dsn是否真实有效
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Ping</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;[%s] dsn not aviliable: [%v]\n&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Format</span>(<span style="color:#e6db74">&#34;2006-01-02 15:04:05&#34;</span>), <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxOpenConns</span>(<span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 设置连接池最大打开连接数
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxIdleConns</span>(<span style="color:#ae81ff">0</span>)  <span style="color:#75715e">// 设置连接池中最大空闲连接
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetConnMaxLifetime</span>(<span style="color:#ae81ff">5</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>)  <span style="color:#75715e">// 设置连接的最大生成时间，超过该时间不可重用
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">loading</span>(<span style="color:#a6e22e">filePath</span> <span style="color:#66d9ef">string</span>)  {
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">filePath</span>)
+	<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">RegisterLocalFile</span>(<span style="color:#a6e22e">filePath</span>)
+	<span style="color:#a6e22e">sql_</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;LOAD DATA LOCAL INFILE &#39;&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">filePath</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;&#39; INTO TABLE t_test(id, name) FIELDS TERMINATED BY &#39;,&#39; OPTIONALLY ENCLOSED BY &#39;\&#34;&#39; LINES TERMINATED BY &#39;\\n&#39;&#34;</span>
+	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#a6e22e">sql_</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#75715e">// 如果导入失败，如连接意外断开怎么重新恢复，再次导入
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;load file[%s] failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Base</span>(<span style="color:#a6e22e">filePath</span>), <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;file[%s] 数据导入完成....\n&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Base</span>(<span style="color:#a6e22e">filePath</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>()  {
+	<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#75715e">// 初始化 db
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">initDB</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span>{
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;init db failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#75715e">// 获取到导入文件的路径
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">files</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadDir</span>(<span style="color:#a6e22e">dir</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;read file list failed:[%v]\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#75715e">// 遍历所有的文件，开启goroutine来执行导入数据
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">files</span> {
+		<span style="color:#a6e22e">path</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dir</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\\\\&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Name</span>()    <span style="color:#75715e">// 这里注意再windows下的路径 \ \\
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 如果文件夹目录下存在其他的文件时？ 如：load.exe
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">path</span>, <span style="color:#e6db74">&#34;.exe&#34;</span>) {
+			<span style="color:#66d9ef">continue</span>
+		}
+       
+        <span style="color:#75715e">// 开启一个goroutine执行导入
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">loading</span>(<span style="color:#a6e22e">path</span>)
+	}
+	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()  <span style="color:#75715e">// 等待所有goroutine结束
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;总耗时:&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">startTime</span>))
+}
+</code></pre></div><h2 id="导入测试">
+  导入测试
+  <a class="anchor" href="#%e5%af%bc%e5%85%a5%e6%b5%8b%e8%af%95">#</a>
+</h2>
+<h3 id="sqldb采用默认设置">
+  sql.DB采用默认设置
+  <a class="anchor" href="#sqldb%e9%87%87%e7%94%a8%e9%bb%98%e8%ae%a4%e8%ae%be%e7%bd%ae">#</a>
+</h3>
+<p>对sql.DB对象不进行任何的设置，即采用默认设置来导入。</p>
+<pre><code>load file[x03] failed:[Error 1152: Connection {DataHost[192.168.145.135:3306],Schema[test],threadID[430]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+load file[x02] failed:[Error 1152: Connection {DataHost[192.168.145.135:3306],Schema[test],threadID[432]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+[mysql] 2020/12/21 17:26:28 packets.go:427: busy buffer
+load file[x00] failed:[commands out of sync. You can't run this command now]
+load file[x08] failed:[Error 1152: Connection {DataHost[192.168.145.131:3306],Schema[test],threadID[418]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+load file[x06] failed:[Error 1152: Connection {DataHost[192.168.145.135:3306],Schema[test],threadID[428]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+load file[x01] failed:[Error 1152: Connection {DataHost[192.168.145.135:3306],Schema[test],threadID[433]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+load file[x07] failed:[Error 1152: Connection {DataHost[192.168.145.131:3306],Schema[test],threadID[409]} was closed ,reason is [err:java.io.IOException: Broken pipe]]
+load file[x04] failed:[Error 1152: Backend connect Error, Connection{DataHost[192.168.145.135:3306],Schema[test]} refused]
+2020/12/21 17:30:10 file[x09] 数据导入完成....
+load file[x05] failed:[Error 1105: Backend connect Error, Connection{DataHost[192.168.145.135:3306],Schema[test]} refused]
+总耗时： 11m9.7511593s
+</code></pre><p>1000万 条数据 导入成功 200万 条；</p>
+<p>上述日志：连接被关闭，造成MyCat中报IO异常；可能由于虚拟机的配置太低不能应对大批量数据的导入；限制同时进行导入连接数量；</p>
+<h3 id="对sqldb进行配置">
+  对sql.DB进行配置
+  <a class="anchor" href="#%e5%af%b9sqldb%e8%bf%9b%e8%a1%8c%e9%85%8d%e7%bd%ae">#</a>
+</h3>
+<p>1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 设置 sql.DB
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxOpenConns</span>(<span style="color:#ae81ff">5</span>)  <span style="color:#75715e">// 设置连接池最大打开连接数
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxIdleConns</span>(<span style="color:#ae81ff">2</span>)  <span style="color:#75715e">// 设置连接池中最大空闲连接
+</span></code></pre></div><p>出现<strong>超时</strong>以及<strong>管道断开</strong>等现象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">load file<span style="color:#66d9ef">[x00]</span> failed<span style="color:#960050;background-color:#1e0010">:</span>[Error 1152<span style="color:#960050;background-color:#1e0010">:</span> Connection {DataHost[192.168.145.135<span style="color:#960050;background-color:#1e0010">:</span>3306],Schema<span style="color:#66d9ef">[test],threadID[446]</span>} was closed ,reason is [err<span style="color:#960050;background-color:#1e0010">:</span>java.io.IOException<span style="color:#960050;background-color:#1e0010">:</span> Broken pipe]]
+load file<span style="color:#66d9ef">[x02]</span> failed<span style="color:#960050;background-color:#1e0010">:</span>[Error 1152<span style="color:#960050;background-color:#1e0010">:</span> Connection {DataHost[192.168.145.135<span style="color:#960050;background-color:#1e0010">:</span>3306],Schema<span style="color:#66d9ef">[test],threadID[447]</span>} was closed ,reason is <span style="color:#66d9ef">[sql timeout]]</span>
+load file<span style="color:#66d9ef">[x06]</span> failed<span style="color:#960050;background-color:#1e0010">:</span>[Error 1152<span style="color:#960050;background-color:#1e0010">:</span> Connection {DataHost[192.168.145.131<span style="color:#960050;background-color:#1e0010">:</span>3306],Schema<span style="color:#66d9ef">[test],threadID[427]</span>} was closed ,reason is [err<span style="color:#960050;background-color:#1e0010">:</span>java.io.IOException<span style="color:#960050;background-color:#1e0010">:</span> Broken pipe]]
+load file<span style="color:#66d9ef">[x03]</span> failed<span style="color:#960050;background-color:#1e0010">:</span>[Error 1152<span style="color:#960050;background-color:#1e0010">:</span> Connection {DataHost[192.168.145.131<span style="color:#960050;background-color:#1e0010">:</span>3306],Schema<span style="color:#66d9ef">[test],threadID[426]</span>} was closed ,reason is [err<span style="color:#960050;background-color:#1e0010">:</span>java.io.IOException<span style="color:#960050;background-color:#1e0010">:</span> Broken pipe]]
+</code></pre></div><p>2</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 设置 sql.DB
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxOpenConns</span>(<span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 设置连接池最大打开连接数
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxIdleConns</span>(<span style="color:#ae81ff">1</span>)  <span style="color:#75715e">// 设置连接池中最大空闲连接
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>mysql<span style="color:#f92672">]</span> 2020/12/22 10:14:33 packets.go:36: unexpected EOF
+load file<span style="color:#f92672">[</span>x09<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>invalid connection<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>mysql<span style="color:#f92672">]</span> 2020/12/22 10:14:33 packets.go:36: unexpected EOF
+load file<span style="color:#f92672">[</span>x01<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>invalid connection<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>mysql<span style="color:#f92672">]</span> 2020/12/22 10:14:33 packets.go:36: unexpected EOF
+load file<span style="color:#f92672">[</span>x04<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>invalid connection<span style="color:#f92672">]</span>
+load file<span style="color:#f92672">[</span>x03<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>dial tcp 192.168.145.134:8066: connectex: No connection could be made because the target machine actively refused it.<span style="color:#f92672">]</span>
+load file<span style="color:#f92672">[</span>x07<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>dial tcp 192.168.145.134:8066: connectex: No connection could be made because the target machine actively refused it.<span style="color:#f92672">]</span>
+load file<span style="color:#f92672">[</span>x06<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>dial tcp 192.168.145.134:8066: connectex: No connection could be made because the target machine actively refused it.<span style="color:#f92672">]</span>
+load file<span style="color:#f92672">[</span>x00<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>dial tcp 192.168.145.134:8066: connectex: No connection could be made because the target machine actively refused it.<span style="color:#f92672">]</span>
+</code></pre></div><p>3</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxOpenConns</span>(<span style="color:#ae81ff">3</span>)  <span style="color:#75715e">// 设置连接池最大打开连接数
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">SetMaxIdleConns</span>(<span style="color:#ae81ff">0</span>)  <span style="color:#75715e">// 设置连接池中最大空闲连接
+</span></code></pre></div><p>只有一个X09 文件的导入出现如下问题：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">2020/12/22 10:49:24 sql res: &lt;nil&gt;
+load file<span style="color:#f92672">[</span>x09<span style="color:#f92672">]</span> failed:<span style="color:#f92672">[</span>commands out of sync. You can<span style="color:#960050;background-color:#1e0010">&#39;</span>t run this command now<span style="color:#f92672">]</span>
+</code></pre></div><p>到这里 1000万数据全部导入成功。</p>
+<p>使用3个连接去导入数据，并且这三个连接每导入完成即进行关闭（不保留空闲连接）</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#导入环境">导入环境</a></li>
+    <li><a href="#数据源">数据源</a></li>
+    <li><a href="#导入程序">导入程序</a></li>
+    <li><a href="#导入测试">导入测试</a>
+      <ul>
+        <li><a href="#sqldb采用默认设置">sql.DB采用默认设置</a></li>
+        <li><a href="#对sqldb进行配置">对sql.DB进行配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
