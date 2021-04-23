@@ -7,6 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://menggus.github.io/docs/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title></title>
+      <link>http://menggus.github.io/docs/golang/go-%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/docs/golang/go-%E5%9F%BA%E7%A1%80/</guid>
+      <description>关键字#25个关键字
+ break default func interface selectcase defer go map structchan else goto package switchconst fallthrough if range typecontinue for import return var37个保留字
+Constants:	true false iota nilTypes:	int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptrfloat32 float64 complex128 complex64bool byte rune string errorFunctions:	make len cap new append copy close deletecomplex real imagpanic recover变量# WARNING</description>
+    </item>
+    
+    <item>
       <title>多平台交叉编译</title>
       <link>http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
