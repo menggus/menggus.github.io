@@ -62,6 +62,19 @@ firewall-cmd --reload 重新导入配置
     </item>
     
     <item>
+      <title>Remote Procedure Call</title>
+      <link>http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/</guid>
+      <description>Remote Procedure Call （RPC）#using Go RabbitMQ client
+In the second tutorial we learned how to use Work Queues to distribute time-consuming tasks among multiple workers.
+在第二个教程中，我们学习了怎么使用 Work Queues 在多个工作人员之间分配耗时任务。
+But what if we need to run a function on a remote computer and wait for the result? Well, that&amp;rsquo;s a different story. This pattern is commonly known as Remote Procedure Call or RPC.
+但是，如果我们需要在远程计算机运行一个函数并等待结果呢？好吧，那就另当别论。此模式通常称为 Remote Procedure Call 或 RPC （远程过程调用）。</description>
+    </item>
+    
+    <item>
       <title>Ubuntu 软件源</title>
       <link>http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

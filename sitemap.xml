@@ -4,6 +4,8 @@
   <url>
     <loc>http://menggus.github.io/docs/golang/</loc>
   </url><url>
+    <loc>http://menggus.github.io/docs/rabbitmq/</loc>
+  </url><url>
     <loc>http://menggus.github.io/docs/pxc/</loc>
   </url><url>
     <loc>http://menggus.github.io/posts/</loc>
@@ -23,6 +25,8 @@
     <loc>http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</loc>
   </url><url>
     <loc>http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/</loc>
+  </url><url>
+    <loc>http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/</loc>
   </url><url>
     <loc>http://menggus.github.io/tags/</loc>
   </url><url>

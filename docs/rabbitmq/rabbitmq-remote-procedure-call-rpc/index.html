@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="generator" content="Hugo 0.82.1" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Remote Procedure Call （RPC）#using Go RabbitMQ client
+In the second tutorial we learned how to use Work Queues to distribute time-consuming tasks among multiple workers.
+在第二个教程中，我们学习了怎么使用 Work Queues 在多个工作人员之间分配耗时任务。
+But what if we need to run a function on a remote computer and wait for the result? Well, that&rsquo;s a different story. This pattern is commonly known as Remote Procedure Call or RPC.
+但是，如果我们需要在远程计算机运行一个函数并等待结果呢？好吧，那就另当别论。此模式通常称为 Remote Procedure Call 或 RPC （远程过程调用）。">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Remote Procedure Call" />
+<meta property="og:description" content="Remote Procedure Call （RPC）#using Go RabbitMQ client
+In the second tutorial we learned how to use Work Queues to distribute time-consuming tasks among multiple workers.
+在第二个教程中，我们学习了怎么使用 Work Queues 在多个工作人员之间分配耗时任务。
+But what if we need to run a function on a remote computer and wait for the result? Well, that&rsquo;s a different story. This pattern is commonly known as Remote Procedure Call or RPC.
+但是，如果我们需要在远程计算机运行一个函数并等待结果呢？好吧，那就另当别论。此模式通常称为 Remote Procedure Call 或 RPC （远程过程调用）。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Remote Procedure Call | Kit&#39;s Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.721f29da2eb5c25c908bb8ec2fa0438943b01b337d39345ed627a29727bdb14a.js" integrity="sha256-ch8p2i61wlyQi7jsL6BDiUOwGzN9OTRe1ieilye9sUo="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E5%9F%BA%E7%A1%80/" class="">Go 基础</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle" checked />
+    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class=" active">Remote Procedure Call</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+      <span>▾</span>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Remote Procedure Call</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#callback-queue">Callback queue</a></li>
+    <li><a href="#correlation-id-关联-id">Correlation Id （关联 id）</a></li>
+    <li><a href="#summary">Summary</a>
+      <ul>
+        <li><a href="#putting-it-all-together">Putting it all together</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="remote-procedure-call-rpc">
+  Remote Procedure Call （RPC）
+  <a class="anchor" href="#remote-procedure-call-rpc">#</a>
+</h1>
+<p>using Go RabbitMQ client</p>
+<p>In the <a href="https://www.rabbitmq.com/tutorials/tutorial-two-go.html">second tutorial</a> we learned how to use <em>Work Queues</em> to distribute time-consuming tasks among multiple workers.</p>
+<p>在第二个教程中，我们学习了怎么使用 Work Queues 在多个工作人员之间分配耗时任务。</p>
+<p>But what if we need to run a function on a remote computer and wait for the result? Well, that&rsquo;s a different story. This pattern is commonly known as <em>Remote Procedure Call</em> or <em>RPC</em>.</p>
+<p>但是，如果我们需要在远程计算机运行一个函数并等待结果呢？好吧，那就另当别论。此模式通常称为 Remote Procedure Call 或 RPC （远程过程调用）。</p>
+<p>In this tutorial we&rsquo;re going to use RabbitMQ to build an RPC system: a client and a scalable RPC server. As we don&rsquo;t have any time-consuming tasks that are worth distributing, we&rsquo;re going to create a dummy RPC service that returns Fibonacci numbers.</p>
+<p>在这个教程中我们将使用 RabbitMQ 来构建一个 RPC 系统：一个客户端和一个可扩展的RPC服务器。由于我们没有任何值得分发的耗时任务，我们将创建一个虚拟 RPC 服务，它返回一个 Fibonacci（斐波拉契数）。</p>
+<blockquote>
+<p>A note on RPC</p>
+<p>关于RPC说明</p>
+<p>Although RPC is a pretty common pattern in computing, it&rsquo;s often criticised. The problems arise when a programmer is not aware whether a function call is local or if it&rsquo;s a slow RPC. Confusions like that result in an unpredictable system and adds unnecessary complexity to debugging. Instead of simplifying software, misused RPC can result in unmaintainable spaghetti code.</p>
+<p>尽管 RPC 是在计算中非常普遍的模式，但它经常受到批评。当一个程序员不知道一个函数调用是本地还是一个慢的RPC时，就会出现问题。这样的混乱会导致系统变幻莫测，并给调试增加了不必要的复杂性。滥用RPC可能会导致无法维护的意大利面条代码，而不是简化软件。</p>
+<p>Bearing that in mind, consider the following advice:</p>
+<p>考虑到这一点，请考虑以下建议：</p>
+<ul>
+<li>Make sure it&rsquo;s obvious which function call is local and which is remote.</li>
+<li>确保函数本地调用和远程调用是明显的</li>
+<li>Document your system. Make the dependencies between components clear.</li>
+<li>记录您的系统，使组件之间依赖关系清晰明了</li>
+<li>Handle error cases. How should the client react when the RPC server is down for a long time?</li>
+<li>处理错误情况。当RPC服务器宕机很长时间，客户端应该如何响应。</li>
+</ul>
+<p>When in doubt avoid RPC. If you can, you should use an asynchronous pipeline - instead of RPC-like blocking, results are asynchronously pushed to a next computation stage.</p>
+<p>在有疑问时避免 RPC。如果可以，你应该使用异步管道&ndash;代替类似 RPC的阻塞，结果将被异步推送到下一个计算阶段。</p>
+</blockquote>
+<h2 id="callback-queue">
+  Callback queue
+  <a class="anchor" href="#callback-queue">#</a>
+</h2>
+<p>In general doing RPC over RabbitMQ is easy. A client sends a request message and a server replies with a response message. In order to receive a response we need to send a &lsquo;callback&rsquo; queue address with the request. We can use the default queue. Let&rsquo;s try it:</p>
+<p>通常，通过RabbitMQ进行 RPC 很容易。一个客户端发送一个请求消息，服务器回复一个响应消息。为了接受响应，我们需要随请求发送一个 &lsquo;callback&rsquo; 队列地址。我们能使用默认的队列，让我们试试吧：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">QueueDeclare</span>(
+  <span style="color:#e6db74">&#34;&#34;</span>,    <span style="color:#75715e">// name  队列名字
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// durable  持久
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// delete when unused 未使用是否删除
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">true</span>,  <span style="color:#75715e">// exclusive 是否独占
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// noWait  等待与否
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">nil</span>,   <span style="color:#75715e">// arguments 
+</span><span style="color:#75715e"></span>)
+
+<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Publish</span>(
+  <span style="color:#e6db74">&#34;&#34;</span>,          <span style="color:#75715e">// exchange  交易所
+</span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#34;rpc_queue&#34;</span>, <span style="color:#75715e">// routing key  路由秘钥
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// mandatory  强制的
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// immediate  立即
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">amqp</span>.<span style="color:#a6e22e">Publishing</span>{
+    <span style="color:#a6e22e">ContentType</span>:   <span style="color:#e6db74">&#34;text/plain&#34;</span>,  <span style="color:#75715e">// 内容类型
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">CorrelationId</span>: <span style="color:#a6e22e">corrId</span>,        <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ReplyTo</span>:       <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Name</span>,
+    <span style="color:#a6e22e">Body</span>:          []byte(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">n</span>)),
+})
+</code></pre></div><blockquote>
+<p>Message properties 消息属性</p>
+<p>The AMQP 0-9-1 protocol predefines a set of 14 properties that go with a message. Most of the properties are rarely used, with the exception of the following:</p>
+<p>AMQP 0-9-1 协议预定义了消息附带的 14个属性集。 除了以下属性外，大多数属性都很少使用：</p>
+<ul>
+<li>
+<p>persistent: Marks a message as persistent (with a value of true) or transient (false). You may remember this property from <a href="https://www.rabbitmq.com/tutorials/tutorial-two-go.html">the second tutorial</a>.</p>
+<p>persistent: 标记一个消息是持久的（值：true）或 瞬时的（值：false）。您可能还记得第二个教程中的此属性。</p>
+</li>
+<li>
+<p>content_type: Used to describe the mime-type of the encoding. For example for the often used JSON encoding it is a good practice to set this property to: application/json.</p>
+<p>content_type：常常描述编码的mime类型。例如对于经常使用 JSON 编码，该属性设置为：application/json是一个好的实践。</p>
+</li>
+<li>
+<p>reply_to: Commonly used to name a callback queue.</p>
+<p>reply_to：通常用于命名回调队列</p>
+</li>
+<li>
+<p>correlation_id: Useful to correlate RPC responses with requests.</p>
+<p>correlation_id：有利于关联 RPC响应与请求</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="correlation-id-关联-id">
+  Correlation Id （关联 id）
+  <a class="anchor" href="#correlation-id-%e5%85%b3%e8%81%94-id">#</a>
+</h2>
+<p>In the method presented above we suggest creating a callback queue for every RPC request. That&rsquo;s pretty inefficient, but fortunately there is a better way - let&rsquo;s create a single callback queue per client.</p>
+<p>在上面呈现的方法中，我们建议为每一个 RPC 请求创建一个 回调队列。这是相当低效的，但是幸运的是有一个较好的方式-让我们为每一个客户端创建一个回调队列</p>
+<p>That raises a new issue, having received a response in that queue it&rsquo;s not clear to which request the response belongs. That&rsquo;s when the correlation_id property is used. We&rsquo;re going to set it to a unique value for every request. Later, when we receive a message in the callback queue we&rsquo;ll look at this property, and based on that we&rsquo;ll be able to match a response with a request. If we see an unknown correlation_id value, we may safely discard the message - it doesn&rsquo;t belong to our requests.</p>
+<p>这就提出了一个新的问题，在该队列收到响应后，响应属于那个请求是不清楚地。这就是 correlation_id 属性使用地时候了。我们将为每一个请求设置一个独一无二的值。之后，当我们在回调队列收到一个消息时，我们将查找这个属性，基于此我们将能够匹配响应与请求。如果我们看到衣蛾未知的 correlation_id 值，我们能安全的丢弃这个消息-它不属于我们的请求。</p>
+<p>You may ask, why should we ignore unknown messages in the callback queue, rather than failing with an error? It&rsquo;s due to a possibility of a race condition on the server side. Although unlikely, it is possible that the RPC server will die just after sending us the answer, but before sending an acknowledgment message for the request. If that happens, the restarted RPC server will process the request again. That&rsquo;s why on the client we must handle the duplicate responses gracefully, and the RPC should ideally be idempotent.</p>
+<p>你可能会问，为什么我们应该忽视回调队列中的未知消息，而不是因为错误而失败？这是由于服务端可能出现竞争状况。虽然可能性不大，RPC服务器有可能在向我们发送答案之后在发送请求的确认消息之前就死掉。如果这种情况发生，重启RPC服务将再次处理这个请求。这是为什么我们必须优雅处理重复的响应，并且理想情况下 RPC应该是幂等的。</p>
+<h2 id="summary">
+  Summary
+  <a class="anchor" href="#summary">#</a>
+</h2>
+<p><img src="https://www.rabbitmq.com/img/tutorials/python-six.png" alt="" /></p>
+<p>Our RPC will work like this:</p>
+<p>我们的RPC将这样工作：</p>
+<ul>
+<li>
+<p>When the Client starts up, it creates an anonymous exclusive callback queue.</p>
+<p>当客户端开始，它创建一个匿名独占回调队列。</p>
+</li>
+<li>
+<p>For an RPC request, the Client sends a message with two properties: reply_to, which is set to the callback queue and correlation_id, which is set to a unique value for every request.</p>
+<p>对于一个 RPC 请求，客户端发送一个带有两个属性消息: reply_to 是用来设置回调队列， correlation_id 是用来为每一个请求设置单独的值。</p>
+</li>
+<li>
+<p>The request is sent to an rpc_queue queue.</p>
+<p>这个请求被发送到一个 rpc_queue 队列。</p>
+</li>
+<li>
+<p>The RPC worker (aka: server) is waiting for requests on that queue. When a request appears, it does the job and sends a message with the result back to the Client, using the queue from the reply_to field.</p>
+<p>这个RPC服务器等待队列上的请求。当一个请求出现，它将做这个工作并使用reply_to 字段的队列 发送一个带有结果的消息给客户端，</p>
+</li>
+<li>
+<p>The client waits for data on the callback queue. When a message appears, it checks the correlation_id property. If it matches the value from the request it returns the response to the application.</p>
+<p>客户端等待这个回调队列的数据。当一个消息出现，它检测correlation_id属性值。如果它匹配来自于请求的值，它会返回这个响应给应用程序。</p>
+</li>
+</ul>
+<h3 id="putting-it-all-together">
+  Putting it all together
+  <a class="anchor" href="#putting-it-all-together">#</a>
+</h3>
+<p>the Fibonacci function：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> &gt; =<span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">n</span>  <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+    }
+}
+</code></pre></div><p>We declare our fibonacci function. It assumes only valid positive integer input. (Don&rsquo;t expect this one to work for big numbers, and it&rsquo;s probably the slowest recursive implementation possible).</p>
+<p>我们声明我们的fibonacci 函数。它假设仅有效的正整数的输入。（不要期待一个很大的数，这可能是最慢的递归实现）</p>
+<p>The code for our RPC server <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go">rpc_server.go</a> looks like this:</p>
+<p>RPC服务器代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+        <span style="color:#e6db74">&#34;log&#34;</span>
+        <span style="color:#e6db74">&#34;strconv&#34;</span>
+
+        <span style="color:#e6db74">&#34;github.com/streadway/amqp&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%s: %s&#34;</span>, <span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">err</span>)
+        }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+        } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+        }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">amqp</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#e6db74">&#34;amqp://guest:guest@localhost:5672/&#34;</span>)
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to connect to RabbitMQ&#34;</span>)
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()
+
+        <span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Channel</span>()
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to open a channel&#34;</span>)
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Close</span>()
+
+        <span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">QueueDeclare</span>(
+                <span style="color:#e6db74">&#34;rpc_queue&#34;</span>, <span style="color:#75715e">// name
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// durable
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// delete when unused
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// exclusive
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// no-wait
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">nil</span>,         <span style="color:#75715e">// arguments
+</span><span style="color:#75715e"></span>        )
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to declare a queue&#34;</span>)
+
+        <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Qos</span>(
+                <span style="color:#ae81ff">1</span>,     <span style="color:#75715e">// prefetch count  拉取数量
+</span><span style="color:#75715e"></span>                <span style="color:#ae81ff">0</span>,     <span style="color:#75715e">// prefetch size
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// global
+</span><span style="color:#75715e"></span>        )
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to set QoS&#34;</span>)
+
+        <span style="color:#a6e22e">msgs</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Consume</span>(
+                <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#75715e">// queue
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;&#34;</span>,     <span style="color:#75715e">// consumer
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// auto-ack
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// exclusive
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// no-local
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// no-wait
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">nil</span>,    <span style="color:#75715e">// args
+</span><span style="color:#75715e"></span>        )
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to register a consumer&#34;</span>)
+
+        <span style="color:#a6e22e">forever</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>)
+
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+                <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">msgs</span> {
+                        <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(string(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Body</span>))
+                        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to convert body to integer&#34;</span>)
+
+                        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34; [.] fib(%d)&#34;</span>, <span style="color:#a6e22e">n</span>)
+                        <span style="color:#a6e22e">response</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">n</span>)
+
+                        <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Publish</span>(
+                                <span style="color:#e6db74">&#34;&#34;</span>,        <span style="color:#75715e">// exchange
+</span><span style="color:#75715e"></span>                                <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">ReplyTo</span>, <span style="color:#75715e">// routing key
+</span><span style="color:#75715e"></span>                                <span style="color:#66d9ef">false</span>,     <span style="color:#75715e">// mandatory
+</span><span style="color:#75715e"></span>                                <span style="color:#66d9ef">false</span>,     <span style="color:#75715e">// immediate
+</span><span style="color:#75715e"></span>                                <span style="color:#a6e22e">amqp</span>.<span style="color:#a6e22e">Publishing</span>{
+                                        <span style="color:#a6e22e">ContentType</span>:   <span style="color:#e6db74">&#34;text/plain&#34;</span>,
+                                        <span style="color:#a6e22e">CorrelationId</span>: <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">CorrelationId</span>,
+                                        <span style="color:#a6e22e">Body</span>:          []byte(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">response</span>)),
+                                })
+                        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to publish a message&#34;</span>)
+
+                        <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Ack</span>(<span style="color:#66d9ef">false</span>)
+                }
+        }()
+
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34; [*] Awaiting RPC requests&#34;</span>)
+        <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">forever</span>
+}
+</code></pre></div><p>The server code is rather straightforward:</p>
+<p>服务器代码是非常简单的</p>
+<ul>
+<li>
+<p>As usual we start by establishing the connection, channel and declaring the queue.</p>
+<p>像往常一样我们通过建立连接，通道，和声明队列开始</p>
+</li>
+<li>
+<p>We might want to run more than one server process. In order to spread the load equally over multiple servers we need to set the prefetch setting on channel.</p>
+<p>我们可能像运行多个服务器程序。为了将负载平均分配到多个服务器上，我们需要在通道上设置prefetch 设置。</p>
+</li>
+<li>
+<p>We use Channel.Consume to get the go channel where we receive messages from the queue. Then we enter the goroutine where we do the work and send the response back.</p>
+<p>我们使用Channel.Consumer获取从队列接收消息的GO通道。然后我们进入 goroutine 我们做一些工作，并将响应发送回去。</p>
+</li>
+</ul>
+<p>The code for our RPC client <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go">rpc_client.go</a>:</p>
+<p>RPC 客户端代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+        <span style="color:#e6db74">&#34;log&#34;</span>
+        <span style="color:#e6db74">&#34;math/rand&#34;</span>
+        <span style="color:#e6db74">&#34;os&#34;</span>
+        <span style="color:#e6db74">&#34;strconv&#34;</span>
+        <span style="color:#e6db74">&#34;strings&#34;</span>
+        <span style="color:#e6db74">&#34;time&#34;</span>
+
+        <span style="color:#e6db74">&#34;github.com/streadway/amqp&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>) {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;%s: %s&#34;</span>, <span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">err</span>)
+        }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">randomString</span>(<span style="color:#a6e22e">l</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span> {
+        <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">l</span>)
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">l</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+                <span style="color:#a6e22e">bytes</span>[<span style="color:#a6e22e">i</span>] = byte(<span style="color:#a6e22e">randInt</span>(<span style="color:#ae81ff">65</span>, <span style="color:#ae81ff">90</span>))
+        }
+        <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">bytes</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">randInt</span>(<span style="color:#a6e22e">min</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">max</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">min</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">max</span><span style="color:#f92672">-</span><span style="color:#a6e22e">min</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacciRPC</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">res</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+        <span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">amqp</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#e6db74">&#34;amqp://guest:guest@localhost:5672/&#34;</span>)
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to connect to RabbitMQ&#34;</span>)
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()
+
+        <span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Channel</span>()
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to open a channel&#34;</span>)
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Close</span>()
+
+        <span style="color:#a6e22e">q</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">QueueDeclare</span>(
+                <span style="color:#e6db74">&#34;&#34;</span>,    <span style="color:#75715e">// name
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// durable
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// delete when unused
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">true</span>,  <span style="color:#75715e">// exclusive
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// noWait
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">nil</span>,   <span style="color:#75715e">// arguments
+</span><span style="color:#75715e"></span>        )
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to declare a queue&#34;</span>)
+
+        <span style="color:#a6e22e">msgs</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Consume</span>(
+                <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#75715e">// queue
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;&#34;</span>,     <span style="color:#75715e">// consumer
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">true</span>,   <span style="color:#75715e">// auto-ack
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// exclusive
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// no-local
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,  <span style="color:#75715e">// no-wait
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">nil</span>,    <span style="color:#75715e">// args
+</span><span style="color:#75715e"></span>        )
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to register a consumer&#34;</span>)
+
+        <span style="color:#a6e22e">corrId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">randomString</span>(<span style="color:#ae81ff">32</span>)
+
+        <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">ch</span>.<span style="color:#a6e22e">Publish</span>(
+                <span style="color:#e6db74">&#34;&#34;</span>,          <span style="color:#75715e">// exchange
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;rpc_queue&#34;</span>, <span style="color:#75715e">// routing key
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// mandatory
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">false</span>,       <span style="color:#75715e">// immediate
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">amqp</span>.<span style="color:#a6e22e">Publishing</span>{
+                        <span style="color:#a6e22e">ContentType</span>:   <span style="color:#e6db74">&#34;text/plain&#34;</span>,
+                        <span style="color:#a6e22e">CorrelationId</span>: <span style="color:#a6e22e">corrId</span>,
+                        <span style="color:#a6e22e">ReplyTo</span>:       <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Name</span>,
+                        <span style="color:#a6e22e">Body</span>:          []byte(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">n</span>)),
+                })
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to publish a message&#34;</span>)
+
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">msgs</span> {
+                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">corrId</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">CorrelationId</span> {
+                        <span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(string(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Body</span>))
+                        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to convert body to integer&#34;</span>)
+                        <span style="color:#66d9ef">break</span>
+                }
+        }
+
+        <span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UTC</span>().<span style="color:#a6e22e">UnixNano</span>())
+
+        <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bodyFrom</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>)
+
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34; [x] Requesting fib(%d)&#34;</span>, <span style="color:#a6e22e">n</span>)
+        <span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fibonacciRPC</span>(<span style="color:#a6e22e">n</span>)
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to handle RPC request&#34;</span>)
+
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34; [.] Got %d&#34;</span>, <span style="color:#a6e22e">res</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bodyFrom</span>(<span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+        <span style="color:#66d9ef">if</span> (len(<span style="color:#a6e22e">args</span>) &lt; <span style="color:#ae81ff">2</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+                <span style="color:#a6e22e">s</span> = <span style="color:#e6db74">&#34;30&#34;</span>
+        } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">1</span>:], <span style="color:#e6db74">&#34; &#34;</span>)
+        }
+        <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#a6e22e">s</span>)
+        <span style="color:#a6e22e">failOnError</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Failed to convert arg to integer&#34;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+}
+</code></pre></div><p>Now is a good time to take a look at our full example source code for <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go">rpc_client.go</a> and <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go">rpc_server.go</a>.</p>
+<p>代码资源链接</p>
+<p>Our RPC service is now ready. We can start the server:</p>
+<p>RPC 服务已经准备完毕，我们运行服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run rpc_server.go
+</code></pre></div><p>To request a fibonacci number run the client:</p>
+<p>为了请求一个 fibonacci 数 运行这个客户端</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">go run rpc_client.go <span style="color:#ae81ff">30</span>
+</code></pre></div><p>The design presented here is not the only possible implementation of a RPC service, but it has some important advantages:</p>
+<p>这儿呈现的设计不仅仅是 RPC 服务的可能的实现，而且它有一些重要的好处</p>
+<ul>
+<li>
+<p>If the RPC server is too slow, you can scale up by just running another one. Try running a second rpc_server.go in a new console.</p>
+<p>如果 RPC 服务器太慢，你仅仅运行另一个来提高效率。尝试在一个控制台运行第二个 rpc_server.go</p>
+</li>
+<li>
+<p>On the client side, the RPC requires sending and receiving only one message. As a result the RPC client needs only one network round trip for a single RPC request.</p>
+<p>在客户端， RPC 只需要发送和接受一个消息。 因此 RPC客户端对一个 RPC 请求只需要一次网络往返。</p>
+</li>
+</ul>
+<p>Our code is still pretty simplistic and doesn&rsquo;t try to solve more complex (but important) problems, like:</p>
+<p>我们的代码仍然是非常简单的并且没有尝试解决更多复查且重要的问题，如</p>
+<ul>
+<li>
+<p>How should the client react if there are no servers running?</p>
+<p>如果没有服务器运行，客户端响应应该怎么做？</p>
+</li>
+<li>
+<p>Should a client have some kind of timeout for the RPC?</p>
+<p>客户端是否应该为RPC设置某种超时时间？</p>
+</li>
+<li>
+<p>If the server malfunctions and raises an exception, should it be forwarded to the client?</p>
+<p>如果服务器故障并抛出异常，它应该转发给客户端吗？</p>
+</li>
+<li>
+<p>Protecting against invalid incoming messages (eg checking bounds, type) before processing.</p>
+<p>在处理之前防止无效的传入消息（例如 检查边界，类型）</p>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#callback-queue">Callback queue</a></li>
+    <li><a href="#correlation-id-关联-id">Correlation Id （关联 id）</a></li>
+    <li><a href="#summary">Summary</a>
+      <ul>
+        <li><a href="#putting-it-all-together">Putting it all together</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
