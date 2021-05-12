@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
+安装 #  我的系统: MacOs x86_64
+这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
+主要分为三步 #    配置环境变量
+终端输入以下几行命令设置环境变量
+if [[ &#34;$(uname -s)&#34; == &#34;Linux&#34; ]]; then BREW_TYPE=&#34;linuxbrew&#34;; else BREW_TYPE=&#34;homebrew&#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&#34; export HOMEBREW_CORE_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&#34; export HOMEBREW_BOTTLE_DOMAIN=&#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&#34;   下载安装
+# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
+安装 #  我的系统: MacOs x86_64
+这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
+主要分为三步 #    配置环境变量
+终端输入以下几行命令设置环境变量
+if [[ &#34;$(uname -s)&#34; == &#34;Linux&#34; ]]; then BREW_TYPE=&#34;linuxbrew&#34;; else BREW_TYPE=&#34;homebrew&#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&#34; export HOMEBREW_CORE_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&#34; export HOMEBREW_BOTTLE_DOMAIN=&#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&#34;   下载安装
+# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/posts/homebrew/" /><meta property="article:section" content="posts" />
+
+
+
+<title>Homebrew | Kit&#39;s Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.8374996a6ecef9d71fc6c1e88d310488a5a470c3f6f1567bf34354d266e8aadd.js" integrity="sha256-g3SZam7O&#43;dcfxsHojTEEiKWkcMP28VZ780NU0mboqt0="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kit&#39;s Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
+    <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/golang/" class="">Golang</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E5%9F%BA%E7%A1%80/" class="">Go 基础</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="">多平台交叉编译</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/" class="">错误处理策略</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
+    <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/" class="">Load Data 数据导入</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/" class="">Percona 集群相关</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/" class="">集群优化相关</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
+    <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle"  />
+    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class="">Remote Procedure Call</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Homebrew</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#主要分为三步">主要分为三步</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用">使用</a>
+      <ul>
+        <li><a href="#搜索软件">搜索软件</a></li>
+        <li><a href="#安装软件">安装软件</a></li>
+        <li><a href="#卸载软件">卸载软件</a></li>
+        <li><a href="#升级软件">升级软件</a></li>
+        <li><a href="#查看所有安装的软件">查看所有安装的软件</a></li>
+      </ul>
+    </li>
+    <li><a href="#升级-homebrew-本身">升级 homebrew 本身</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/posts/homebrew/">Homebrew</a>
+  </h1>
+  
+
+
+  
+
+  
+
+
+
+<h1 id="homebrew">
+  Homebrew
+  <a class="anchor" href="#homebrew">#</a>
+</h1>
+<p>homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.</p>
+<h2 id="安装">
+  安装
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85">#</a>
+</h2>
+<p>我的系统:  MacOs  x86_64</p>
+<p>这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](<a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/">homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a>) 来进行安装</p>
+<h3 id="主要分为三步">
+  主要分为三步
+  <a class="anchor" href="#%e4%b8%bb%e8%a6%81%e5%88%86%e4%b8%ba%e4%b8%89%e6%ad%a5">#</a>
+</h3>
+<ul>
+<li>
+<p>配置环境变量</p>
+<p>终端输入以下几行命令设置环境变量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>uname -s<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Linux&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span> BREW_TYPE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;linuxbrew&#34;</span>; <span style="color:#66d9ef">else</span> BREW_TYPE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;homebrew&#34;</span>; <span style="color:#66d9ef">fi</span>
+export HOMEBREW_BREW_GIT_REMOTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&#34;</span>
+export HOMEBREW_CORE_GIT_REMOTE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/</span><span style="color:#e6db74">${</span>BREW_TYPE<span style="color:#e6db74">}</span><span style="color:#e6db74">-core.git&#34;</span>
+export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://mirrors.tuna.tsinghua.edu.cn/</span><span style="color:#e6db74">${</span>BREW_TYPE<span style="color:#e6db74">}</span><span style="color:#e6db74">-bottles&#34;</span>
+</code></pre></div></li>
+<li>
+<p>下载安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew</span>
+<span style="color:#75715e"># 这里的安装可能需要花一些时间,主要看访问github仓库的情况</span>
+git clone --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
+/bin/bash brew-install/install.sh
+
+<span style="color:#75715e"># 这里可以不删除,其中存在着卸载homebrew的程序,以便后续卸载 </span>
+rm -rf brew-install
+
+<span style="color:#75715e"># 也可从 GitHub 获取官方安装脚本安装 Homebrew / Linuxbrew.  我的测试失败,连接不上所以采用上一方式</span>
+/bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div></li>
+<li>
+<p>配置brew的源</p>
+<p>替换brew程序本身的源</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+</code></pre></div><p>针对MacOs系统上的Homebrew</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 手动设置</span>
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask-fonts<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-fonts.git
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask-drivers<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-drivers.git
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask-versions<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-versions.git
+
+<span style="color:#75715e"># 或使用下面的几行命令自动设置</span>
+BREW_TAPS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew tap<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> tap in core cask<span style="color:#f92672">{</span>,-fonts,-drivers,-versions<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">if</span> echo <span style="color:#e6db74">&#34;</span>$BREW_TAPS<span style="color:#e6db74">&#34;</span> | grep -qE <span style="color:#e6db74">&#34;^homebrew/</span><span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span><span style="color:#e6db74">\$&#34;</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#75715e"># 将已有 tap 的上游设置为本镜像并设置 auto update</span>
+        <span style="color:#75715e"># 注：原 auto update 只针对托管在 GitHub 上的上游有效</span>
+        git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span>.git
+        git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> config homebrew.forceautoupdate true
+    <span style="color:#66d9ef">else</span>   <span style="color:#75715e"># 在 tap 缺失时自动安装（如不需要请删除此行和下面一行）</span>
+        brew tap --force-auto-update homebrew/<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span> https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span>.git
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">done</span>
+</code></pre></div></li>
+<li>
+<p>还原brew官方源</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># brew 程序本身，Homebrew / Linuxbrew 相同</span>
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/brew.git
+
+<span style="color:#75715e"># 以下针对 macOS 系统上的 Homebrew</span>
+BREW_TAPS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew tap<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> tap in core cask<span style="color:#f92672">{</span>,-fonts,-drivers,-versions<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">if</span> echo <span style="color:#e6db74">&#34;</span>$BREW_TAPS<span style="color:#e6db74">&#34;</span> | grep -qE <span style="color:#e6db74">&#34;^homebrew/</span><span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span><span style="color:#e6db74">\$&#34;</span>; <span style="color:#66d9ef">then</span>
+        git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/homebrew-<span style="color:#e6db74">${</span>tap<span style="color:#e6db74">}</span>.git
+    <span style="color:#66d9ef">fi</span>
+dones
+
+<span style="color:#75715e"># 以下针对 Linux 系统上的 Linuxbrew</span>
+git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/linuxbrew-core.git
+
+<span style="color:#75715e"># 重新设置 git 仓库 HEAD</span>
+brew update-reset
+</code></pre></div></li>
+</ul>
+<h2 id="使用">
+  使用
+  <a class="anchor" href="#%e4%bd%bf%e7%94%a8">#</a>
+</h2>
+<h3 id="搜索软件">
+  搜索软件
+  <a class="anchor" href="#%e6%90%9c%e7%b4%a2%e8%bd%af%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 支持正则匹配搜索</span>
+brew search wget
+</code></pre></div><h3 id="安装软件">
+  安装软件
+  <a class="anchor" href="#%e5%ae%89%e8%a3%85%e8%bd%af%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install software_name
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 例如: 我安装 wget</span>
+brew install wget
+</code></pre></div><h3 id="卸载软件">
+  卸载软件
+  <a class="anchor" href="#%e5%8d%b8%e8%bd%bd%e8%bd%af%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew uninstall wget
+</code></pre></div><h3 id="升级软件">
+  升级软件
+  <a class="anchor" href="#%e5%8d%87%e7%ba%a7%e8%bd%af%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew upgrade wget
+</code></pre></div><h3 id="查看所有安装的软件">
+  查看所有安装的软件
+  <a class="anchor" href="#%e6%9f%a5%e7%9c%8b%e6%89%80%e6%9c%89%e5%ae%89%e8%a3%85%e7%9a%84%e8%bd%af%e4%bb%b6">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew list
+</code></pre></div><h2 id="升级-homebrew-本身">
+  升级 homebrew 本身
+  <a class="anchor" href="#%e5%8d%87%e7%ba%a7-homebrew-%e6%9c%ac%e8%ba%ab">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew update
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#主要分为三步">主要分为三步</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用">使用</a>
+      <ul>
+        <li><a href="#搜索软件">搜索软件</a></li>
+        <li><a href="#安装软件">安装软件</a></li>
+        <li><a href="#卸载软件">卸载软件</a></li>
+        <li><a href="#升级软件">升级软件</a></li>
+        <li><a href="#查看所有安装的软件">查看所有安装的软件</a></li>
+      </ul>
+    </li>
+    <li><a href="#升级-homebrew-本身">升级 homebrew 本身</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

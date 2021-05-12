@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
-  <meta name="generator" content="Hugo 0.82.1" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -15,7 +13,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
-<script defer src="/en.search.min.721f29da2eb5c25c908bb8ec2fa0438943b01b337d39345ed627a29727bdb14a.js" integrity="sha256-ch8p2i61wlyQi7jsL6BDiUOwGzN9OTRe1ieilye9sUo="></script>
+<script defer src="/en.search.min.8374996a6ecef9d71fc6c1e88d310488a5a470c3f6f1567bf34354d266e8aadd.js" integrity="sha256-g3SZam7O&#43;dcfxsHojTEEiKWkcMP28VZ780NU0mboqt0="></script>
 <link rel="alternate" type="application/rss+xml" href="http://menggus.github.io/posts/index.xml" title="Kit's Site" />
 <!--
 Made with Book Theme
@@ -24,7 +22,6 @@ https://github.com/alex-shpak/hugo-book
 
   
 </head>
-
 <body dir="ltr">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
@@ -72,7 +69,6 @@ https://github.com/alex-shpak/hugo-book
     <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
     <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
       <a href="http://menggus.github.io/docs/golang/" class="">Golang</a>
-      <span>▾</span>
     </label>
   
 
@@ -130,45 +126,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle"  />
-    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
-      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
-      <span>▾</span>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class="">Remote Procedure Call</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
     <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
       <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
-      <span>▾</span>
     </label>
   
 
@@ -229,7 +189,6 @@ https://github.com/alex-shpak/hugo-book
     <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
     <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
       <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
-      <span>▾</span>
     </label>
   
 
@@ -244,6 +203,40 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle"  />
+    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class="">Remote Procedure Call</a>
   
 
         </li>
@@ -350,6 +343,53 @@ https://github.com/alex-shpak/hugo-book
   
   <article class="markdown book-post">
     <h2>
+      <a href="/posts/homebrew/">Homebrew</a>
+    </h2>
+    
+
+
+  
+
+  
+
+
+
+
+    <p>Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
+安装 #  我的系统: MacOs x86_64
+这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
+主要分为三步 #    配置环境变量
+终端输入以下几行命令设置环境变量
+if [[ &#34;$(uname -s)&#34; == &#34;Linux&#34; ]]; then BREW_TYPE=&#34;linuxbrew&#34;; else BREW_TYPE=&#34;homebrew&#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&#34; export HOMEBREW_CORE_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&#34; export HOMEBREW_BOTTLE_DOMAIN=&#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&#34;   下载安装
+# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.
+        <a href="/posts/homebrew/">...</a>
+      
+    </p>
+  </article>
+  
+  <article class="markdown book-post">
+    <h2>
+      <a href="/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/">怎么使用 Git管理多个嵌套的仓库</a>
+    </h2>
+    
+
+
+  
+
+  
+
+
+
+
+    <p>怎么使用Git管理多个嵌套的仓库? #  场景: 在使用hugo来生成静态网页博客的项目中,除了要管理public中生存的静态网页文件,还需要管里保存hugo生存的站点等文件仓库,以及主题仓库等;他们之间的仓库文件关系如下:
+# 整个作为一个git仓库进行保存 ├── README.md ├── archetypes │ └── default.md ├── auto\ push.bat # 自动推送脚本到 github ├── auto_push.sh # 自动生成网页查看 ├── config.toml ├── content │ ├── _index.md │ ├── docs │ ├── menu │ └── posts ├── hugo ├── hugo.exe ├── public # 这个是生成的静态网页数据(作为一个git仓库),这里会推送到github.io 进行展示 ├── resources │ └── _gen ├── start.bat ├── start.sh ├── static │ └── docs └── themes └── book # 这里是主题,也是作为 子模块 添加的hugo的主题仓库 也就是一个git仓库下,还存在两个git仓库.
+        <a href="/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/">...</a>
+      
+    </p>
+  </article>
+  
+  <article class="markdown book-post">
+    <h2>
       <a href="/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/">Linux定时任务</a>
     </h2>
     
@@ -360,12 +400,14 @@ https://github.com/alex-shpak/hugo-book
   
 
 
-    <p>定时脚本来去更新博客#每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
-先来介绍下cron#ubuntu下的定时任务，能定期执行命令
-开始使用#查看cron是否运行#ps -ef|grep cron
-ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -fubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron# 如果没有运行可以运行# sudo service cron start编写脚本命令#vim pull.sh
-#!/bin/bashcd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库git pullchmod +x ./pull.sh 添加执行权限
-编写定时任务#sudo crontab -e
+
+
+    <p>定时脚本来去更新博客 #  每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
+先来介绍下cron #  ubuntu下的定时任务，能定期执行命令
+开始使用 #  查看cron是否运行 #  ps -ef|grep cron
+ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cron root 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -f ubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron # 如果没有运行可以运行 # sudo service cron start 编写脚本命令 #  vim pull.sh
+#!/bin/bash cd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库 git pull chmod +x ./pull.sh 添加执行权限
+编写定时任务 #  sudo crontab -e
         <a href="/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/">...</a>
       
     </p>
@@ -387,6 +429,11 @@ ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sb
 
 
 </div>
+
+
+
+  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+
 
  
         
@@ -435,7 +482,6 @@ ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sb
 
   
 </body>
-
 </html>
 
 

@@ -12,7 +12,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/</guid>
-      <description>Remote Procedure Call （RPC）#using Go RabbitMQ client
+      <description>Remote Procedure Call （RPC） #  using Go RabbitMQ client
 In the second tutorial we learned how to use Work Queues to distribute time-consuming tasks among multiple workers.
 在第二个教程中，我们学习了怎么使用 Work Queues 在多个工作人员之间分配耗时任务。
 But what if we need to run a function on a remote computer and wait for the result? Well, that&amp;rsquo;s a different story. This pattern is commonly known as Remote Procedure Call or RPC.

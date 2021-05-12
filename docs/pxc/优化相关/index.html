@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
-  <meta name="generator" content="Hugo 0.82.1" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="分页查询优化#这边先看几个简单例子：
+<meta name="description" content="分页查询优化 #  这边先看几个简单例子：
 -- 查询优化 select * from t_test limit 100,100; -- 85ms select * from t_test limit 1000,100; -- 279ms select * from t_test limit 10000,100;	-- 2s31ms select * from t_test limit 100000,100; -- 19s497ms 怎么去优化呢？
 我们可以通过 explain 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数
 mysql&gt; explain select * from t_test limit 1000,100; &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t_test | NULL | ALL | NULL | NULL | NULL | NULL | 4585371 | 100.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="集群优化相关" />
-<meta property="og:description" content="分页查询优化#这边先看几个简单例子：
+<meta property="og:description" content="分页查询优化 #  这边先看几个简单例子：
 -- 查询优化 select * from t_test limit 100,100; -- 85ms select * from t_test limit 1000,100; -- 279ms select * from t_test limit 10000,100;	-- 2s31ms select * from t_test limit 100000,100; -- 19s497ms 怎么去优化呢？
 我们可以通过 explain 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数
 mysql&gt; explain select * from t_test limit 1000,100; &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;--------&#43;------------&#43;------&#43;---------------&#43;------&#43;---------&#43;------&#43;---------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t_test | NULL | ALL | NULL | NULL | NULL | NULL | 4585371 | 100." />
@@ -23,7 +21,7 @@ mysql&gt; explain select * from t_test limit 1000,100; &#43;----&#43;-----------
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
-<script defer src="/en.search.min.721f29da2eb5c25c908bb8ec2fa0438943b01b337d39345ed627a29727bdb14a.js" integrity="sha256-ch8p2i61wlyQi7jsL6BDiUOwGzN9OTRe1ieilye9sUo="></script>
+<script defer src="/en.search.min.8374996a6ecef9d71fc6c1e88d310488a5a470c3f6f1567bf34354d266e8aadd.js" integrity="sha256-g3SZam7O&#43;dcfxsHojTEEiKWkcMP28VZ780NU0mboqt0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -31,7 +29,6 @@ https://github.com/alex-shpak/hugo-book
 
   
 </head>
-
 <body dir="ltr">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
@@ -79,7 +76,6 @@ https://github.com/alex-shpak/hugo-book
     <input type="checkbox" id="section-ab6241a9c9348727e1ed30d9d7253a0e" class="toggle"  />
     <label for="section-ab6241a9c9348727e1ed30d9d7253a0e" class="flex justify-between">
       <a href="http://menggus.github.io/docs/golang/" class="">Golang</a>
-      <span>▾</span>
     </label>
   
 
@@ -137,45 +133,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle"  />
-    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
-      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
-      <span>▾</span>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class="">Remote Procedure Call</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle" checked />
     <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
       <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
-      <span>▾</span>
     </label>
   
 
@@ -236,7 +196,6 @@ https://github.com/alex-shpak/hugo-book
     <input type="checkbox" id="section-3ca9a5c09bd1884bf69ade02a8e53628" class="toggle"  />
     <label for="section-3ca9a5c09bd1884bf69ade02a8e53628" class="flex justify-between">
       <a href="http://menggus.github.io/docs/linux/" class="">Linux</a>
-      <span>▾</span>
     </label>
   
 
@@ -251,6 +210,40 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/" class="">Ubuntu 软件源</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-151c23bc71ed9e8afe23e28d27a89493" class="toggle"  />
+    <label for="section-151c23bc71ed9e8afe23e28d27a89493" class="flex justify-between">
+      <a href="http://menggus.github.io/docs/rabbitmq/" class="">RabbitMQ</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="http://menggus.github.io/docs/rabbitmq/rabbitmq-remote-procedure-call-rpc/" class="">Remote Procedure Call</a>
   
 
         </li>
@@ -396,6 +389,11 @@ https://github.com/alex-shpak/hugo-book
 
 </div>
 
+
+
+  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+
+
  
         
       </footer>
@@ -431,7 +429,6 @@ https://github.com/alex-shpak/hugo-book
 
   
 </body>
-
 </html>
 
 

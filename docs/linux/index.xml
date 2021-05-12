@@ -12,10 +12,10 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/</guid>
-      <description>ubuntu 把软件源修改为国内源和更新#  备份原始文件
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup  修改文件并添加国内源
+      <description>ubuntu 把软件源修改为国内源和更新 #    备份原始文件
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup   修改文件并添加国内源
 vi /etc/apt/sources.list	  注释原文件内的源 并添加如下地址 复制代码
-# Ubuntu 官方源deb http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiversedeb http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiversedeb-src http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiversedeb-src http://archive.</description>
+# Ubuntu 官方源 deb http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiverse deb http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiverse deb http://archive.ubuntu.com/ubuntu/ gutsy-updates main restricted universe multiverse deb http://archive.ubuntu.com/ubuntu/ gutsy-proposed main restricted universe multiverse deb http://archive.ubuntu.com/ubuntu/ gutsy-backports main restricted universe multiverse deb-src http://archive.ubuntu.com/ubuntu/ gutsy main restricted universe multiverse deb-src http://archive.ubuntu.com/ubuntu/ gutsy-security main restricted universe multiverse deb-src http://archive.</description>
     </item>
     
   </channel>

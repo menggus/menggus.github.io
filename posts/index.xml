@@ -7,17 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://menggus.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title></title>
+      <link>http://menggus.github.io/posts/homebrew/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/posts/homebrew/</guid>
+      <description>Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
+安装 #  我的系统: MacOs x86_64
+这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
+主要分为三步 #    配置环境变量
+终端输入以下几行命令设置环境变量
+if [[ &amp;#34;$(uname -s)&amp;#34; == &amp;#34;Linux&amp;#34; ]]; then BREW_TYPE=&amp;#34;linuxbrew&amp;#34;; else BREW_TYPE=&amp;#34;homebrew&amp;#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&amp;#34; export HOMEBREW_CORE_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&amp;#34; export HOMEBREW_BOTTLE_DOMAIN=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&amp;#34;   下载安装
+# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</guid>
+      <description>怎么使用Git管理多个嵌套的仓库? #  场景: 在使用hugo来生成静态网页博客的项目中,除了要管理public中生存的静态网页文件,还需要管里保存hugo生存的站点等文件仓库,以及主题仓库等;他们之间的仓库文件关系如下:
+# 整个作为一个git仓库进行保存 ├── README.md ├── archetypes │ └── default.md ├── auto\ push.bat # 自动推送脚本到 github ├── auto_push.sh # 自动生成网页查看 ├── config.toml ├── content │ ├── _index.md │ ├── docs │ ├── menu │ └── posts ├── hugo ├── hugo.exe ├── public # 这个是生成的静态网页数据(作为一个git仓库),这里会推送到github.io 进行展示 ├── resources │ └── _gen ├── start.bat ├── start.sh ├── static │ └── docs └── themes └── book # 这里是主题,也是作为 子模块 添加的hugo的主题仓库 也就是一个git仓库下,还存在两个git仓库.</description>
+    </item>
+    
+    <item>
       <title>Linux定时任务</title>
       <link>http://menggus.github.io/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/posts/%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC%E6%9D%A5%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2/</guid>
-      <description>定时脚本来去更新博客#每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
-先来介绍下cron#ubuntu下的定时任务，能定期执行命令
-开始使用#查看cron是否运行#ps -ef|grep cron
-ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cronroot 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -fubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron# 如果没有运行可以运行# sudo service cron start编写脚本命令#vim pull.sh
-#!/bin/bashcd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库git pullchmod +x ./pull.sh 添加执行权限
-编写定时任务#sudo crontab -e</description>
+      <description>定时脚本来去更新博客 #  每次写静态博客会存在github上面，虽然写完会进行手动推送到github，但是每次在服务器来去就觉得麻烦，所以就写个定时任务来帮我执行拉取更新命令
+先来介绍下cron #  ubuntu下的定时任务，能定期执行命令
+开始使用 #  查看cron是否运行 #  ps -ef|grep cron
+ubuntu@VM-0-10-ubuntu:~$ ps -ef |grep cron root 970 1 0 Feb28 ? 00:00:21 /usr/sbin/cron -f ubuntu 23388 8185 0 22:51 pts/0 00:00:00 grep --color=auto cron # 如果没有运行可以运行 # sudo service cron start 编写脚本命令 #  vim pull.sh
+#!/bin/bash cd /home/ubuntu/blogs/root/ # /home/ubuntu/blogs/root/ 本地仓库 git pull chmod +x ./pull.sh 添加执行权限
+编写定时任务 #  sudo crontab -e</description>
     </item>
     
   </channel>

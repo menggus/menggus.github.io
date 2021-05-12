@@ -12,11 +12,11 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/docs/pxc/load-data-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE/</guid>
-      <description>LOAD DATA批量导入数据#导入环境#mycat + pxc
+      <description>LOAD DATA批量导入数据 #  导入环境 #  mycat + pxc
 mycat：数据切分
 pxc：两个分片，每个分片只开启一个节点。（对于其他节点的数据同步，采用直接拷贝方式）
-数据源#采用golang编写，生成1000万行的简单数据，数据采用文本方式存储；
-1,测试数据2,测试数据3,测试数据...10000000,测试数据数据库表
+数据源 #  采用golang编写，生成1000万行的简单数据，数据采用文本方式存储；
+1,测试数据 2,测试数据 3,测试数据 ... 10000000,测试数据 数据库表
 CREATE TABLE t_test ( id int NOT NULL, name varchar(200) NOT NULL, PRIMARY KEY (&amp;#39;id&amp;#39;) ) code
 /* 生成导入到数据库的数据； 对应数据库表字段 id name */ package main import ( &amp;#34;bufio&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) const num = 10000000 func generate() { file, err := os.Create(&amp;#34;./data.txt&amp;#34;) if err != nil { fmt.</description>
     </item>
@@ -27,13 +27,13 @@ CREATE TABLE t_test ( id int NOT NULL, name varchar(200) NOT NULL, PRIMARY KEY (
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/docs/pxc/percona-percona-xtradb-cluster/</guid>
-      <description>Percona 集群相关#Percona 数据库#准备工作#jemalloc-3.6.0-1. centos7 el7.x86_64.rpm
+      <description>Percona 集群相关 #  Percona 数据库 #  准备工作 #  jemalloc-3.6.0-1. centos7 el7.x86_64.rpm
 Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar
-安装#解压.tar## 拷贝至目录 scp jemalloc-3.6.0-1. centos7 el7.x86_64.rpm Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar centos7.tar root@192.168.31.129:/home cd /home tar -xf Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar yum localinstall *.rpm 启动#systemctl start mysqld
-防火墙开放 3306#firewall-cmd --zone=public --add-port=3306/tcp --permanent 开放3306
+安装 #  解压.tar #  # 拷贝至目录 scp jemalloc-3.6.0-1. centos7 el7.x86_64.rpm Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar centos7.tar root@192.168.31.129:/home cd /home tar -xf Percona-Server-5.7.32-35-r5688520-el7-x86_64-bundle centos7.tar yum localinstall *.rpm 启动 #  systemctl start mysqld
+防火墙开放 3306 #  firewall-cmd --zone=public --add-port=3306/tcp --permanent 开放3306
 &amp;ndash;permanent： 永久生效，重启系统后依然生效
 firewall-cmd --reload 重新导入配置
-修改数据库配置文件#vi /etc/my.cnf character_set_server = utf8 bind-address = 0.</description>
+修改数据库配置文件 #  vi /etc/my.cnf character_set_server = utf8 bind-address = 0.</description>
     </item>
     
     <item>
@@ -42,7 +42,7 @@ firewall-cmd --reload 重新导入配置
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://menggus.github.io/docs/pxc/%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/</guid>
-      <description>分页查询优化#这边先看几个简单例子：
+      <description>分页查询优化 #  这边先看几个简单例子：
 -- 查询优化 select * from t_test limit 100,100; -- 85ms select * from t_test limit 1000,100; -- 279ms select * from t_test limit 10000,100;	-- 2s31ms select * from t_test limit 100000,100; -- 19s497ms 怎么去优化呢？
 我们可以通过 explain 命令来查看，可关注type all为全表扫描，查看rows可以知道扫描数据row数
 mysql&amp;gt; explain select * from t_test limit 1000,100; +----+-------------+--------+------------+------+---------------+------+---------+------+---------+----------+-------+ | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | +----+-------------+--------+------------+------+---------------+------+---------+------+---------+----------+-------+ | 1 | SIMPLE | t_test | NULL | ALL | NULL | NULL | NULL | NULL | 4585371 | 100.</description>
