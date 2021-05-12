@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="目录 #  ">
-<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://menggus.github.io/docs/pxc/" />
+<meta name="description" content="Git 之 SSH 配置 #  生成 ssh 密钥 #  ssh-keygen -t rsa -C &#39;youremail@qq.com&#39; # 可以不断回车跳过 # 如果有需求可以一步一步查看配置的内容 # 基本是关于密钥存放文件路径,以及密钥使用的时候需要的账户密码 配置ssh 公钥 #  比如:配置一个ssh公钥到github
+如图配置即可
+添加公钥">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Git 之 SSH 配置" />
+<meta property="og:description" content="Git 之 SSH 配置 #  生成 ssh 密钥 #  ssh-keygen -t rsa -C &#39;youremail@qq.com&#39; # 可以不断回车跳过 # 如果有需求可以一步一步查看配置的内容 # 基本是关于密钥存放文件路径,以及密钥使用的时候需要的账户密码 配置ssh 公钥 #  比如:配置一个ssh公钥到github
+如图配置即可
+添加公钥" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://menggus.github.io/posts/git-%E4%B9%8B-ssh-%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="posts" />
 
-<title>Pxc | Kit&#39;s Site</title>
+
+
+<title>Git 之 SSH 配置 | Kit&#39;s Site</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
 <script defer src="/en.search.min.24cd2a835a9b6a4383f73b7f47bd5f0bbafc13a5146bfc0c6a376dac9853f952.js" integrity="sha256-JM0qg1qbakOD9zt/R71fC7r8E6UUa/wMajdtrJhT&#43;VI="></script>
-<link rel="alternate" type="application/rss+xml" href="http://menggus.github.io/docs/pxc/index.xml" title="Kit's Site" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -126,9 +131,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle" checked />
+    <input type="checkbox" id="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="toggle"  />
     <label for="section-e34879fcb6592c2e1e6b0a35f1437ed4" class="flex justify-between">
-      <a href="http://menggus.github.io/docs/pxc/" class="active">Pxc</a>
+      <a href="http://menggus.github.io/docs/pxc/" class="">Pxc</a>
     </label>
   
 
@@ -295,7 +300,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Pxc</strong>
+  <strong>Git 之 SSH 配置</strong>
 
   <label for="toc-control">
     
@@ -309,7 +314,16 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-之-ssh-配置">Git 之 SSH 配置</a>
+      <ul>
+        <li><a href="#生成-ssh-密钥">生成 ssh 密钥</a></li>
+        <li><a href="#配置ssh-公钥">配置ssh 公钥</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
 
@@ -320,10 +334,40 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="目录">
-  目录
-  <a class="anchor" href="#%e7%9b%ae%e5%bd%95">#</a>
-</h1>
+<article class="markdown">
+  <h1>
+    <a href="/posts/git-%E4%B9%8B-ssh-%E9%85%8D%E7%BD%AE/">Git 之 SSH 配置</a>
+  </h1>
+  
+
+
+  
+
+  
+
+
+
+<h2 id="git-之-ssh-配置">
+  Git 之 SSH 配置
+  <a class="anchor" href="#git-%e4%b9%8b-ssh-%e9%85%8d%e7%bd%ae">#</a>
+</h2>
+<h3 id="生成-ssh-密钥">
+  生成 ssh 密钥
+  <a class="anchor" href="#%e7%94%9f%e6%88%90-ssh-%e5%af%86%e9%92%a5">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa -C <span style="color:#e6db74">&#39;youremail@qq.com&#39;</span>
+<span style="color:#75715e"># 可以不断回车跳过</span>
+<span style="color:#75715e"># 如果有需求可以一步一步查看配置的内容</span>
+<span style="color:#75715e"># 基本是关于密钥存放文件路径,以及密钥使用的时候需要的账户密码</span>
+</code></pre></div><h3 id="配置ssh-公钥">
+  配置ssh 公钥
+  <a class="anchor" href="#%e9%85%8d%e7%bd%aessh-%e5%85%ac%e9%92%a5">#</a>
+</h3>
+<p>比如:配置一个ssh公钥到github</p>
+<p>如图配置即可</p>
+<p><img src="/posts/ssh_github.png" alt="ssh github" /></p>
+<p>添加公钥</p>
+<p><img src="/posts/ssh_github_add.png" alt="ssh_github_add" /></p>
 </article>
  
       
@@ -363,7 +407,16 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-之-ssh-配置">Git 之 SSH 配置</a>
+      <ul>
+        <li><a href="#生成-ssh-密钥">生成 ssh 密钥</a></li>
+        <li><a href="#配置ssh-公钥">配置ssh 公钥</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
  

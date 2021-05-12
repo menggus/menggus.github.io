@@ -10,7 +10,7 @@
 终端输入以下几行命令设置环境变量
 if [[ &#34;$(uname -s)&#34; == &#34;Linux&#34; ]]; then BREW_TYPE=&#34;linuxbrew&#34;; else BREW_TYPE=&#34;homebrew&#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&#34; export HOMEBREW_CORE_GIT_REMOTE=&#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&#34; export HOMEBREW_BOTTLE_DOMAIN=&#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&#34;   下载安装
 # 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.">
-<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Homebrew" />
 <meta property="og:description" content="Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
 安装 #  我的系统: MacOs x86_64
 这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
@@ -27,7 +27,7 @@ if [[ &#34;$(uname -s)&#34; == &#34;Linux&#34; ]]; then BREW_TYPE=&#34;linuxbrew
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
-<script defer src="/en.search.min.8374996a6ecef9d71fc6c1e88d310488a5a470c3f6f1567bf34354d266e8aadd.js" integrity="sha256-g3SZam7O&#43;dcfxsHojTEEiKWkcMP28VZ780NU0mboqt0="></script>
+<script defer src="/en.search.min.24cd2a835a9b6a4383f73b7f47bd5f0bbafc13a5146bfc0c6a376dac9853f952.js" integrity="sha256-JM0qg1qbakOD9zt/R71fC7r8E6UUa/wMajdtrJhT&#43;VI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -324,6 +324,7 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
+    <li><a href="#homebrew">Homebrew</a></li>
     <li><a href="#安装">安装</a>
       <ul>
         <li><a href="#主要分为三步">主要分为三步</a></li>
@@ -364,10 +365,10 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-<h1 id="homebrew">
+<h2 id="homebrew">
   Homebrew
   <a class="anchor" href="#homebrew">#</a>
-</h1>
+</h2>
 <p>homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.</p>
 <h2 id="安装">
   安装
@@ -524,6 +525,7 @@ brew install wget
   
 <nav id="TableOfContents">
   <ul>
+    <li><a href="#homebrew">Homebrew</a></li>
     <li><a href="#安装">安装</a>
       <ul>
         <li><a href="#主要分为三步">主要分为三步</a></li>

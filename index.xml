@@ -7,28 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://menggus.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>http://menggus.github.io/posts/homebrew/</link>
+      <title>Git 之 SSH 配置</title>
+      <link>http://menggus.github.io/posts/git-%E4%B9%8B-ssh-%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://menggus.github.io/posts/homebrew/</guid>
-      <description>Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
-安装 #  我的系统: MacOs x86_64
-这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
-主要分为三步 #    配置环境变量
-终端输入以下几行命令设置环境变量
-if [[ &amp;#34;$(uname -s)&amp;#34; == &amp;#34;Linux&amp;#34; ]]; then BREW_TYPE=&amp;#34;linuxbrew&amp;#34;; else BREW_TYPE=&amp;#34;homebrew&amp;#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&amp;#34; export HOMEBREW_CORE_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&amp;#34; export HOMEBREW_BOTTLE_DOMAIN=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&amp;#34;   下载安装
-# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</guid>
-      <description>怎么使用Git管理多个嵌套的仓库? #  场景: 在使用hugo来生成静态网页博客的项目中,除了要管理public中生存的静态网页文件,还需要管里保存hugo生存的站点等文件仓库,以及主题仓库等;他们之间的仓库文件关系如下:
-# 整个作为一个git仓库进行保存 ├── README.md ├── archetypes │ └── default.md ├── auto\ push.bat # 自动推送脚本到 github ├── auto_push.sh # 自动生成网页查看 ├── config.toml ├── content │ ├── _index.md │ ├── docs │ ├── menu │ └── posts ├── hugo ├── hugo.exe ├── public # 这个是生成的静态网页数据(作为一个git仓库),这里会推送到github.io 进行展示 ├── resources │ └── _gen ├── start.bat ├── start.sh ├── static │ └── docs └── themes └── book # 这里是主题,也是作为 子模块 添加的hugo的主题仓库 也就是一个git仓库下,还存在两个git仓库.</description>
+      <guid>http://menggus.github.io/posts/git-%E4%B9%8B-ssh-%E9%85%8D%E7%BD%AE/</guid>
+      <description>Git 之 SSH 配置 #  生成 ssh 密钥 #  ssh-keygen -t rsa -C &amp;#39;youremail@qq.com&amp;#39; # 可以不断回车跳过 # 如果有需求可以一步一步查看配置的内容 # 基本是关于密钥存放文件路径,以及密钥使用的时候需要的账户密码 配置ssh 公钥 #  比如:配置一个ssh公钥到github
+如图配置即可
+添加公钥</description>
     </item>
     
     <item>
@@ -40,6 +26,21 @@ if [[ &amp;#34;$(uname -s)&amp;#34; == &amp;#34;Linux&amp;#34; ]]; then BREW_TYP
       <description>关键字 #  25个关键字
  break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type continue for import return var 37个保留字
 Constants:	true false iota nil Types:	int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error Functions:	make len cap new append copy close delete complex real imag panic recover 变量 #   WARNING</description>
+    </item>
+    
+    <item>
+      <title>Homebrew</title>
+      <link>http://menggus.github.io/posts/homebrew/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/posts/homebrew/</guid>
+      <description>Homebrew #  homebrew 是 Mac os 下的管理软件,类似于ubuntu下的apt等,不用手动去管理依赖等问题.
+安装 #  我的系统: MacOs x86_64
+这里参考了 [Homebrew / Linuxbrew 镜像使用帮助](homebrew | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror) 来进行安装
+主要分为三步 #    配置环境变量
+终端输入以下几行命令设置环境变量
+if [[ &amp;#34;$(uname -s)&amp;#34; == &amp;#34;Linux&amp;#34; ]]; then BREW_TYPE=&amp;#34;linuxbrew&amp;#34;; else BREW_TYPE=&amp;#34;homebrew&amp;#34;; fi export HOMEBREW_BREW_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&amp;#34; export HOMEBREW_CORE_GIT_REMOTE=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/${BREW_TYPE}-core.git&amp;#34; export HOMEBREW_BOTTLE_DOMAIN=&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/${BREW_TYPE}-bottles&amp;#34;   下载安装
+# 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew # 这里的安装可能需要花一些时间,主要看访问github仓库的情况 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install /bin/bash brew-install/install.</description>
     </item>
     
     <item>
@@ -121,6 +122,16 @@ vi /etc/apt/sources.list	  注释原文件内的源 并添加如下地址 复制
 Mac # go env SET CGO_ENABLED=0 SET GOOS=darwin SET GOARCH=amd64 Linux # go env SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64  示例：go env -w CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 Linux #  Linux平台下编译其他平台的程序文件，修改 go env 配置
 Mac # go env SET CGO_ENABLED=0 SET GOOS=darwin SET GOARCH=amd64 Windows # go env SET CGO_ENABLED=0 SET GOOS=windows SET GOARCH=amd64  示例：go env -w CGO_ENABLED=0 GOOS=windows GOARCH=amd64</description>
+    </item>
+    
+    <item>
+      <title>怎么使用Git管理多个嵌套的仓库?</title>
+      <link>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</guid>
+      <description>怎么使用Git管理多个嵌套的仓库? #  场景: 在使用hugo来生成静态网页博客的项目中,除了要管理public中生存的静态网页文件,还需要管里保存hugo生存的站点等文件仓库,以及主题仓库等;他们之间的仓库文件关系如下:
+# 整个作为一个git仓库进行保存 ├── README.md ├── archetypes │ └── default.md ├── auto\ push.bat # 自动推送脚本到 github ├── auto_push.sh # 自动生成网页查看 ├── config.toml ├── content │ ├── _index.md │ ├── docs │ ├── menu │ └── posts ├── hugo ├── hugo.exe ├── public # 这个是生成的静态网页数据(作为一个git仓库),这里会推送到github.io 进行展示 ├── resources │ └── _gen ├── start.bat ├── start.sh ├── static │ └── docs └── themes └── book # 这里是主题,也是作为 子模块 添加的hugo的主题仓库 也就是一个git仓库下,还存在两个git仓库.</description>
     </item>
     
     <item>

@@ -6,17 +6,17 @@
   </url><url>
     <loc>http://menggus.github.io/docs/pxc/</loc>
   </url><url>
-    <loc>http://menggus.github.io/posts/homebrew/</loc>
-  </url><url>
-    <loc>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</loc>
-  </url><url>
     <loc>http://menggus.github.io/posts/</loc>
   </url><url>
     <loc>http://menggus.github.io/categories/</loc>
   </url><url>
     <loc>http://menggus.github.io/docs/</loc>
   </url><url>
+    <loc>http://menggus.github.io/posts/git-%E4%B9%8B-ssh-%E9%85%8D%E7%BD%AE/</loc>
+  </url><url>
     <loc>http://menggus.github.io/docs/golang/go-%E5%9F%BA%E7%A1%80/</loc>
+  </url><url>
+    <loc>http://menggus.github.io/posts/homebrew/</loc>
   </url><url>
     <loc>http://menggus.github.io/</loc>
   </url><url>
@@ -37,6 +37,8 @@
     <loc>http://menggus.github.io/docs/linux/ubuntu-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E8%BD%AF%E4%BB%B6%E6%BA%90/</loc>
   </url><url>
     <loc>http://menggus.github.io/docs/golang/go-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/</loc>
+  </url><url>
+    <loc>http://menggus.github.io/posts/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BB%93%E5%BA%93/</loc>
   </url><url>
     <loc>http://menggus.github.io/docs/golang/go-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5/</loc>
   </url><url>
